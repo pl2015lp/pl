@@ -1,0 +1,135 @@
+﻿#Створіть змінну sentence і присвойте їй значення ‘she sells sea shells by the sea shore’  та напишіть фрагмент програми для виведення на екран всіх слів які починаються з ‘sh’.
+
+>>> sentence = 'she sells sea shells by the sea shore'
+>>> sentence.split()
+['she', 'sells', 'sea', 'shells', 'by', 'the', 'sea', 'shore']
+>>> msg = sentence.split()
+>>> msg
+['she', 'sells', 'sea', 'shells', 'by', 'the', 'sea', 'shore']
+>>> for word in msg:
+	if word.startswith('sh'):
+		print word
+
+		
+she
+shells
+shore
+
+#Напишіть програму, яка видаляє всі голосні зі стрічки, яка відповідає імені, по батькові та прізвищу студента. Програма повинна здійснювати наступну послідовність дій: створення початкової стрічки; створення стрічки, у якій буде зберігатися результат; for цикл для обробки стрічки символ за символом і запису неголосних символів в результуючу стрічку.
+
+>>> list = 'Burdyko Anastasiia Yuriivna'
+>>> list.split()
+['Burdyko', 'Anastasiia', 'Yuriivna']
+>>> "".join(char for char in list if char.lower() not in 'uyoai')
+'Brdk nsts rvn'
+>>> 
+
+
+#Знайдіть в тексті № 5 всі слова довжина яких дорівнює 4 і побудуйте для них частотний розподіл.
+
+>>> import nltk
+>>> from nltk.book import *
+*** Introductory Examples for the NLTK Book ***
+Loading text1, ..., text9 and sent1, ..., sent9
+Type the name of the text or sentence to view it.
+Type: 'texts()' or 'sents()' to list the materials.
+text1: Moby Dick by Herman Melville 1851
+text2: Sense and Sensibility by Jane Austen 1811
+text3: The Book of Genesis
+text4: Inaugural Address Corpus
+text5: Chat Corpus
+text6: Monty Python and the Holy Grail
+text7: Wall Street Journal
+text8: Personals Corpus
+text9: The Man Who Was Thursday by G . K . Chesterton 1908
+>>> V = set(text5)
+>>> short_words = [word for word in set(text5) if len(word)==4]
+>>> sorted(short_words)
+['!!!!', '!!!.', '!...', '!???', '"...', '####', '((((', '))))', ',,,,', '.. .', '....', '.op.', '1.98', '1.99', '100%', '10th', '1200', '1299', '18ST', '1900', '1930', '1980', '1985', '1996', '1cos', '2006', '2:55', '2DAY', '2Pac', '39.3', '3:45', '4.20', '45.5', '4:03', '64.8', '6:38', '6:41', '6:51', '6:53', '7:45', '9.53', '98.5', '98.6', '9:10', ':o *', '; ..', '<---', "<3's", '<333', '<<<<', '<~~~', '>:->', '?!?!', '??!!', '????', 'AKDT', 'AKST', 'AWAY', 'Ahhh', 'Away', 'Awww', 'Back', 'Been', 'Bone', 'Born', 'Boyz', 'CALI', 'CAPS', 'CHAT', 'COME', 'Came', 'Care', 'Chat', 'Chop', 'City', 'Come', 'Cool', 'Ctrl', 'Cute', 'DAMN', 'DING', 'DOES', 'DONT', 'Damn', 'Dang', 'Dawn', 'Days', 'Deep', 'Does', 'Dood', 'Down', 'Drew', 'Drop', 'Dude', 'ELSE', 'EVEN', 'Eggs', 'Elev', 'Elle', 'Even', 'Evil', 'Eyes', 'FACE', 'FINE', 'FROM', 'Fade', 'Food', 'Fort', 'From', 'GIRL', 'GOOD', 'GUYS', 'Girl', 'Good', 'Gosh', 'GrlZ', 'HAHA', 'HALO', 'HAVE', 'HERE', 'HOTT', 'HUGE', 'Haha', 'Hail', 'Hand', 'Hard', 'Have', 'Help', 'Here', 'Hero', 'Heya', 'Heys', 'Heyy', 'High', 'Hill', 'Hiya', 'Hold', 'Holy', 'Home', 'Hott', 'Hugs', 'Iowa', 'JOIN', 'JUST', 'Jane', 'Jess', 'Joey', 'John', 'Judy', 'Just', 'KNOW', 'Kent', 'Kewl', 'Kick', 'Kids', 'King', 'Kiss', 'KoOL', 'Kold', 'LATE', 'LAst', 'LIVE', 'LMAO', 'LONG', 'LOUD', 'Last', 'Lets', 'Liam', 'Lies', 'Life', 'Like', 'Lime', 'Lion', 'Live', 'Lmao', 'LoVe', 'Long', 'Look', 'Lord', 'Love', 'MODE', 'MORE', 'MRIs', 'MUAH', 'Male', 'Maps', 'Mary', 'Matt', 'Meep', 'Mine', 'Mono', 'NAME', 'NICK', 'NONE', 'NTMN', 'Need', 'News', 'Nice', 'None', 'Nooo', 'Nope', 'Nova', 'O.k.', 'OOPS', 'Ohhh', 'Ohio', 'Okay', 'Only', 'Oops', 'Over', 'PART', "PM's", 'PMSL', 'Paul', 'Phil', 'Poor', 'Pour', 'Prof', 'QUIT', "RN's", 'ROFL', 'ROOM', 'Rang', 'Reub', 'Rick', 'Road', 'Rock', 'Rofl', 'Room', 'Rule', 'Rush', 'Ruth', 'SEEN', 'SExy', 'SIZE', 'SOME', 'SSRI', 'STOP', 'Same', 'Sat.', 'Save', 'Seee', 'Sexy', 'Show', 'Slip', 'Song', 'Stop', 'Sure', 'Swim', 'TALK', 'TEXT', 'THAT', 'THEY', 'TIME', 'TYPR', 'Take', 'Talk', 'Teck', 'Tell', 'That', 'Then', 'They', 'This', 'Tide', 'Tiff', 'Time', 'Tina', 'Tisk', 'Troy', 'Turn'...] 
+
+#Напишіть вираз для знаходження в тексті №6 всіх слів які відповідають наступним вимогам: закінчуються на ize; містять літеру z; містять послідовність літер pt; написані з великої літери . Результат представити, як список слів.
+
+>>> import nltk
+fr
+>>> from nltk.book import *
+*** Introductory Examples for the NLTK Book ***
+Loading text1, ..., text9 and sent1, ..., sent9
+Type the name of the text or sentence to view it.
+Type: 'texts()' or 'sents()' to list the materials.
+text1: Moby Dick by Herman Melville 1851
+text2: Sense and Sensibility by Jane Austen 1811
+text3: The Book of Genesis
+text4: Inaugural Address Corpus
+text5: Chat Corpus
+text6: Monty Python and the Holy Grail
+text7: Wall Street Journal
+text8: Personals Corpus
+text9: The Man Who Was Thursday by G . K . Chesterton 1908
+>>> V=set(text6)
+>>> list = [word for word in set(text6)if word.endswith('sh')]
+>>> list
+['push', 'English', 'woosh', 'splash', 'slash', 'crash', 'flesh', 'brush', 'zoosh']
+>>> list = [word for word in set(text6) if word.endswith('ize')]
+>>> list =[word for word in set(text6) if 'z' in word]
+>>> list = [word for word in set(text6) if 'pt' in word]
+>>> list = [word for word in set(text6) if word.istitle()]
+>>> list
+['Lead', 'Does', 'Until', 'Winter', 'Uhh', 'Go', 'Erbert', 'Mmm', 'Put', 'Rather', 'Mother', 'Three', 'Book', 'Stay', 'Dingo', 'Lie', 'Lord', 'Camaaaaaargue', 'A', 'Will', 'Oooh', 'All', 'Greetings', 'Speak', 'Blue', 'Stop', 'His', 'Here', 'Hic', 'Chaste', 'Woa', 'Holy', 'Uuh', 'Hold', 'Must', 'W', 'Hallo', 'Prepare', 'Please', 'Quoi', 'Man', 'Iesu', 'B', 'Splendid', 'Lancelot', 'Victory', 'See', 'Shrubberies', 'Then', 'Thee', 'Ridden', 'They', 'Ask', 'Therefore', 'Knight', 'That', 'European', 'Aah', 'Quick', 'Over', 'Dramatically', 'Run', 'Grenade', 'C', 'Bravest', 'Bring', 'Sorry', 'Caerbannog', 'Other', 'Follow', 'Nay', 'Tell', 'Thou', 'Riiight', 'Of', 'Apples', 'Bristol', 'Y', 'Mind', 'Mine', 'Table', 'Thank', 'Churches', 'Ewing', 'Or', 'Surely', 'Alice', 'Morning', 'Try', 'Bravely', 'Pendragon', 'Are', 'Prince', 'Idiom', 'Quite', 'Let', 'Ho', 'Hm', 'Ha', 'Didn', 'Thppppt', 'First', 'Use', 'Cut', 'Make', 'Amen', 'Aaagh', 'Bread', 'Defeat', 'Eee', 'Sir', 'Twenty', 'Between', 'Running', 'Yeaah', 'Aauuugh', 'Roger', 'Chicken', 'Today', 'Burn', 'Where', 'Just', 'He', 'Cherries', 'Thpppt', 'True', 'Agh', 'Quiet', 'English', 'My', 'Bors', 'Fetchez', 'Seek', 'Said', 'When', 'Hello', 'Oui', 'Our', 'Galahad', 'Britons', 'Who', 'Why', 'Yeaaah', 'Wait', 'She', 'Tower', 'Enchanter', 'Skip', 'Anthrax', 'Welcome', 'Throw', 'Rheged', 'Stand', 'Oooo', 'Even', 'Dappy', 'Yay', 'Hang', 'There', 'Black', 'Pure', 'Hmm', 'Angnor', 'Court', 'Aauuuves', 'Do', 'Halt', 'Aaaah', 'Off', 'Beyond', 'Ulk', 'Yapping', 'We', 'Ector', 'Right', 'Forgive', 'Ecky', 'Shrubber', 'Aaah', 'Death', 'Crapper', 'But', 'Schools', 'Hurry', 'Princess', 'Together', 'Action', 'Round', 'Hyy', 'Mercea', 'Aaaaugh', 'Open', 'Supposing', 'I', 'Clear', 'Is', 'It', 'In', 'Wayy', 'Cornwall', 'Tale', 'Brave', 'Pin', 'Pie', 'Since', 'Hoo', 'Listen', 'Four', 'Oooooooh', 'Chapter', 'Autumn', 'Message', 'Ni', 'No', 'Away', 'Castle', 'Joseph', 'Build', 'Hoa', 'Thursday', 'How', 'More', 'Lady', 'Great', 'Yeah', 'Practice', 'Uugh', 'Packing', 'Course', 'Actually', 'Aramaic', 'Pull', 'Arthur', 'Zoot', 'Alright', 'Silence', 'Clark', 'Bedevere', 'Exactly', 'Umhm', 'Lucky', 'Providence', 'Too', 'Aaaaaaaah', 'Cider', 'So', 'Found', 'Anarcho', 'Charge', 'Wood', 'Your', 'Loimbard', 'Don', 'Assyria', 'What', 'Iiiives', 'Excuse', 'Ere', 'Bad', 'Erm', 'Oooohoohohooo', 'Mud', 'Armaments', 'Hiyaah', 'Picture', 'Huyah', 'None', 'Leaving', 'Nine', 'Eh', 'Aaaaaaaaah', 'Father', 'Peng', 'With', 'Gallahad', 'Hand', 'Thy', 'Anybody', 'Aggh', 'Grail', 'The', 'Bridge', 'Hiyah', 'If', 'Robinson', 'Hah', 'Explain', 'Hill', 'Forward', 'Behold', 'Haw'...]
+
+# Побудуйте колокації для текстів №1 та №2. Результати порівняйте.
+
+Python 2.7.3 (default, Apr 10 2012, 23:31:26) [MSC v.1500 32 bit (Intel)] on win32
+Type "copyright", "credits" or "license()" for more information.
+>>> import nltk
+>>> from nltk.book import *
+*** Introductory Examples for the NLTK Book ***
+Loading text1, ..., text9 and sent1, ..., sent9
+Type the name of the text or sentence to view it.
+Type: 'texts()' or 'sents()' to list the materials.
+text1: Moby Dick by Herman Melville 1851
+text2: Sense and Sensibility by Jane Austen 1811
+text3: The Book of Genesis
+text4: Inaugural Address Corpus
+text5: Chat Corpus
+text6: Monty Python and the Holy Grail
+text7: Wall Street Journal
+text8: Personals Corpus
+text9: The Man Who Was Thursday by G . K . Chesterton 1908
+>>> dif = text1.collocations()
+Building collocations list
+Sperm Whale; Moby Dick; White Whale; old man; Captain Ahab; sperm
+whale; Right Whale; Captain Peleg; New Bedford; Cape Horn; cried Ahab;
+years ago; lower jaw; never mind; Father Mapple; cried Stubb; chief
+mate; white whale; ivory leg; one hand
+>>> dif1 = text2.collocations()
+Building collocations list
+Colonel Brandon; Sir John; Lady Middleton; Miss Dashwood; every thing;
+thousand pounds; dare say; Miss Steeles; said Elinor; Miss Steele;
+every body; John Dashwood; great deal; Harley Street; Berkeley Street;
+Miss Dashwoods; young man; Combe Magna; every day; next morning
+>>> fdist = FreqDist([len(w) for w in text1])
+>>> fdist
+<FreqDist with 19 samples and 260819 outcomes>
+>>> fdist.keys()
+[3, 1, 4, 2, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20]
+>>> fdist.items()
+[(3, 50223), (1, 47933), (4, 42345), (2, 38513), (5, 26597), (6, 17111), (7, 14399), (8, 9966), (9, 6428), (10, 3528), (11, 1873), (12, 1053), (13, 567), (14, 177), (15, 70), (16, 22), (17, 12), (18, 1), (20, 1)]
+>>> fdist.max()
+3
+>>> fdist[3]
+50223
+>>> fdist.freq(3)
+0.19255882431878046
+>>> fdist = FreqDist([len(w) for w in text2])
+>>> fdist
+<FreqDist with 17 samples and 141576 outcomes>
+>>> fdist.keys()
+[3, 2, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 16]
+>>> fdist.items()
+[(3, 28839), (2, 24826), (1, 23009), (4, 21352), (5, 11438), (6, 9507), (7, 8158), (8, 5676), (9, 3736), (10, 2596), (11, 1278), (12, 711), (13, 334), (14, 87), (15, 24), (17, 3), (16, 2)]
+>>> fdist.max()
+3
+>>> fdist[3]
+28839
+>>> fdist.freq(3)
+0.20369977962366503
