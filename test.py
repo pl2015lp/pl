@@ -8,11 +8,6 @@ print b
 c=wn.synset('water.n.01').substance_meronyms()
 print c
 a2=wn.synset('copilot.n.01').member_holonyms()
-print a2
-b2=wn.synset('course.n.07').part_holonyms()
-print b2
-c2=wn.synset('gin.n.01').substance_holonyms()
-print c2
 
 print '\n>> task 3 <<'
 names=nltk.corpus.names
