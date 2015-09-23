@@ -1,0 +1,45 @@
+﻿"""3.3.Створіть змінну sentence і присвойте їй значення ‘she sells sea shells by the sea shore’  та напишіть фрагмент програми, яка генерує нову стрічку додаючи ‘like’ перед кожним зі слів , яке починається з ‘se’."""
+sentence = 'she sells sea shells by the sea shore'
+for word in sentence.split():
+	if word.startswith('se'):
+		print 'like ' + word,
+	else:
+		print word,
+
+
+"""3.8.Виконати наступні приклади і пояснити різницю між ними:
+	w.isupper() 
+	not w.islower()"""
+
+w = 'I like playing football'
+w.isupper()
+"""Перевіряє, чи усі літери великі"""
+
+not w.islower()
+"""Перевіряє,чи не усі літери малі"""
+
+"""3.9.	Знайдіть в тексті № 5 всі слова довжина яких дорівнює 4 і побудуйте для них частотний розподіл."""
+import nltk
+from nltk.book import*
+frequency = ([w for w in set(text5) if len(w)==4])
+frequency
+fdist5 = FreqDist(frequency)
+fdist5
+
+"""3.11.Напишіть вираз для знаходження в тексті №6 всіх слів які відповідають наступним вимогам: закінчуються на ize; містять літеру z; містять послідовність літер pt; написані з великої літери . Результат представити, як список слів."""
+sorted([w for w in set(text6) if w.endswith('ize')])
+
+sorted([w for w in set(text7) if 'z' in w])
+
+sorted([w for w in set(text7) if 'pt' in w])
+
+sorted([w for w in set(text7) if w.istitle()])
+
+"""3.17.Побудуйте колокації для текстів №1 та №6. Результати порівняйте."""
+text1.collocations()
+
+text6.collocations()
+
+
+
+
