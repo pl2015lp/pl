@@ -1,5 +1,0 @@
->>> msg = "test"
->>> msg
-'test'
->>> print msg
-test
