@@ -6,7 +6,7 @@ from nltk.book import *
 #‘she sells sea shells by the sea shore’
 #та напишіть фрагмент програми, яка генерує нову стрічку
 #додаючи ‘like’ перед кожним зі слів , яке починається з ‘se’.
-print "\n1)>>>>3\n"
+print "\n>>>>3\n"
 
 str1 = 'she sells sea shells by the sea shore'
 words = str1.split()
@@ -25,7 +25,7 @@ print newString
 #=============
 #Напишіть програму для перевірки наявності в стрічці
 # sent=’ ’colorless green ideas sleep furiously’ окремих слів та підстрічок.
-print "\n2)>>>>6\n"
+print "\n>>>>6\n"
 
 a = 'row' in 'brown'
 b = 'row' in ['brown', 'cow']
@@ -73,7 +73,7 @@ print "IS SENTENCE_3: %s > than TEXT_2: %s - %s"  % (sent3, text2, b)
 #5
 #Використайте вираз sum([len(w) for w in text1])
 #для знаходження середньої довжини слів в тексті.
-print "\n5)>>>>12\n"
+print "\n>>>>12\n"
 numberOfChars = sum([len(w) for w in text1])
 numberOfWords = len(text1)
 avarageLength =  float(numberOfChars)/(numberOfWords)
@@ -84,7 +84,7 @@ print "Avarage length of words is - %s" % (avarageLength)
 #6
 #Побудувати колокації текстів 1 та 2. Порівняйте результати.
 
-print "\n5)>>>>14\n"
+print "\n>>>>14\n"
 print '\n text1 \n'
 text1.collocations()
 print '\n text2 \n'
