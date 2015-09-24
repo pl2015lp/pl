@@ -1,0 +1,13 @@
+#Створіть змінну sentence і присвойте їй значення 'she sells sea shells by the sea share' та напишіть фрагмент програми 
+для виведення на екран всіх слів, довжина яких більша ніж т4 символи
+>>> sentence = 'she sells sea shells by the sea share'
+>>> words = sentence.split()
+>>> for word in words:
+	if len(word)>4:
+		print word
+
+		
+sells
+shells
+share
+>>> 
