@@ -1,0 +1,170 @@
+#Напишіть використовуючи модуль читання корпусу текстів Brown nltk.corpus.brown.words(),програму, яка дозволяє доступитися до фрагментів текстів у двох різних жанрах корпусу 
+Brown, і назва яких відповідає першій літері прізвища і імені студента
+
+>>> import nltk
+>>> from nltk.corpus import brown
+>>> brown.words()
+[u'The', u'Fulton', u'County', u'Grand', u'Jury', ...]
+>>> 
+>>> brown.categories()
+[u'adventure', u'belles_lettres', u'editorial', u'fiction', u'government', u'hobbies', u'humor', u'learned', u'lore', u'mystery', u'news', u'religion', u'reviews', u'romance', u'science_fiction']
+>>> brown.words(categories=['hobbies', 'mystery'])
+[u'Too', u'often', u'a', u'beginning', u'bodybuilder', ...]
+>>> text = brown.words(categories=['hobbies', 'mystery'])
+>>> text
+[u'Too', u'often', u'a', u'beginning', u'bodybuilder', ...]
+>>> for word in text:
+	if word.startswith('So'):
+		print word
+
+		
+So
+So
+South
+Sometimes
+Soviet
+Some
+Some
+Some
+Some
+Some
+South
+So
+Southwest
+So
+Solder
+Solder
+Some
+Sometimes
+Song
+Song
+South
+Some
+South
+South
+South
+Southern
+Southern
+Southern
+Song
+Sophia
+Sophia
+Sophia
+Sophias
+Solomon's
+Sophia
+Sophia
+Sophia
+Sophia
+So
+Some
+Some
+Some
+So
+Southern
+So
+So
+Soignee
+Society
+Some
+Some
+Some
+Sometimes
+Some
+Sovietskaya
+Soviet
+Socialist
+Some
+So
+Socialist
+Socialism
+So
+Soviet
+Socialist
+Society
+Society
+Society
+Somersaults
+Sonar
+Sonar
+Soeren
+So
+Sodium
+Southwest
+Some
+Solutions
+Society
+Societies
+Some
+Some
+Some
+So
+So
+So
+So
+Something
+So
+Something
+Somewhere
+South
+So
+Sounds
+Something
+Someone
+Some
+Soon
+So
+So
+So
+So
+So
+Someone
+Somehow
+So
+Someone
+Sorry
+Some
+Song
+Someday
+Song
+Someone
+Sort
+Sort
+Some
+So
+Sometimes
+Somebody's
+So
+So
+So
+Sorry
+Sol
+So
+So
+So
+Some
+Some
+Southern
+Someday
+Sometimes
+So
+Something
+South
+Some
+Social
+Soak
+So
+So
+Somewhere
+Someone
+Something
+Something
+So
+Some
+Society
+So
+Some
+So
+Solid
+So
+>>> 
