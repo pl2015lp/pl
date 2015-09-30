@@ -1,0 +1,79 @@
+
+1.
+sentence = 'she sells sea shells by the sea shore'
+>>> words = sentence.split ()
+>>> for word in words:
+	if word.startswith ('sh'):
+		print word
+
+she
+shells
+shore
+
+4.
+>>> msg = 'Olena Volodymyrivna Lypak'
+>>> vowels = ['a', 'i', 'y', 'o', 'e']
+>>> result = ("".join ([w for w in msg.lower() if w not in vowels]))
+>>> result
+'ln vldmrvn lpk'
+
+8.
+>>> W =('OLENA')
+>>> W.isupper()
+True
+>>> not W.islower()
+True
+
+9.
+>>> fdist5 = FreqDist (sorted ([w for w in set (text5) if len(w) == 4]))
+>>> fdist5
+<FreqDist with 1181 samples and 1181 outcomes>
+>>> vocabulary5 = fdist5.keys()
+>>> vocabulary5[:50]
+[u'!!!!', u'!!!.', u'!...', u'!???', u'"...', u'####', u'((((', u'))))', u',,,,',
+ 
+11.
+fdist6 = FreqDist (text6)
+sorted ([w for w in set (text6) if w.endswith('ize') or 'z' in w or 'pt' in w or w.istitle()])
+
+
+20. 
+>>> import nltk
+>>> from nltk.book import*
+*** Introductory Examples for the NLTK Book ***
+Loading text1, ..., text9 and sent1, ..., sent9
+Type the name of the text or sentence to view it.
+Type: 'texts()' or 'sents()' to list the materials.
+text1: Moby Dick by Herman Melville 1851
+text2: Sense and Sensibility by Jane Austen 1811
+text3: The Book of Genesis
+text4: Inaugural Address Corpus
+text5: Chat Corpus
+text6: Monty Python and the Holy Grail
+text7: Wall Street Journal
+text8: Personals Corpus
+text9: The Man Who Was Thursday by G . K . Chesterton 1908
+>>> text2.collocations()
+Building collocations list
+Colonel Brandon; Sir John; Lady Middleton; Miss Dashwood; every thing;
+thousand pounds; dare say; Miss Steeles; said Elinor; Miss Steele;
+every body; John Dashwood; great deal; Harley Street; Berkeley Street;
+Miss Dashwoods; young man; Combe Magna; every day; next morning
+>>> text4.collocations()
+Building collocations list
+United States; fellow citizens; four years; years ago; Federal
+Government; General Government; American people; Vice President; Old
+World; Almighty God; Fellow citizens; Chief Magistrate; Chief Justice;
+God bless; every citizen; Indian tribes; public debt; one another;
+foreign nations; political parties
+>>> a=[]
+>>> a.append(text2.collocations)
+>>> b=[]
+>>> b.append(text4.collocations)
+>>> if (b==a or a==b):
+	print 'Collocations are identical'
+else:
+	print 'Collocations are not identical'
+
+	
+Collocations are not identical
