@@ -1,0 +1,10 @@
+# variant 11
+# 3. Здійснити арифметичні операції зі стрічкою msg.
+msg = "gifted"
+msg1 = "hands"
+msg + msg1
+'giftedhands'
+num = 3
+msg * num
+'giftedgiftedgifted'
+# 9. Організуйте доступ до елементів стрічки з визначеним кроком. Результати поясніть.
