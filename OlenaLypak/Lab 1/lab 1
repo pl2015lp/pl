@@ -1,0 +1,57 @@
+3.
+>>> msg = 'Olena'
+>>> num = 5
+>>> msg * num
+'OlenaOlenaOlenaOlenaOlena'
+>>> msg2 = 'Lypak'
+>>> msg = msg + msg2
+>>> msg
+'OlenaLypak'
+
+5.
+>>> msg = 'OlenaLypak'
+>>> msg = msg [0:5] + ' ' + ' Volodymyrivna' + ' '  + msg[5:10]
+>>> msg
+'Olena  Volodymyrivna Lypak'
+
+6.
+>>> s = 'colorless'
+>>> s = s[0:4] + 'u' + s [4:9]
+>>> s
+'colourless'
+
+12.
+>>> list1 = ['Lypak', 'Olena', 'Volodymyrivna']
+>>> string1 = ''.join(list1)
+>>> string1
+'LypakOlenaVolodymyrivna'
+>>> string2 = string1.split('a')
+>>> string2
+['Lyp', 'kOlen', 'Volodymyrivn', '']
+
+17.
+>>> from test import msg
+>>> msg
+'Olena  Volodymyrivna Lypak'
+
+20.
+>>> silly = 'newly formed bland ideas are inexpressible in an infuriating way'
+>>> bland = silly.split()
+>>> bland
+['newly', 'formed', 'bland', 'ideas', 'are', 'inexpressible', 'in', 'an', 'infuriating', 'way']
+
+25.
+>>> phrase1 = ['Lypak', 'Olena', 'Volodymyrivna']
+>>> for word in phrase1:
+	print "Word = %s\nIndex = %s\n*****" % (word, phrase1.index(word))
+
+	
+Word = Lypak
+Index = 0
+*****
+Word = Olena
+Index = 1
+*****
+Word = Volodymyrivna
+Index = 2
+*****
