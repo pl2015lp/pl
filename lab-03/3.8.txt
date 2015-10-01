@@ -1,0 +1,27 @@
+#Напишіть програму генерації таблиці відношень кількість слів/кількість оригінальних слів для всіх жанрів корпуса Brown.
+Проаналізуйте отримані результати та поясніть їх
+
+>>> import nltk
+>>> from nltk.corpus import brown
+>>> for genre in brown.categories():
+	words = len(brown.words(categories = genre))
+	original_words = len(set(brown.words(categories = genre)))
+	print words, original_words, int(words/original_words), genre #int виводить кількість слів та оригінальних слів цілими числами
+
+	
+69342
+ 8874 7 adventure
+173096 18421 9 belles_lettres
+61604 9890 6 editorial
+68488 9302 7 fiction
+70117 8181 8 government
+82345 11935 6 hobbies
+21695 5017 4 humor
+181888 16859 10 learned
+110299 14503 7 lore
+57169 6982 8 mystery
+100554 14394 6 news
+39399 6373 6 religion
+40704 8626 4 reviews
+70022 8452 8 romance
+14470 3233 4 science_fiction  #результат виконання програми виводиться у таблиці відношень кількість слів/кількість оригінальних слів
