@@ -1,9 +1,9 @@
-# -*- coding: cp1251 -*-
+# -*- coding: utf8 -*-
 import nltk
 from nltk.book import *
 #Task2
-#Створіть змінну sentence і присвойте їй значення ‘she sells sea shells by the sea shore'
-#Напишіть фрагмент програми для виведення на екран всіх сліва, довжина яких більша ніж 4 символи.
+#РЎС‚РІРѕСЂС–С‚СЊ Р·РјС–РЅРЅСѓ sentence С– РїСЂРёСЃРІРѕР№С‚Рµ С—Р№ Р·РЅР°С‡РµРЅРЅСЏ вЂshe sells sea shells by the sea shore'
+#РќР°РїРёС€С–С‚СЊ С„СЂР°РіРјРµРЅС‚ РїСЂРѕРіСЂР°РјРё РґР»СЏ РІРёРІРµРґРµРЅРЅСЏ РЅР° РµРєСЂР°РЅ РІСЃС–С… СЃР»С–РІР°, РґРѕРІР¶РёРЅР° СЏРєРёС… Р±С–Р»СЊС€Р° РЅС–Р¶ 4 СЃРёРјРІРѕР»Рё.
 print "\n1)"
 sentence='she sells sea shells by the sea shore'
 list1=sentence.split()
@@ -12,8 +12,8 @@ for word in list1:
     if len(word)>4:
         print word
 #Task6
-#Перегляньте результати виконання умовних виразів: ’row’ in ’brown’ та ’row’ in [’ brown’, ’cow’].
-#Напишіть програму для перевірки наявності в стрічці sent=’ ’colorless green ideas sleep furiously’ окремих слів та підстрічок.
+#РџРµСЂРµРіР»СЏРЅСЊС‚Рµ СЂРµР·СѓР»СЊС‚Р°С‚Рё РІРёРєРѕРЅР°РЅРЅСЏ СѓРјРѕРІРЅРёС… РІРёСЂР°Р·С–РІ: вЂ™rowвЂ™ in вЂ™brownвЂ™ С‚Р° вЂ™rowвЂ™ in [вЂ™ brownвЂ™, вЂ™cowвЂ™].
+#РќР°РїРёС€С–С‚СЊ РїСЂРѕРіСЂР°РјСѓ РґР»СЏ РїРµСЂРµРІС–СЂРєРё РЅР°СЏРІРЅРѕСЃС‚С– РІ СЃС‚СЂС–С‡С†С– sent=вЂ™ вЂ™colorless green ideas sleep furiouslyвЂ™ РѕРєСЂРµРјРёС… СЃР»С–РІ С‚Р° РїС–РґСЃС‚СЂС–С‡РѕРє.
 print "\n2)"
 one = 'row' in 'brown'
 two= 'row' in ['brown', 'cow']
@@ -26,7 +26,7 @@ for oneword in words:
     if oneword.startswith(subword):
         print "subword '%s' was found in word '%s'" % (subword, oneword)
 #Task8
-#Виконати наступні приклади і пояснити різницю між ними:w.isupper() not w.islower()
+#Р’РёРєРѕРЅР°С‚Рё РЅР°СЃС‚СѓРїРЅС– РїСЂРёРєР»Р°РґРё С– РїРѕСЏСЃРЅРёС‚Рё СЂС–Р·РЅРёС†СЋ РјС–Р¶ РЅРёРјРё:w.isupper() not w.islower()
 print "\n3)"
 str2='colorless GREEN ideas Sleep furiosly'
 words2=str2.split()
@@ -34,21 +34,21 @@ for word in words2:
     print "'%s' is Upper? - [%s]" % (word, word.isupper())
     print "'%s' is Lower? - [%s]" % (word, word.islower())
 #Task13
-#Перевірте виконання виразу set(sent3) < set(text1).
-#Змініть аргументи функції. Результати поясніть.
+#РџРµСЂРµРІС–СЂС‚Рµ РІРёРєРѕРЅР°РЅРЅСЏ РІРёСЂР°Р·Сѓ set(sent3) < set(text1).
+#Р—РјС–РЅС–С‚СЊ Р°СЂРіСѓРјРµРЅС‚Рё С„СѓРЅРєС†С–С—. Р РµР·СѓР»СЊС‚Р°С‚Рё РїРѕСЏСЃРЅС–С‚СЊ.
 print "\n4)"
 a = set(sent3) < set(text2)
 print "%s < %s - %s" % (sent3, text2, a)
 
 #Task12
-#Використайте вираз sum([len(w) for w in text1]) для знаходження середньої довжини слів в тексті.
+#Р’РёРєРѕСЂРёСЃС‚Р°Р№С‚Рµ РІРёСЂР°Р· sum([len(w) for w in text1]) РґР»СЏ Р·РЅР°С…РѕРґР¶РµРЅРЅСЏ СЃРµСЂРµРґРЅСЊРѕС— РґРѕРІР¶РёРЅРё СЃР»С–РІ РІ С‚РµРєСЃС‚С–.
 print "\n5)"
 numberofchars=sum([len(w) for w in text1])
 numberofwords=len(text1)
 average=numberofchars/numberofwords
 print average
 #Task16
-#Побудуйте колокації для текстів №1 та №5. Результати порівняйте.
+#РџРѕР±СѓРґСѓР№С‚Рµ РєРѕР»РѕРєР°С†С–С— РґР»СЏ С‚РµРєСЃС‚С–РІ в„–1 С‚Р° в„–5. Р РµР·СѓР»СЊС‚Р°С‚Рё РїРѕСЂС–РІРЅСЏР№С‚Рµ.
 print "\n6)"
 print '\n text1 \n'
 text1.collocations()
