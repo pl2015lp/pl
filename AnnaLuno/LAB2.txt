@@ -1,0 +1,70 @@
+﻿# -*- coding: cp1251 -*-
+#Variant 8
+import nltk
+from nltk.book import *
+#3.2. Створіть змінну sentence і присвойте їй значення ‘she sells sea shells by the sea shore’  та
+# напишіть фрагмент програми для виведення на екран всіх сліва, довжина яких більша ніж 4 символи. 
+sentence='she sells sea shells by the sea shore'
+print sentence
+st=sentence.split()
+print st
+for word in st:
+	if len(word) >4:
+		print word
+print #######################
+#
+#3.6. Перегляньте результати виконання умовних виразів: ’row’ in ’brown’ та ’row’ in [’ brown’, ’cow’].
+# Напишіть програму для перевірки наявності в стрічці sent=’ ’colorless green ideas sleep furiously’ окремих слів та підстрічок.
+if 'row' in 'brown':
+	print 'row is in brown'
+t=['brown','cow']
+if 'row' in t:
+	print 'row is in brown'
+else:
+	print 'row is not in t'
+k=['brown','cow','row']
+s=['row']
+if s in k:
+	print 'row is in k'
+else:
+	print 'row is not in k'
+sent='colorless green ideas sleep furiously'
+sent.split()
+if 'green' in sent:
+	print 'green is in sent'
+else:
+	print 'green is not in sent'
+if 'colorless green' in sent:
+	print 'colorless green is in sent'
+else:
+	print 'colorless green is not in sent'
+'les' in st
+'les' in sent
+print #######################
+#
+#3.8. Виконати наступні приклади і пояснити різницю між ними w.isupper() not w.islower()
+w='.'
+w.isupper()
+print w.isupper()
+not w.islower()
+print not w.islower()
+print #######################
+#
+#3.13. Перевірте виконання виразу set(sent3) < set(text1). Змініть аргументи функції. Результати поясніть.
+print set(sent3) < set(text1)
+print set(text2)>set(sent2)
+print set(sent2)<set(text2)
+print #######################
+#
+#3.12. Використайте вираз sum([len(w) for w in text1]) для знаходження середньої довжини слів в тексті. 
+ser=sum([len(w) for w in text1])/len(text1)
+print ser
+print #######################
+#
+#3.21. Побудуйте колокації для текстів №2 та №5. Результати порівняйте.
+text2.collocations()
+text5.collocations()
+if (text2.collocations()==text5.collocations()):
+	print 'collocations are equal'
+else:
+	print 'collocations are not equal'

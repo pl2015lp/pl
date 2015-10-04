@@ -1,0 +1,74 @@
+﻿# -*- coding: cp1251 -*-
+#Variant 8
+#
+#3.4.Визначити нову стрічку hello. Здійснити операцію hello+ msg.
+#Змінити стрічку hello додавши в її кінці символ пробілу і знову виконати операцію hello+ msg.
+st='hello'
+print st
+msg='Anna Luno'
+print msg
+st+msg
+print st+msg
+st='hello '
+st+msg
+print st+msg
+print ###################################
+#3.6. Визначити стрічку s=’colorless’. Використовуючи зрізи та операцію поєднання змінити стрічку до вигляду ‘colourless’.
+s='colorless'
+print s
+ss=s[0:4]+'u'+s[4:]
+print ss
+print ###################################
+#3.7. Використовуючи зрізи видаліть афікси у наступних словоформах: dish-es, run-ning, nation-ality, un-do, pre-heat.
+s1='dishes'
+print s1
+s1=s1[:4]
+print s1
+s2='running'
+print s2
+s2=s2[:3]
+print s2
+s3='nationality'
+print s3
+s3=s3[:6]
+print s3
+s4='undo'
+print s4
+s4=s4[2:4]
+print s4
+s5='preheat'
+print s5
+s5=s5[3:]
+print s5
+print ####################################
+#3.18. Напишіть for цикл, який обробить phrase1 визначивши довжину кожного елементу і результати збереже в новому списку lengths.
+#(Створіть пустий список lengths = []. Далі використовуйте метод append() в тілі циклу для додавання довжин до списку).
+phrase1=['Anna','Ivanivna', 'Luno']
+print phrase1
+lengths=[]
+for word in phrase1:
+	lengths.append(len(word))
+	print lengths
+print ####################################
+#3.13. Представити прізвище, ім’я та по батькові як список стрічок. Використовуючи метод .reverse() та зріз [::-1] змінити стрічку. Результати пояснити.
+student=['Luno','Anna','Ivanivna']
+print student
+student.reverse()
+print student
+student[::-1]
+print ####################################
+#3.26. Визначіть змінну silly, яка буде містити стрічку ’newly formed bland ideas are inexpressible in an infuriating way’ і
+# напишіть програму її перетворення в список phrase, який буде містити всі слова silly крім ‘in’.
+silly='newly formed bland ideas are inexpressible in an infuriating way'
+print silly
+silly.split('in')
+print ####################################
+#3.21. Напишіть програму, яка створить стрічку в якій будуть записані другі символи всіх слів з стрічки silly.
+silly='newly formed bland ideas are inexpressible in an infuriating way'
+str1=silly.split(' ')
+print str1
+res=[]
+for word in str1:
+	res.append(word[1])
+	print res
+
