@@ -1,0 +1,71 @@
+# -*- coding: cp1251 -*-
+import nltk
+#3.4. Використовуючи конкорданси поясніть відмінності у вживанні слова however на початку речення ("in whatever way", "to whatever extent", або "nevertheless”).
+from nltk.corpus import gutenberg
+gutenberg.fileids()
+emma=nltk.Text(nltk.corpus.gutenberg.words('austen-emma.txt'))
+print emma.concordance('however')
+print emma.concordance('in whatever way')
+print emma.concordance('to whatever extent')
+print emma.concordance('nevertheless')
+print ################################
+#3.6. Проаналізуйте таблицю частот модальних дієслів для різних жанрів. Спробуйте її пояснити.
+# Знайдіть інші класи слів вживання яких також відрізняються в різних жанрах.
+from nltk.corpus import brown
+cfd=nltk.ConditionalFreqDist(
+	(genre, word)
+	for genre in brown.categories()
+	for word in brown.words(categories=genre))
+genres=['news','religion','hobbies','science_fiction','romance','humor']
+synonims=['father','parent','dad','daddy']
+print cfd.tabulate(conditions=genres, samples=synonims)
+print ###############################
+#3.7. Напишіть програму для знаходження всіх слів в корпусі Brown, які зустрічаються не менш ніж три рази.
+from nltk.corpus import brown
+brown.categories()
+[u'adventure', u'belles_lettres', u'editorial', u'fiction', u'government', u'hobbies', u'humor', u'learned', u'lore', u'mystery', u'news', u'religion', u'reviews', u'romance', u'science_fiction']
+text=brown.words(categories=['adventure', 'belles_lettres', 'editorial', 'fiction', 'government', 'hobbies', 'humor', 'learned', 'lore', 'mystery', 'news', 'religion', 'reviews', 'romance', 'science_fiction'])
+fdist=nltk.FreqDist([w for w in text])
+number= [w for w in text if fdist[w]>=3]
+print number[:10]
+print ##############################
+#3.8. Напишіть програму генерації таблиці відношень  кількість слів/кількість оригінальних слів для всіх жанрів корпуса Brown.
+# Проаналізуйте отримані результати та поясніть їх.
+for genre in brown.categories():
+        num_words=len(brown.words(categories=genre))
+        num_vocab=len(set([w.lower() for w in brown.words(categories=genre)]))
+print 'genre, ration of all words to unique ones'
+print genre, num_words, num_vocab
+print #############################
+#3.10. Напишіть програму яка виводить на екран 50 найчастотніших біграмів тексту, за виключенням біграмів до складу яких входять незначущі слова.
+from nltk.corpus import gutenberg
+gutenberg.fileids()
+text1=gutenberg.words('austen-persuasion.txt')
+stopwords=nltk.corpus.stopwords.words('english')
+t=([w.lower() for w in text1])
+bigrams=nltk.bigrams(t)
+fdist= nltk.FreqDist([bi for bi in bigrams if bi[0] not in stopwords and bi[1] not in stopwords])
+print fdist.keys()[:50]
+print #############################
+#3.13.	Визначити функцію hedge(text), яка обробляє текст і створює нову версію цього тексту додаючи слово ‘like’ перед кожним третім словом.
+text=gutenberg.words('austen-emma.txt')
+def hedge(text):
+	text=list(text)
+	for i in range(2,len(text),3):
+		text.insert(i,'like')
+		return text[:30]
+
+print hedge(text)
+print #############################
+print 'Another variant of this task'
+a = ['money','beauty','weekend','sun','friend','wine','frost','wind']
+b = [ ]
+def hedge(text):
+	for x in text:
+		if a.index(x) in range(2,len(a),3):
+			b.append (('like'+x))
+		else:
+			b.append(x)
+	return b
+
+print hedge(a)
