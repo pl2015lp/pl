@@ -1,0 +1,59 @@
+3zadacha
+import nltk
+
+cfd = nltk.ConditionalFreqDist((target, fileid[:4])
+for fileid in nltk.corpus.state_union.fileids()
+    for w in nltk.corpus.state_union.words(fileid)
+        for target in ['men', 'women']
+           if w.lower().startswith(target)) 		
+
+cfd.plot()
+
+5 zadacha
+import nltk
+nltk.corpus.brown.fileids()
+m=nltk.corpus.brown.words('cr08')
+n=nltk.corpus.brown.words('cr09')
+print len(m), len (n)
+m1=set (m)
+n1=set(n)
+print len(m1), len(n1)
+
+7 задача.
+import nltk
+from nltk.corpus import brown
+texts = brown.words()
+fdist = nltk.FreqDist ([w for w in texts])
+k=sorted ([w for w in set (texts) if fdist[w]>=3 and w.isalpha()])
+print(k[:20])
+
+8 задача
+import nltk
+from nltk.corpus import brown
+for style in brown.categories():
+   num_words=len(brown.words (categories=style))
+   num_original=len(set(brown.words(categories=style)))
+   print num_words, num_original, int(num_words/num_original), style
+   
+   
+9zadacha
+import nltk
+from nltk.corpus import gutenberg
+gutenberg.filesids()
+gutenberg.fileids()
+emma=gutenberg.words('austen-emma.txt')
+import nltk
+from nltk.corpus import gutenberg
+fdist=FreqDist([w.lower() for w in emma])
+fdist=FreqDist(emma)
+print fdist
+vocabulary=fdist.keys()
+print vocabulary[:50]
+
+ 
+12 zadacha
+  
+from nltk.corpus import brown
+def word_freq (word, genre):
+fd=nltk.FreqDist (nltk.corpus.brown.words (categories=genre))
+return word, fd [ford]
