@@ -1,0 +1,59 @@
+﻿#1.Створити змінну msg присвоїти їй значення стрічки, яка відповідає імені та прізвищу студента.
+msg = 'Myron Yaryna'
+print msg
+print '------------------'
+#7.Використовуючи зрізи видаліть афікси у наступних словоформах: dish-es, run-ning, nation-ality, un-do, pre-heat.
+slovo1= 'dishes'
+print slovo1[0:4]
+slovo2='running'
+print slovo2[0:3]
+slovo3='nationality'
+print slovo3[0:6]
+slovo4='undo'
+print slovo4[0:2]
+slovo5='preheat'
+print slovo5[0:3]
+print '------------------'
+#11.Представити прізвище, ім’я та по батькові як список стрічок. Здійснити різноманітні операції індексування, сортування та зрізів. Реалізуйте операцію доступу до окремих елементів списку та операцій з ними.
+imja='Yaryna'
+prizvyshche='Myron'
+pobatkovi='Andriivna'
+spysokradkiv=['imja','prizvyshche','pobatkovi']
+spysokradkiv[-2]
+spysokradkiv.sort()
+print spysokradkiv
+spysokradkiv[2:5]
+spysokradkiv[1:2]
+spysokradkiv.append('prozhyvania')
+print spysokradkiv
+print '------------------'
+#15.Створити список phrase1, який складається із значень ім’я , по батькові, прізвище студента. Що відбудеться при спробі ввести в інтерпретатор наступний оператор phrase1[2][2]. Поясніть результат.
+phrase1=['imja','prizvyshche','pobatkovi']
+print phrase1[2][2]
+# Виводиться літера b оскільки ми робимо індексацію другого елемента в другому елементі стрічки
+print '------------------'
+#21.Напишіть програму, яка створить стрічку в якій будуть записані другі символи всіх слів з стрічки silly.
+silly='tam tut des'
+print silly
+spysok=silly.split(' ')
+print spysok
+resultat=spysok[0][1],spysok[1][1],spysok[2][1]
+print resultat
+print '------------------'
+#22.Напишіть програму перетворення списку стрічок в одну стрічку.
+strichka1='sonce'
+strichka2='kwitka'
+strichka3='zemlia'
+spysokstrichok=['sonce','kwitka','zemlia']
+print spysokstrichok
+resultat=''
+for word in spysokstrichok:
+	resultat+=' ' + word
+
+	
+print resultat
+print '------------------'
+#8.Спробуйте згенерувати IndexError доступаючись до символів стрічки з індексами менше 0.
+spysok =['ya','my','vu','vony']
+spysok[-6]
+print '------------------'
