@@ -1,0 +1,25 @@
+#Перегляньте результати виконання умовних виразів 'row' in 'brown' та'row' in ['brown', 'cow']
+
+print "row" in "brown"
+>>>True
+# томущо "brown" являється стрічкою і функція in перевіряє чи в ній міститься підстрічка  "row"
+
+print "row" in ["row", "cow"]
+>>>False
+# томущо ["row", "cow"] являється лістом і функція in перевіряє чи в лісті  міститься елемент  який рівний "row"
+
+sent = "colorless green ideas sleep furiously"
+
+
+# масив слів які шукаємо в стрічці sent
+f = ["gre", "id", "jdhfjs"]
+
+for i in f:
+    if i in sent:
+        print i, "in", sent
+    else:
+        print i, "not in", sent
+
+>>> gre in colorless green ideas sleep furiously
+>>> id in colorless green ideas sleep furiously
+>>> jdhfjs not in colorless green ideas sleep furiously
