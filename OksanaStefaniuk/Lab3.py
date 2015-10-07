@@ -28,8 +28,8 @@ print "\n3)"
 from nltk.corpus import brown
 words_all = brown.words()
 fdist = nltk.FreqDist(words_all)
-fdist = nltk.FreqDist([w.lower() for w in words_all])
-for m in words_all:
+fdist = nltk.FreqDist([w.lower() for w in all_words])
+for m in all_words:
     if fdist[m] > 3:
         print m + ':', fdist[m]
 
@@ -44,8 +44,7 @@ t=([w.lower() for w in text1])
 bigrams=nltk.bigrams(t)
 fdist= nltk.FreqDist([bi for bi in bigrams if bi[0] not in stopwords and bi[1] not in stopwords])
 print fdist.keys()[:50]
-print #############################
-              
+
         
 #Task12
 #Напишіть функцію word_freq(), яка приймає слово і назву частини корпуса Brown як аргументи і визначає частоту слова в заданій частині корпуса.
@@ -70,5 +69,5 @@ from nltk.corpus import brown
 for genre in brown.categories():
     num_words = len(brown.words(categories=genre))
     num_vocab = len(set([w.lower() for w in brown.words(categories=genre)]))
-    print int (num_words/num_vocab), genre
+    print num_words/num_vocab, genre
 
