@@ -1,0 +1,19 @@
+#Виконати наступні приклади і пояснити чому результати різні
+
+sent = "colorless green ideas sleep furiously"
+print sorted([w.lower() for w in sent])
+>>>[' ', ' ', ' ', ' ', 'a', 'c', 'd', 'e', 'e', 'e', 'e', 'e', 'e', 'f', 'g', 'i', 'i', 'l', 'l', 'l', 'l', 'n', 'o', 'o', 'o', 'p', 'r', 'r', 'r', 's', 's', 's', 's', 's', 'u', 'u', 'y']
+
+print sorted(w.lower() for w in set(sent))
+>>>[' ', 'a', 'c', 'd', 'e', 'f', 'g', 'i', 'l', 'n', 'o', 'p', 'r', 's', 'u', 'y']
+
+
+[w.lower() for w in sent]
+
+l = []
+for i in sent:
+    l.append(i.lower())
+
+print sorted(l)
+>>>[' ', ' ', ' ', ' ', 'a', 'c', 'd', 'e', 'e', 'e', 'e', 'e', 'e', 'f', 'g', 'i', 'i', 'l', 'l', 'l', 'l', 'n', 'o', 'o', 'o', 'p', 'r', 'r', 'r', 's', 's', 's', 's', 's', 'u', 'u', 'y']
+
