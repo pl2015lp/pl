@@ -1,0 +1,61 @@
+﻿#1.Використовуючи модуль corpus прочитайте текст austin-persuasion.txt. Визначить скільки tokens (слів) і type (унікальних слів)містить ця книжка.
+import nltk
+from nltk.corpus import gutenberg
+num_word = len(gutenberg.words('austen-persuasion.txt'))
+num_vocab = len(set([w.lower() for w in gutenberg.words('austen-persuasion.txt')]))
+print "Number of words:", num_word
+print "Number of unique words:", num_vocab
+####################################
+#7.Напишіть програму для знаходження всіх слів в корпусі Brown, які зустрічаються не менш ніж три рази.
+import nltk
+from nltk.corpus import brown
+print sorted([word for (word, count) in nltk.FreqDist(nltk.corpus.brown.words()).items() if count >= 3])
+###################################
+#8.Напишіть програму генерації таблиці відношень  кількість слів/кількість оригінальних слів для всіх жанрів корпуса Brown. Проаналізуйте отримані результати та поясніть їх.
+import nltk
+from nltk.corpus import brown
+for x in nltk.corpus.brown.categories():
+	words_in_x = nltk.corpus.brown.words(categories=x)
+	print x, float(len(words_in_x)) / len(set(words_in_x))
+####################################
+#11.Напишіть програму для створення таблиці частот слів для різних жанрів. Знайдіть слова чия присутність або відсутність є характерною для певних жанрів (подібно до модальних дієслів).
+import nltk
+from nltk.corpus import brown
+cfd = nltk.ConditionalFreqDist(
+	(genre, word)
+	for genre in brown.categories()
+	for word in brown.words(categories=genre))
+genres=[]
+genres = ['news', 'religion', 'hobbies', 'science_fiction', 'romance', 'humor']
+words_example = ['eye', 'dog', 'life', 'might', 'must', 'will']
+cfd.tabulate(conditions=genres, samples=words_example)
+####################################
+#12.Напишіть функцію word_freq(), яка приймає слово і назву частини корпуса Brown як аргументи і визначає частоту слова в заданій частині корпуса.
+import nltk
+from nltk.corpus import brown
+def word_freq(word, corpus):
+	import nltk
+	from nltk.corpus import brown
+	category = brown.words(categories=corpus)
+	print category.count(word)
+
+	
+word_freq('text', 'news')
+1
+print word_freq
+##################################
+#5.Виберіть пару текстів і дослідіть відмінності між ними (кількість оригінальних слів, багатство мови, жанр). Знайдіть слова, які мають різний зміст в цих текстах, подібно до слова monstrous в Moby Dick та у Sense and Sensibility.
+from __future__ import division
+import nltk
+from nltk.book import*
+print text2.concordance('domestic')
+print text4.concordance('domestic')
+print len(set(text2))
+print len(set(text4))
+print len(set(text2))/len(text2)
+print len(set(text4))/len(text4)
+
+
+	
+
+

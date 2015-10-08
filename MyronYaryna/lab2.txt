@@ -1,0 +1,76 @@
+﻿#3.Створіть змінну sentence і присвойте їй значення ‘she sells sea shells by the sea shore’  та напишіть фрагмент програми, яка генерує нову стрічку додаючи ‘like’ перед кожним зі слів , яке починається з ‘se’.
+import nltk
+from nltk.book import*
+sentence='she sells sea shells by the sea shore'
+print sentence
+st=sentence.split()
+print st
+newst=[]
+for word in st:
+	if word.startswith('se'):
+		newst.append('like'+word)
+		print newst
+print ##########################
+#9.Знайдіть в тексті № 5 всі слова довжина яких дорівнює 4 і побудуйте для них частотний розподіл.
+import nltk
+from nltk.book import*
+fdist5=FreqDist(text5)
+sorted([wd for wd in set(text5) if len(wd)==4])
+print fdist5
+print #########################
+#11.Напишіть вираз для знаходження в тексті №6 всіх слів які відповідають наступним вимогам: закінчуються на ize; містять літеру z; містять послідовність літер pt; написані з великої літери . Результат представити, як список слів.
+import nltk
+from nltk.book import*
+fdist6=FreqDist(text6)
+spysok=['']
+spysok = sorted ([w for w in set(text6) if 'z' in w or 'pt' in w or w.endswith('ize')or w.istitle()])
+for word in spysok:
+ print word
+print #######################
+#22.Побудуйте колокації для текстів №2 та №6. Результати порівняйте
+import nltk
+from nltk.book import*
+text2.collocations()                   
+text6.collocations()             
+fdist2=FreqDist(text2)
+print fdist2
+fdist6=FreqDist(text6)
+print fdist6
+print fdist2.max
+print fdist6.max
+fdist2<fdist6
+fdist = FreqDist([len(w) for w in text2])
+print fdist
+fdist.keys()
+fdist.items()
+fdist = FreqDist([len(w) for w in text6])
+print fdist
+fdist.keys()
+fdist.items()
+print ######################
+#7.Виконати настіпні приклади і пояснити чому отримані різні результати (різні значення змінних) 
+print sorted(set([w.lower() for w in text1]))
+print sorted([w.lower() for w in set(text1)])
+#sorted(set([w.lower() for w in text1]))-вибирає слова з тексту один які написані з малої літери сортує по алфавіту слова не повторяються
+#sorted([w.lower() for w in set(text1)])- вибирає слова з тексту один які написані з малої літери сортує по алфавіту слова повторяються
+print #######################
+#5.Пуста стрічка і пустий список в частині умов if виразу призводить до помилки. Напишіть програму для демонстрації таких випадків при використанні if тверджень.
+r=''
+s=[]
+for word in r:
+	if r.index[1]=='tf':
+          print word
+for word in s:
+	if s.index[2]=='kt':
+          print word
+
+
+
+
+
+
+
+
+
+
+	
