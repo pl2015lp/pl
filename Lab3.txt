@@ -1,0 +1,75 @@
+﻿"3. Прочитайте тексти з корпусу State of the Union addresses використовуючи state_union модуль читання. Визначити частоту вживання слів men, women, people  в кожному з документів. Як змінилася частота вживання цих слів з часом?."
+
+import nltk
+from nltk.corpus import state_union
+state_union.fileids()
+wor = state_union.words()
+fdist = nltk.FreqDist([w for w in wor])
+word = ['men', 'women', 'people']
+for s in word:
+	print s + ':',fdist[s],
+
+cfd = nltk.ConditionalFreqDist(
+	(target, fileid)
+        for fileid in state_union.fileids()
+        for w in state_union.words(fileid)
+        for target in ['men', 'women','people']
+        if w.lower().startswith(target))
+cfd.plot()
+
+"5. Виберіть пару текстів і дослідіть відмінності між ними (кількість оригінальних слів, багатство мови, жанр). Знайдіть слова, які мають різний зміст в цих текстах, подібно до слова monstrous в Moby Dick та у Sense and Sensibility. "
+
+state_union.fileids()
+text_name = ['1989-Bush.txt','2005-GWBush.txt']
+for text in text_name:
+	words = state_union.words(text)
+	num_words = len(words)
+	num_vocabulary = len (set([w.lower() for w in words]))
+	print 'lexical diversity %d original words %d text name %s' % (int(num_words/num_vocabulary), num_vocabulary, text)
+
+"7. Напишіть програму для знаходження всіх слів в корпусі Brown, які зустрічаються не менш ніж три рази."
+
+from nltk.corpus import brown
+brown_freq_dist = FreqDist(brown.words())
+len(brown.words())
+len(brown_freq_dist)
+brown_words = brown.words()
+freq_words = set([w.lower() for w in brown_words if brown_freq_dist[w]>=3])
+len(freq_words)
+freq_words
+
+"9.Напишіть програму для знаходження 50 найчастотніших слів в тексті, за виключенням незначущих слів."
+
+from nltk.book import *
+from nltk.corpus import state_union
+from nltk.corpus import PlaintextCorpusReader
+text = state_union.words('1987-Reagan.txt')
+fdist = FreqDist(text)
+stopwords_path = 'C:/Python27/nltk_data/corpora/stopwords'
+stopwords = PlaintextCorpusReader(stopwords_path, 'english', encoding='utf-8').words()
+result = [word for word in fdist if word not in stopwords and word not in [',', '.', "'",'"', '-', '."', '!', '?', ':', '--']]
+result[:50]
+
+"13.Визначити функцію hedge(text), яка обробляє текст і створює нову версію цього тексту додаючи слово ‘like’ перед кожним третім словом."
+
+def hedge(text):
+	result_text = ''
+	i = 0
+	for word in state_union.words(text):
+	    if i!=0 and i%2 == 0:
+		result_text += 'like '
+	    result_text += word + ' '
+	    i += 1
+	return result_text
+result = hedge('1945-Truman.txt')
+
+"8. Напишіть програму генерації таблиці відношень кількість слів/кількість оригінальних слів для всіх жанрів корпуса Brown. Проаналізуйте отримані результати та поясніть їх."
+
+from nltk.corpus import brown
+brown.categories()
+result = [(category, float(len(brown.words(categories=[category])))/float(len(set(brown.words(categories=[category]))))) for category in brown.categories()]
+for category, relation in result:
+	print category, relation
+
+
+
