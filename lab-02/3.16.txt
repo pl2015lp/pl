@@ -1,0 +1,39 @@
+#Побудуйте колокації для текстів 1 та 5. Результати порівняйте.
+
+>>> import nltk
+>>> from nltk.book import(text1, text5)
+*** Introductory Examples for the NLTK Book ***
+Loading text1, ..., text9 and sent1, ..., sent9
+Type the name of the text or sentence to view it.
+Type: 'texts()' or 'sents()' to list the materials.
+text1: Moby Dick by Herman Melville 1851
+text2: Sense and Sensibility by Jane Austen 1811
+text3: The Book of Genesis
+text4: Inaugural Address Corpus
+text5: Chat Corpus
+text6: Monty Python and the Holy Grail
+text7: Wall Street Journal
+text8: Personals Corpus
+text9: The Man Who Was Thursday by G . K . Chesterton 1908
+a=
+>>> a=text1.collocations()
+Building collocations list
+Sperm Whale; Moby Dick; White Whale; old man; Captain Ahab; sperm
+whale; Right Whale; Captain Peleg; New Bedford; Cape Horn; cried Ahab;
+years ago; lower jaw; never mind; Father Mapple; cried Stubb; chief
+mate; white whale; ivory leg; one hand
+ 
+>>> b=text5.collocations()
+Building collocations list
+wanna chat; PART JOIN; MODE #14-19teens; JOIN PART; PART PART;
+cute.-ass MP3; MP3 player; JOIN JOIN; times .. .; ACTION watches; guys
+wanna; song lasts; last night; ACTION sits; -...)...- S.M.R.; Lime
+Player; Player 12%; dont know; lez gurls; long time
+
+>>> if (b==a or a==b):
+	print 'identical collocations'
+else:
+	print 'not identical'
+
+	
+not identical 
