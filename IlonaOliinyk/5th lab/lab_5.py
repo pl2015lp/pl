@@ -61,10 +61,10 @@ print result1
 
 print "\n4)\n"
 
-var1 = "3-" * 7
-var2 = 3 * 7
-var3 = int("3")*7
-var4 = str(3) * 7
+var1 = "3" * 7 # сім раз вивести 3
+var2 = 3 * 7 #21
+var3 = int("3")*7   #21
+var4 = str(3) * 7   # сім раз вивести 3
 
 print ">1:\t%s" % (var1)
 print ">2:\t%s" % (var2)
@@ -158,13 +158,14 @@ for word in words:
             vsequences.add(''.join(vowels))
 
 
-print vsequences
+#print vsequences
 print sorted(vsequences)
 
 
-print ">>>>>\t\t\>>>>\t"
-listResult = [set([w for w in words if 'a' in w])]
-print listResult
+print ">>>>>\t\t\ 2nd method>>>>\t"
+[vsequences.add(''.join(vowels)) for vowels in [char for char in word if char in 'aeiou']]
+print sorted (vsequences)
+
 
 
 #8. Напишіть програму доступу до вебсторінки
