@@ -1,0 +1,169 @@
+﻿#1.Напишіть функцію, яка приймає адресу URL, як аргумент, і повертає те що міститься за цією адресою з видаленням HTML розмітки. Використовувати urllib.urlopen для доступу до контенту наступним чином raw_contents = urllib.urlopen('http://www.nltk.org/').read().
+>>> from __future__ import division
+>>> import nltk
+>>> import nltk, re, pprint
+>>> from urllib import urlopen
+>>> url = "http://www.bbc.com/news/technology-34311203"
+>>> html =urlopen(url).read()
+
+>>> html[:200]
+' <!DOCTYPE html>\n<html lang="en" id="responsive-news" prefix="og: http://ogp.me/ns#">\n<head >\n    <meta charset="utf-8">\n    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">\n    <title>A'
+>>> raw = nltk.clean_html(html)
+>>> tokens = nltk.word_tokenize(raw)
+>>> tokens
+['Apple', "'s", 'App', 'Store', 'infected', 'with', 'malware', 'in', 'China', '-', 'BBC', 'News', 'Accessibility', 'links', 'Skip', 'to', 'content', 'Accessibility', 'Help', 'BBC', 'iD', 'BBC', 'navigation', 'News', 'News', 'Sport', 'Weather', 'Shop', 'Earth', 'Travel', 'Capital', 'iPlayer', 'Culture', 'Autos', 'Future', 'TV', 'Radio', 'CBBC', 'CBeebies', 'Arts', 'Make', 'It', 'Digital', 'Food', 'iWonder', 'Bitesize', 'Music', 'Nature', 'Earth', 'Local', 'Travel', 'Menu', 'Search', 'the', 'BBC', 'BBC', 'News', 'News', 'navigation', 'Sections', 'Home', 'Video', 'World', 'UK', 'Business', 'Tech', 'selected', 'Science', 'Magazine', 'Entertainment', '&', 'amp', ';', 'Arts', 'Health', 'In', 'Pictures', 'Also', 'in', 'the', 'News', 'Special', 'Reports', 'Explainers', 'The', 'Reporters', 'Have', 'Your', 'Say', 'Technology', 'Technology', 'Apple', "'s", 'App', 'Store', 'infected', 'with', 'malware', 'in', 'China', '21', 'September', '2015', 'From', 'the', 'section', 'Technology', 'Image', 'copyright', 'Getty', 'Images', 'Image', 'caption', 'Affected', 'applications', 'include', 'Tencent', "'s", 'hugely', 'popular', 'WeChat', 'app', ',', 'a', 'music', 'downloading', 'app', 'and', 'a', 'car', 'hailing', 'app', 'Apple', 'has', 'said', 'it', 'is', 'taking', 'steps'...]
+
+
+#2.Збережіть деякий текст у файлі corpus.txt. Визначити функцію load(f) для читання файлу, назва якого є її аргументом і повертає стрічку, яка містить текст з файлу.
+>>> def load(f):
+	f = open('E:\\Files\corpus.txt')
+	for line in f:
+		print line.strip()
+
+		
+>>> load(f)
+Splits within the EU on the relocation of 120,000 migrants have been further exposed as leaders gather for an emergency meeting in Brussels.
+Slovakia is launching a legal challenge to mandatory quotas that were passed in a majority vote on Tuesday.
+Hungary's PM defended its "democratic rights" and proposed a radical budgetary revamp to raise funds.
+The summit will focus on tightening EU borders and aiding neighbours of Syria, from where many migrants come.
+>>> 
+
+
+#3Перепишіть наступний цикл як list comprehension:
+ 	>>> sent = ['The', 'dog', 'gave', 'John', 'the', 'newspaper']
+>>> result = []
+>>> for word in sent:
+...     word_len = (word, len(word))
+...     result.append(word_len)
+>>> result
+[('The', 3), ('dog', 3), ('gave', 4), ('John', 4), ('the', 3), ('newspaper', 9)]
+
+>>> sent = ['It', 'is', 'thought', 'to', 'be', 'the', 'first', 'large-scale', 'attack', 'on', 'Apple']
+>>> [(word,len(word)) for word in sent]
+[('It', 2), ('is', 2), ('thought', 7), ('to', 2), ('be', 2), ('the', 3), ('first', 5), ('large-scale', 11), ('attack', 6), ('on', 2), ('Apple', 5)]
+>>> 
+#4Перевірити різницю між стрічками і цілим виконавши наступні дії: "3" * 7 та 3 * 7. Спробуйте здійснити конвертування між стрічками і цілими використавши int("3") та str(3).
+
+>>> "3"*7
+'3333333'
+>>> 3*7
+21
+>>> int("3")*7
+21
+>>> str(3)*7
+'3333333'
+>>> 
+#5.	Що станеться, коли стрічки форматування %6s та %-6s використовується для відображення стрічки довшої ніж 6 символів?
+
+>>> '%6s' % 'AppleAppleApple'
+'AppleAppleApple'
+>>> '%-6s' % 'AppleAppleApple'
+'AppleAppleApple'
+
+#7.	Створіть файл, який буде містити слова та їх частоту записані в окремих рядках через пробіл ( fuzzy 53). Прочитайте цей файл використовуючи open(filename).readlines().  Розділіть кожну стрічку на дві частини використовуючи split(), і перетворіть число в ціле значення використовуючи int(). Результат повинен бути у вигляді списку: [['fuzzy', 53], ...].
+
+Python 2.7.3 (default, Apr 10 2012, 23:31:26) [MSC v.1500 32 bit (Intel)] on win32
+Type "copyright", "credits" or "license()" for more information.
+>>> f = open('E:\Files\words.txt').readlines()
+>>> f
+['sun 23\n', 'moon 44\n', 'restaurant 13\n', 'candles 14\n', 'cookies 15\n', 'butterfly 78']
+>>> for line in f:
+	print line.split()
+
+	
+['sun', '23']
+['moon', '44']
+['restaurant', '13']
+['candles', '14']
+['cookies', '15']
+['butterfly', '78']
+>>> for line in sp:
+	print line.split()
+
+>>> for line in f:
+	sp=[]
+	s=line.split()
+	s[1]=int(s[1])
+	sp+=s
+
+
+>>> sp
+['butterfly', 78, 'sun', 23, 'moon', 44, 'restaurant', 13, 'candles', 14, 'cookies', 15, 'butterfly', 78]
+#8.Напишіть програму доступу до вебсторінки і вилучення з неї деякого тексту.
+
+>>> from __future__ import division
+>>> import nltk
+>>> import nltk, re, pprint
+>>> from urllib import urlopen
+>>> url = "http://www.bbc.com/news/health-34360865"
+>>> html =urlopen(url).read()
+>>> raw = nltk.clean_html(html)
+>>> tokens = nltk.word_tokenize(raw)
+>>> tokens
+['Rare', "'healthy", "'", 'smokers', "'", 'lungs', 'explained', '-', 'BBC', 'News', 'Accessibility', 'links', 'Skip', 'to', 'content', 'Accessibility', 'Help', 'BBC', 'iD', 'BBC', 'navigation', 'News', 'News', 'Sport', 'Weather', 'Shop', 'Earth', 'Travel', 'Capital', 'iPlayer', 'Culture', 'Autos', 'Future', 'TV', 'Radio', 'CBBC', 'CBeebies', 'Arts', 'Make', 'It', 'Digital', 'Food', 'iWonder', 'Bitesize', 'Music', 'Nature', 'Earth', 'Local', 'Travel', 'Menu', 'Search', 'the', 'BBC', 'BBC', 'News', 'News', 'navigation', 'Sections', 'Home', 'Video', 'World', 'UK', 'Business', 'Tech', 'Science', 'Magazine', 'Entertainment', '&', 'amp', ';', 'Arts', 'Health', 'selected', 'In', 'Pictures', 'Also', 'in', 'the', 'News', 'Special', 'Reports', 'Explainers', 'The', 'Reporters', 'Have', 'Your', 'Say', 'Health', 'Health', 'Rare', "'healthy", "'", 'smokers', "'", 'lungs', 'explained', 'By', 'James', 'Gallagher', 'Health', 'editor', ',', 'BBC', 'News', 'website', '28', 'September', '2015', 'From', 'the', 'section', 'Health', 'comments', 'Image', 'copyright', 'Thinkstock', 'The', 'mystery', 'of', 'why', 'some', 'people', 'appear', 'to', 'have', 'healthy', 'lungs', 'despite', 'a', 'lifetime', 'of', 'smoking', 'has', 'been', 'explained', 'by', 'UK', 'scientists.', 'The', 'analysis', 'of', 'more', 'than', '50,000', 'people', 'showed', 'favourable', 'mutations', 'in', 'people', "'s", 'DNA', 'enhanced', 'lung', 'function', 'and', 'masked', 'the', 'deadly', 'impact', 'of', 'smoking.', 'The', 'Medical', 'Research', 'Council', 'scientists', 'say', 'the', 'findings', 'could', 'lead', 'to', 'new', 'drugs', 'to', 'improve', 'lung', 'function.', 'But', 'not', 'smoking', 'will', 'always', 'be', 'the', 'best', 'option', ',', 'they', 'say.', 'Many', ',', 'but', 'not', 'all', ',', 'smokers', 'will', 'develop', 'lung', 'disease.', 'But', 'so', 'too', 'will', 'some', 'who', 'have', 'never', 'touched', 'a', 'cigarette', 'in', 'their', 'lives.', 'The', 'researchers', 'analysed', 'the', 'huge', 'amount', 'amount', 'of', 'health', 'and', 'genetic', 'data', 'from', 'volunteers', 'to', 'the', 'UK', "'s", 'Biobank', 'project', '.', 'Breathe', 'easily', 'They', 'looked', 'at', 'Chronic', 'Obstructive', 'Pulmonary', 'Disease', '(', 'COPD', ')', 'which', 'leads', 'to'..]
+
+#9.З тексту мовою, яка має гармонію голосних ( Hungarian), вилучіть у словах послідовності голосних і створіть частотну таблицю біграмів голосних.
+>>> from __future__ import division
+>>> import nltk, re, pprint
+>>> f = ['Nagyon', 'fontos', 'a', 'karrierem', 'es', 'a', 'hazam', 'szempontjabol', 'is', 'hogy' ,'csatlakozok', 'a' ,'Barcelonahoz',  'mondta', 'az', 'Atletico']
+>>> s = set()
+>>> for word in f:
+	vowels=[]
+	for char in word:
+		if char in 'ayouiei':
+			vowels.append(char)
+			s.add(''.join(vowels))
+
+			
+>>> sorted(s)
+['a', 'aa', 'aao', 'aaoo', 'ae', 'aeo', 'aeoa', 'aeoao', 'ai', 'aie', 'aiee', 'ay', 'ayo', 'e', 'ei', 'eio', 'eo', 'eoa', 'eoao', 'i', 'o', 'oa', 'oo', 'oy']
+>>> nltk.bigrams(s)
+[('aa', 'eo'), ('eo', 'ae'), ('ae', 'ai'), ('ai', 'aaoo'), ('aaoo', 'oa'), ('oa', 'ay'), ('ay', 'ei'), ('ei', 'ayo'), ('ayo', 'eoao'), ('eoao', 'oo'), ('oo', 'aiee'), ('aiee', 'aeoa'), ('aeoa', 'a'), ('a', 'eoa'), ('eoa', 'e'), ('e', 'i'), ('i', 'aao'), ('aao', 'o'), ('o', 'aeoao'), ('aeoao', 'eio'), ('eio', 'oy'), ('oy', 'aie'), ('aie', 'aeo')]
+>>> import re
+>>> import nltk
+>>> import collections
+>>> frequencies = collections.Counter(s)
+>>> frequencies
+Counter({'aa': 1, 'eo': 1, 'ae': 1, 'ai': 1, 'aaoo': 1, 'oa': 1, 'ay': 1, 'ei': 1, 'ayo': 1, 'eoao': 1, 'a': 1, 'aiee': 1, 'aeoa': 1, 'oo': 1, 'eoa': 1, 'e': 1, 'i': 1, 'aao': 1, 'o': 1, 'aeoao': 1, 'aeo': 1, 'oy': 1, 'aie': 1, 'eio': 1})
+
+#14.Доступіться до текстів ABC Rural News та ABC Science News з корпуса (nltk.corpus.abc). Знайдіть значення для оцінки читабельності текстів (аналогічно до задачі №12). Використовуйте Punkt для поділу тексту на окремі речення.(Automated Readability Index (ARI) тексту визначається згідно виразу: 4.71 μw + 0.5 μs - 21.43.)
+
+>>> from __future__ import division
+>>> import nltk, re, pprint
+>>> from nltk.corpus import abc
+>>> l=0
+>>> n=0
+>>> for w in nltk.corpus.abc.words():
+	l+=len(w)
+	n+=1
+
+	
+>>> m1=l/n
+>>> m1
+4.39119157132592
+>>> m2=len(nltk.corpus.abc.words())/len(nltk.corpus.abc.sents())
+
+>>> m2
+26.078458713100257
+>>> legible=4.71*m1+0.5*m2-24.43
+>>> legible
+9.291741657495209
+>>> sent_tokenizer=nltk.data.load('tokenizers/punkt/english.pickle')
+>>> text=nltk.corpus.abc.raw('rural.txt')
+>>> sents=sent_tokenizer.tokenize(text)
+>>> pprint.pprint(sents[1:5])
+[u'Letters from John Howard and Deputy Prime Minister Mark Vaile to AWB have been released by the Cole inquiry into the oil for food program.',
+ u'In one of the letters Mr Howard asks AWB managing director Andrew Lindberg to remain in close contact with the Government on Iraq wheat sales.',
+ u"The Opposition's Gavan O'Connor says the letter was sent in 2002, the same time AWB was paying kickbacks to Iraq though a Jordanian trucking company.",
+ u'He says the Government can longer wipe its hands of the illicit payments, which totalled $290 million.']
+>>> text=nltk.corpus.abc.raw('science.txt')
+>>> sents=sent_tokenizer.tokenize(text)
+>>> pprint.pprint(sents[1:5])
+[u"That's the conclusion of two studies published in this week's issue of The New England Journal of Medicine.",
+ u'They found that inhaling a mist with a salt content of 7 or 9% improved lung function and, in some cases, produced less absenteeism from school or work.',
+ u'Cystic fibrosis, a progressive and frequently fatal genetic disease that affects about 30,000 young adults and children in the US alone, is marked by a thickening of the mucus which makes it harder to clear the lungs of debris and bacteria.',
+ u'The salt water solution "really opens up a new avenue for approaching patients with cystic fibrosis and how to treat them," says Dr Gail Weinmann, of the US National Heart, Lung, and Blood Institute, which sponsored one of the studies.']
+>>> 
+
+
+
