@@ -1,0 +1,6 @@
+word 5
+ilona 10
+my 15
+of 23
+cat 666
+happy 228
