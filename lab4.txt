@@ -1,0 +1,58 @@
+задача 1
+from nltk.corpus import wordnet as wn
+part_mer=wn.synset('tree.n.01').part_meronyms()
+print(part_mer)
+memb_mer=wn.synset('staff.n.03').member_meronyms()
+print(memb_mer)
+subs_mer=wn.synset('water.n.01').substance_meronyms()
+print(subs_mer)
+memb_holon=wn.synset('tree.n.01').member_holonyms()
+print(memb_holon)
+part_holon=wn.synset('mint.n.04').part_holonyms()
+print(part_holon)
+part_subst=wn.synset('mint.n.04').substance_holonyms()
+print(part_subst)
+
+zadacha4
+from nltk.corpus import cmudict
+entries=cmudict.entries()
+len(entries)
+vocab=[w for w, pron in entries]
+len(vocab)
+fdist=nltk.FreqDist(vocab)
+dd=[w for w in vocab if fdist[w]>1]
+percentage = (len(dd)* 100)/len(vocab)
+print(percentage)
+
+
+задача 5
+from nltk.corpus import wordnet as wn
+s=0
+h=0
+for w in wn.all_synsets ('n'):
+    s=s+1
+    if len(w.hyponyms())==0:
+        h=h+1
+
+print s
+print h
+result=(h*100)/s
+print result
+
+задача7 
+import random
+import nltk
+randWords=random.sample(nltk.corpus.gutenberg.words(random.sample(nltk.corpus.gutenberg.fileids(),1)[0]),  5) 
+print "os' 5 randomnych sliv:", randWords
+
+задача 12
+import nltk
+from nltk.corpus import wordnet as wn
+n=0
+k=0
+for synset in wn.all_synsets('v'):
+    n=n+len(synset.lemmas)
+    k=k+1
+print n
+print k
+print (n+0.0)/(k+0.0)
