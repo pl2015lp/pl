@@ -1,0 +1,177 @@
+﻿#10. Полісемія - це явище коли одне слово має декілька значень ( іменник dog має 7 значень, кількість яких визначити можна як len(wn.synsets('dog', 'n'))). Знайдіть середнє значення полісемії для іменників.
+from __future__ import division
+import nltk
+from nltk.corpus import wordnet as wn
+print '10.4'
+print '**************'
+noun_meanings = []
+for i in wn.all_synsets ('n'):
+    for j in i.lemma_names:
+        noun_meanings.append (j)
+nouns_different = len (set (noun_meanings))
+print nouns_different
+noun_words = 0
+for k in set (noun_meanings):
+    noun_words = noun_words + len (wn.synsets (k, 'n'))
+print noun_words
+noun_poly= noun_words/nouns_different
+print noun_poly
+print '*************'
+#1Дослідити зв’язки голонім-меронім для іменників. Знайти іменники для демонстрації наступних зв’язків: member_meronyms(), part_meronyms(), substance_meronyms(), member_holonyms(), part_holonyms(), та substance_holonyms().
+import nltk
+from nltk.corpus import wordnet as wn
+print '4.1'
+print '**************'
+for w in ["lion", "robot", "car"]:
+    s = wn.synset(w + ".n.01")
+    if (s is not None):
+            print "member_meronym(" + w + ")=", s.member_meronyms()
+            print "part_meronym(" + w + ")=", s.part_meronyms()
+            print "substance_meronym(" + w + ")=", s.substance_meronyms()
+            print "member_holonym(" + w + ")=", s.member_holonyms()
+            print "part_holonym(" + w + ")=", s.part_holonyms()
+            print "substance_holonym(" + w + ")=", s.substance_holonyms()
+##########################
+print '**************'
+#3Побудувати умовний частотний розподіл для корпусу імен. Знайти які перші літери частіше використовуються в чоловічих та жіночих іменах.
+import nltk
+from nltk.corpus import names
+print'4.3'
+print '**************'
+genders = ["male.txt", "female.txt"]
+alphabets = ["A", "B", "C", "D", "E", "F", "G",
+    "H", "I", "J", "K", "L", "M", "N", "O", "P",
+    "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+cfd = nltk.ConditionalFreqDist(
+    (gender, firstletter)
+for gender in genders
+    for firstletter in alphabets
+    for letter_count in
+    [len(w) for w in names.words(gender)
+    if w[0:1] == firstletter])
+cfd.tabulate()
+print '**************'
+######################
+#14Використовуючи один з методів визначення подібності слів побудуйте відсортований по спаданню список значень подібності для наступних пар слів: car-automobile, gem-jewel, journey-voyage, boy-lad, coast-shore, asylum-madhouse, magician-wizard, midday-noon, furnace-stove, food-fruit, bird-cock.
+from nltk.corpus import wordnet as wn
+car=wn.synset('car.n.01')
+automobile=wn.synset('automobile.n.01')
+b=automobile.path_similarity(car)
+print b
+
+gem=wn.synset('gem.n.01')
+jewel=wn.synset('jewel.n.01')
+b2=jewel.path_similarity(gem)
+print b2
+
+journey=wn.synset('journey.n.01')
+voyage=wn.synset('voyage.n.01')
+b3=voyage.path_similarity(journey)
+print b3
+
+boy=wn.synset('boy.n.01')
+lad=wn.synset('lad.n.01')
+b4=lad.path_similarity(boy)
+print b4
+
+coast=wn.synset('coast.n.01')
+shore=wn.synset('shore.n.01')
+b5=shore.path_similarity(coast)
+print b5
+
+asylum=wn.synset('asylum.n.01')
+madhouse=wn.synset('madhouse.n.01')
+b6=madhouse.path_similarity(asylum)
+print b6
+
+magician=wn.synset('magician.n.01')
+wizard=wn.synset('wizard.n.01')
+b7= wizard.path_similarity(magician)
+print b7
+
+midday=wn.synset('midday.n.01')
+noon=wn.synset('noon.n.01')
+b8=noon.path_similarity(midday)
+print b8
+
+furnace=wn.synset('furnace.n.01')
+stove=wn.synset('stove.n.01')
+b9=stove.path_similarity(furnace)
+print b9
+
+food=wn.synset('food.n.01')
+fruit=wn.synset('fruit.n.01')
+b10=fruit.path_similarity(food)
+print b10
+
+bird=wn.synset('bird.n.01')
+cock=wn.synset('cock.n.01')
+b11=cock.path_similarity(bird)
+print b11
+s=[]
+s.append(b)
+s.append(b2)
+s.append(b3)
+s.append(b4)
+s.append(b5)
+s.append(b6)
+s.append(b7)
+s.append(b8)
+s.append(b9)
+s.append(b10)
+s.append(b11)
+print s
+s.sort()
+print 'sortovane po zrostanniu'
+print s
+s.reverse()
+print 'sortovane po spadanniu'
+print s
+########################
+print '**************'
+#9.Модифікувати програму генерації випадкового тексту для виконання наступного: тренування програми на текстах двох різних жанрів та генерації тексту об’єднаного жанру.
+import nltk
+from nltk.corpus import brown
+print'4.9'
+print '**************'
+def generate_model(cfdist,word):
+    num=15
+    for i in range(num):
+        print word,
+        word=cfdist[word].max() 
+
+
+text1=nltk.corpus.brown.words(categories='mystery')
+bigrams1=nltk.bigrams(text1)
+cfd=nltk.ConditionalFreqDist(bigrams1)
+print cfd['love']
+text2=nltk.corpus.brown.words(categories='romance')
+bigrams2=nltk.bigrams(text2)
+cfd=nltk.ConditionalFreqDist(bigrams2)
+print cfd['love']
+generate_model(cfd,'love')
+bigrams=nltk.bigrams(text1+text2)
+cfd=nltk.ConditionalFreqDist(bigrams)
+print cfd['love']
+generate_model(cfd,'love')
+#########################
+print '**************'
+##6. Визначити функцію supergloss(s) , яка буде приймати синсет s як аргумент і повертати стрічку в якій будуть поєднані всі описи всіх значень синсету s та описи всіх  гіпернімів та гіпонімів s.
+import nltk
+from nltk.corpus import wordnet as wn
+print'4.6'
+print '**************'
+def supergloss (meaning):
+	s=[]
+	s.append (wn.synset(meaning).definition)
+	s.append ([word.definition for word in wn.synset(meaning).hypernyms()])
+	s.append ([word.definition for word in wn.synset(meaning).hyponyms()])
+	return s
+
+print supergloss ('life.n.01')
+###########################
+
+
+
+
+
