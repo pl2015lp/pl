@@ -1,0 +1,11 @@
+1.Дослідити зв’язки голонім-меронім для іменників. Знайти іменники для демонстрації наступних зв’язків: member_meronyms(), 
+part_meronyms(), substance_meronyms(), member_holonyms(), part_holonyms(), та substance_holonyms().
+
+import nltk
+from nltk.corpus import wordnet as wn
+wn.synset('crown.n.01').member_meronyms()
+wn.synset('house.n.01').part_meronyms()
+wn.synset('heartwood.n.01').substance_meronyms()
+wn.synset('tree.n.01').member_holonyms()
+wn.synset('mint.n.01').part_holonyms()
+wn.synset('water.n.01').substance_holonyms()
