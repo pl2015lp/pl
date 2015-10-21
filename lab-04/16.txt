@@ -1,0 +1,17 @@
+16.Використовуючи один з методів визначення подібності слів побудуйте відсортований по спаданню список значень подібності для наступних пар слів: monk-oracle, cemetery-woodland, food-rooster, coast-hill, forest-graveyard, shore-woodland, monk-slave, coast-forest, lad-wizard, chord-smile, glass-magician, rooster-voyage, noon-string."""
+import nltk
+from nltk.corpus import wordnet as wn
+
+list_cort = [('monk','oracle'), ('cemetery','woodland'), ('food','rooster',),('coast','hill'), ('forest','graveyard'), ('shore','woodland'),
+             ('monk','slave'),('coast','forest'),('lad','wizard'), ('chord','smile'), ('glass','magician'),('rooster','voyage'), ('noon','string')]
+result_list=[]
+for k,l in list_cort:
+    first_word=wn.synsets(k)
+    second_word=wn.synsets(l)
+    for m in first_word:
+        result_list.append('spusok podibnosti:') 
+        result_list.append(m)
+        for n in second_word:
+            result_list.append('yes:')
+            result_list.append(n)
+            result_list.append(a.path_similarity(n))
