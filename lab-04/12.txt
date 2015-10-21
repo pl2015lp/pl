@@ -1,0 +1,14 @@
+12.Полісемія - це явище коли одне слово має декілька значень (іменник dog має 7 значень, кількість яких визначити можна як len(wn.synsets('dog', 'n'))). Знайдіть середнє значення полісемії для дієслів."""
+
+verb = []
+for k in wn.all_synsets('v'):
+	for l in i.lemma_names:
+		verb.append(l)
+
+len(set(verb))
+mean_amount = 0
+for k in set(verb):
+	mean_amount = mean_amount + len(wn.synsets(k,'v'))
+mean_amount
+poly_verb=float(mean_amount)/float(len(set(verb)))
+poly_verb
