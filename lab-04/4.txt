@@ -1,0 +1,13 @@
+Здійснити аналіз словника вимов. Знайти скільки різних слів він містить.
+#Який відсоток слів з цього словника можуть мати різну вимову?
+
+from nltk.corpus import cmudict
+entries=cmudict.entries()
+len(entries)
+vocab=[w for w, pron in entries]
+len(vocab)
+fdist=nltk.FreqDist(vocab)
+dd=[w for w in vocab if fdist[w]>1]
+percentage = (len(dd)* 100)/len(vocab)
+print(percentage)
+print
