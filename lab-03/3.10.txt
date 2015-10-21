@@ -1,0 +1,11 @@
+#Напишіть програму яка виводить на екран 50 найчастотніших біграмів тексту, за виключенням біграмів до складу яких входять незначущі слова.
+
+from nltk.corpus import gutenberg
+gutenberg.fileids()
+text1=gutenberg.words('austen-emma.txt')
+stopwords=nltk.corpus.stopwords.words('people')
+k=([w.lower() for w in text1])
+bigrams=nltk.bigrams(k)
+fdist= nltk.FreqDist([b for b in bigrams if b[0] not in stopwords and b[1] not in stopwords])
+print fdist.keys()[:50]
+print
