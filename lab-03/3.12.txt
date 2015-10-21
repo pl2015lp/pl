@@ -1,0 +1,14 @@
+#Напишіть функцію word_freq(), яка приймає слово і назву частини корпуса Brown як аргументи і визначає чатоту слова в заданій 
+частині корпуса
+
+>>>import nltk
+>>>from nltk.corpus import brown
+>>>def word_freq (word, genre):
+       fd = nltk.FreqDist(ntk.corpus.brown.words (categories=genres))
+       return word, fdist [word]
+>>>word_freq ('sport', 'hobbies')
+   ('sport', 40)
+>>>word_freq ('love', 'romance')
+  ('love', 32)
+>>>word_freq ('economy', 'news')
+  ('economy', 88)
