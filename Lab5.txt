@@ -1,0 +1,197 @@
+﻿"""1.Напишіть функцію, яка приймає адресу URL, як аргумент, і повертає те що міститься за цією адресою з видаленням HTML розмітки. Використовувати urllib.urlopen для доступу до контенту наступним чином raw_contents = urllib.urlopen('http://www.nltk.org/').read()."""
+from __future__ import division
+import nltk, re, pprint
+import urllib
+from urllib import urlopen
+raw_contents = urllib.urlopen('http://www.nltk.org/').read()
+type(raw_contents)
+url_address = "http://www.gutenberg.org/files/49903/49903-h/49903-h.htm"
+raw = urlopen(url_address).read()
+def clear(url):
+	raw_contents = urllib.urlopen(url).read()
+	raw = nltk.clean_html(raw_contents)
+	tokens = nltk.word_tokenize(raw)
+	return tokens
+result = clear(url_address)
+len(raw)
+len(result)
+
+"""2. Збережіть деякий текст у файлі corpus.txt. Визначити функцію load(f) для читання файлу, назва якого є її аргументом і повертає стрічку, яка містить текст з файлу."""
+def load(f):
+	text_open = open(f)
+	raw = text_open.read()
+	return raw
+
+read_file('D://kll/corpus.txt')
+
+"""3. Перепишіть наступний цикл як list comprehension:
+ 	>>> sent = ['The', 'dog', 'gave', 'John', 'the', 'newspaper']
+>>> result = []
+>>> for word in sent:
+...     word_len = (word, len(word))
+...     result.append(word_len)
+>>> result
+[('The', 3), ('dog', 3), ('gave', 4), ('John', 4), ('the', 3), ('newspaper', 9)]"""
+result=[(word, len(word)) for word in sent]
+result
+
+"""4. Перевірити різницю між стрічками і цілим виконавши наступні дії: "3" * 7 та 3 * 7. Спробуйте здійснити конвертування між стрічками і цілими використавши int("3") та str(3)."""
+"3" * 7
+3 * 7
+int("3")
+str(3)
+
+"""5. Що станеться, коли стрічки форматування %6s та %-6s використовується для відображення стрічки довшої ніж 6 символів?"""
+'%6s' % 'asd'
+
+'%6s' % 'asdasdasd'
+
+'%-6s'% 'asd'
+
+'%-6s'% 'asdasdasd'
+
+"""6. Прочитайте деякий текст з корпуса, здійсніть його токенізацію і збережіть у список всі wh-слова, які в ньому зустрічаються."""
+from nltk.corpus import state_union
+state_union.fileids()
+text = state_union.raw('1945-Truman.txt')
+tokens = nltk.word_tokenize(text)
+final_list = []
+for word in tokens:
+	if word.startswith('wh'):
+		final_list.append(word)
+
+final_list
+
+"""7. Створіть файл, який буде містити слова та їх частоту записані в окремих рядках через пробіл ( fuzzy 53). Прочитайте цей файл використовуючи open(filename).readlines().  Розділіть кожну стрічку на дві частини використовуючи split(), і перетворіть число в ціле значення використовуючи int(). Результат повинен бути у вигляді списку: [['fuzzy', 53], ...]."""
+my_file = open('D://kll/test7.txt')
+read_file = my_file.readlines()
+print read_file
+final_list = []
+for i in read_file:
+	final_list.append([i.split()[0],int(i.split()[1])])
+
+final_list
+
+"""12.	Міра оцінки читабельності використовується для оцінки складності тексту для читання. Нехай, μw - середня кількість літер у слові, та μs – середнє значення кількості слів у реченні в певному тексті. Automated Readability Index (ARI) тексту визначається згідно виразу: 4.71 μw + 0.5 μs - 21.43. Визначити значення ARI для різних частин корпуса Brown Corpus, включаючи частину f (popular lore) та j (learned). Використовуйте nltk.corpus.brown.words() для знаходження послідовності слів та nltk.corpus.brown.sents() для знаходження послідовності речень."""
+from nltk.corpus import brown
+brown.categories()
+words = nltk.corpus.brown.words(categories='lore')
+for w in words:
+	let_amount += len(w)
+let_amount
+
+word_amount = 0
+for w in words:
+        if w != ' ':
+            word_amount += 1
+word_amount
+
+mid_let_amount = int(let_amount/word_amount)
+mid_let_amount
+
+sent = nltk.corpus.brown.sents(categories='lore')
+sent_amount = 0
+for s in sent:
+	sent_amount += 1
+
+sent_amount
+
+word_in_sent_amount = 0
+for s in sent:
+	word_in_sent_amount+= len(s)
+
+word_in_sent_amount
+
+mid_word_in_sent_amount = int(word_in_sent_amount/sent_amount)
+mid_word_in_sent_amount
+
+ari = 4.71*4 + 0.5*22 - 21.43
+ari
+
+"""14. Доступіться до текстів ABC Rural News та ABC Science News з корпуса (nltk.corpus.abc). Знайдіть значення для оцінки читабельності текстів (аналогічно до задачі №12). Використовуйте Punkt для поділу тексту на окремі речення."""
+from nltk.corpus import abc
+abc.fileids()
+words = nltk.corpus.abc.words('rural.txt')
+for w in words:
+	let_amount += len(w)
+
+	
+let_amount
+
+word_amount = 0
+for w in words:
+	if w != ' ':
+            word_amount += 1
+
+            
+word_amount
+
+mid_let_amount = int(let_amount/word_amount)
+mid_let_amount
+
+sent = nltk.corpus.abc.sents('rural.txt')
+sent_amount = 0
+for s in sent:
+	sent_amount += 1
+
+	
+sent_amount
+
+word_in_sent_amount = 0
+for s in sent:
+	word_in_sent_amount+= len(s)
+
+	
+word_in_sent_amount
+
+mid_word_in_sent_amount = int(word_in_sent_amount/sent_amount)
+mid_word_in_sent_amount
+
+ari1 = 4.71*5 + 0.5*26 - 21.43
+ari1
+
+words = nltk.corpus.abc.words('science.txt')
+for w in words:
+	let_amount += len(w)
+
+	
+let_amount
+
+word_amount = 0
+for w in words:
+	if w != ' ':
+            word_amount += 1
+
+            
+word_amount
+
+mid_let_amount = int(let_amount/word_amount)
+mid_let_amount
+
+sent = nltk.corpus.abc.sents('science.txt')
+sent_amount = 0
+for s in sent:
+	sent_amount += 1
+
+	
+sent_amount
+
+len(sent)# mozna i tak porachuvaty
+
+word_in_sent_amount = 0
+for s in sent:
+	word_in_sent_amount+= len(s)
+
+	
+word_in_sent_amount
+
+mid_word_in_sent_amount = int(word_in_sent_amount/sent_amount)
+mid_word_in_sent_amount
+
+ari2 = 4.71*4 + 0.5*23 - 21.43
+ari2
+
+
+
+
+
