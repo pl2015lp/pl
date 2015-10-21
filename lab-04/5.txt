@@ -1,0 +1,8 @@
+5.Який відсоток синсетів іменників не мають гіпонімів? До всіх синсетів можна доступитися за допомогою wn.all_synsets('n').
+
+noun = list(wn.all_synsets('n'))
+len(noun)
+noun_without_hyponyms = [n for n in wn.all_synsets('n') if not n.hyponyms()]
+len(noun_without_hyponyms)
+result = float(len(noun_without_hyponims))/float(len(noun))*100
+result
