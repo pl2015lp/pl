@@ -57,7 +57,7 @@ print n
 print k
 print (n+0.0)/(k+0.0)
 
-16 zavdabbya
+16 zavdannya
 import nltk
 from nltk.corpus import wordnet as wn
 list_cort = [('monk','oracle'), ('cemetery','woodland'), ('food','rooster',),('coast','hill'), ('forest','graveyard'), ('shore','woodland'),
