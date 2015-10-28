@@ -1,0 +1,8 @@
+#Написати регулярний вираз, який встановлює відповідність
+наступному класу стрічок: всі артиклі (a, an, the).
+
+import nltk, re, pprint
+from nltk.corpus import gutenberg
+worlist = nltk.Text(gutenberg. words('austin-emma.txt'))
+articles = wordlist.findal(r"<a>|<an>|<the>")
+print articked
