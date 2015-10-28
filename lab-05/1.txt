@@ -7,8 +7,8 @@ from urllib import urlopen
 def Clean(url):
 raw = urlopen(url).read()
 raw_contents = nltk.clean_html(raw)
-tokens=nltk.word_tokenize(raw_contents)
+tokens = nltk.word_tokenize(raw_contents)
 return tokens
 url = "http://www.gutenberg.org/files/1342/1342.txt"
-c=Clean(url)
+c = Clean(url)
 print c
