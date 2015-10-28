@@ -1,0 +1,11 @@
+#Описати, які класи стрічок відповідають наступному регулярному
+виразу. p[aeiou]{,2}t Результати перевірити використовуючи nltk.re_show().
+Програма повертає слова, які містять послідовність літер ‘p’ та ‘t’, між
+якими може бути 0, 1 або 2 голосні.
+
+import nltk, re, pprint
+wordlist = [w for w in nltk.corpus.words.words('en') if w.islower()]
+k = [w for w in wordlist if re.search('p[aeiou] {,2}t', w)]
+print k
+l = [w for w in wordlist if nltk.re_show('p[aeiou]{,2}t', w)]
+print b
