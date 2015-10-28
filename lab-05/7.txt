@@ -1,0 +1,12 @@
+#7.	Створіть файл, який буде містити слова та їх частоту записані в окремих рядках через пробіл ( fuzzy 53). Прочитайте цей файл використовуючи open(filename).readlines().  Розділіть кожну стрічку на дві частини використовуючи split(), і перетворіть число в ціле значення використовуючи int(). 
+Результат повинен бути у вигляді списку: [['fuzzy', 53], ...].
+
+from_future_import division
+import nltk, re, pprint
+file1 = open('C:\Python27\corpus.txt').readlines()
+print file1
+text = file1
+list = []
+for element in text:
+    list.append ([element.split() [0], int(element.split() [1] 1)
+    print list
