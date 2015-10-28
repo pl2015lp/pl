@@ -1,0 +1,10 @@
+#Описати, які класи стрічок відповідають наступному регулярному
+виразу. \w+|[^\w\s]+.. Результати перевірити використовуючи nltk.re_show().
+Програма повертає всі слова, символи та цифри.
+
+import nltk, re, pprint
+wordlist = [w for w in nltk.corpus.words.words('en') if w.islower()]
+k = [w for w in wordlist if re.search('\w+1[^\w\s+', w)]
+print k
+l = [w for w in wordlist if nltk.re_show('\w+1[^\w\s+', w)]
+print b
