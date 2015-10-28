@@ -1,0 +1,10 @@
+#Описати, які класи стрічок відповідають наступному регулярному
+виразу. [A-Z][a-z]*. Результати перевірити використовуючи nltk.re_show().
+Програма знаходить всі слова, які починаються з великої літери.
+
+import nltk, re, pprint
+wordlist = [w for w in nltk.corpus.words.words('en')]
+k = [w for w in wordlist[:15] if re.search(' [a-zA-Z]*', w)]
+print k
+l = [w for w in wordlist[:15] if nltk.re_show(' [a-zA-Z]*', w)]
+print l
