@@ -1,0 +1,24 @@
+#Прочитати Додаток А. Дослідити явища описані у Додатку А
+використовуючи корпуси текстів та метод findall() для пошуку в
+токенізованому тексті.
+
+import nltk, re
+from nltk.corpus import brown
+text = text.split()
+i = 0
+slova = []
+for word in words:
+    i = word.find('/')
+    word = word
+    slova. append(word)
+text = nltk.Text(slova)
+print 'as best _ can: ',
+text.findall(r',<as best> (<.*>)<can>')
+print 'as best as _ can: 
+text.findall(r',<as best as> (<.*>)<can>')
+print 'the best _ can:
+text.findall(r',<as best as> (<.*>)<can>')
+print 'the best that _ can:
+text.findall(r',<as best that> (<.*>)<can>')
+print 'best _ can: ',
+text.fidall (r', <best> (<.*>)<can>')
