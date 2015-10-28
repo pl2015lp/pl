@@ -1,0 +1,9 @@
+#2.	Збережіть деякий текст у файлі corpus.txt. 
+Визначити функцію load(f) для читання файлу, назва якого є її аргументом і повертає стрічку, 
+яка містить текст з файлу.
+
+def load(f):
+text = open(f)
+raw=text.read()
+return raw
+print load ('C:\Python27\corpus.txt')
