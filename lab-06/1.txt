@@ -1,0 +1,12 @@
+# Описати, які класи стрічок відповідають наступному регулярному
+виразу. [a-zA-Z]+. Результати перевірити використовуючи nltk.re_show().
+Програма знаходить всі слова, які містять малі або великі літери, але не
+містять цифр чи розділових знаків.
+
+import nltk, re, pprint
+wordlist = [w for w in nltk.corpus.words.words('en') if w.islower()]
+k = [w for w in wordlist[:10] if re.search(' [a-zA-Z]+', w)]
+print k
+l = [w for w in wordlist[:10] if nltk.re_show(' [a-zA-Z]+', w)]
+print l
+ 
