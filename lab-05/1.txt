@@ -1,0 +1,14 @@
+#1.	Напишіть функцію, яка приймає адресу URL, як аргумент, і повертає те що міститься за цією адресою з видаленням HTML розмітки. Використовувати 
+urllib.urlopen для доступу до контенту наступним чином raw_contents = urllib.urlopen('http://www.nltk.org/').read().
+
+import nltk
+import urllib
+from urllib import urlopen
+def Clean(url):
+raw = urlopen(url).read()
+raw_contents = nltk.clean_html(raw)
+tokens=nltk.word_tokenize(raw_contents)
+return tokens
+url = "http://www.gutenberg.org/files/1342/1342.txt"
+c=Clean(url)
+print c
