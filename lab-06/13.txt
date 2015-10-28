@@ -1,0 +1,19 @@
+#Напишіть програму, яка конвертує текст в Pig Latin. String->ingstray,
+idle->idleay. (Конвертація відбувається переміщенням приголосної або групи
+приголосних на кінець слова та додаванням до слова ‘ay’).
+
+import nltk, re
+from nltk.corpus import gutenberg
+def latin(w):
+    piece = re.findall(regexp,w)
+    pos = len(piece[0])
+    new = w[pos:] + piece[0] + 'ay'
+    return new
+raw = gutenberg.raw('austen-emma.txt')
+text = re.split(r'[\W\d]+', raw)
+print text
+regexp = r'^[^AEIOUaeiou]*'
+pig_latin = []
+for word in text:
+    pig_latin.append(latin(word))
+    print pig_latin
