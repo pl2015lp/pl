@@ -1,4 +1,4 @@
-задача 1
+Г§Г Г¤Г Г·Г  1
 from nltk.corpus import wordnet as wn
 part_mer=wn.synset('tree.n.01').part_meronyms()
 print(part_mer)
@@ -25,7 +25,7 @@ percentage = (len(dd)* 100)/len(vocab)
 print(percentage)
 
 
-задача 5
+Г§Г Г¤Г Г·Г  5
 from nltk.corpus import wordnet as wn
 s=0
 h=0
@@ -39,13 +39,13 @@ print h
 result=(h*100)/s
 print result
 
-задача7 
+Г§Г Г¤Г Г·Г 7 
 import random
 import nltk
 randWords=random.sample(nltk.corpus.gutenberg.words(random.sample(nltk.corpus.gutenberg.fileids(),1)[0]),  5) 
 print "os' 5 randomnych sliv:", randWords
 
-задача 12
+Г§Г Г¤Г Г·Г  12
 import nltk
 from nltk.corpus import wordnet as wn
 n=0
@@ -56,3 +56,27 @@ for synset in wn.all_synsets('v'):
 print n
 print k
 print (n+0.0)/(k+0.0)
+
+16 zavdabbya
+import nltk
+from nltk.corpus import wordnet as wn
+list_cort = [('monk','oracle'), ('cemetery','woodland'), ('food','rooster',),('coast','hill'), ('forest','graveyard'), ('shore','woodland'),
+             ('monk','slave'),('coast','forest'),('lad','wizard'), ('chord','smile'), ('glass','magician'),('rooster','voyage'), ('noon','string')]
+result_list=[]
+for i,j in list_cort:
+    first_word=wn.synsets(i)
+    second_word=wn.synsets(j)
+    for a in first_word:
+        result_list.append('spusok podibnosti:') 
+        result_list.append(a)
+        for b in second_word:
+            result_list.append('tak:')
+            result_list.append(b)
+            result_list.append(a.path_similarity(b))
+print '\n posortovanyj spysok 1\n'
+print first_word
+print '\n posortovanyj spysok 2\n'
+print second_word
+print '\n podibnist \n'
+print result_list
+
