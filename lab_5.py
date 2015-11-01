@@ -18,14 +18,12 @@ print 'Text of loaded and parssed url: \n', t[:30]
 print '\n ========= Task 2 ========='
 #2.Збережіть деякий текст у файлі corpus.txt. Визначити функцію load(f) для читання файлу, назва якого є її аргументом
 # і повертає стрічку, яка містить текст з файлу.
-path  = 'C:\py'
-f = open(path+'\corpus.txt','w')
-for w in t:
-    f.write(w+' ')
-f.close()
-newf = open(path+'\corpus.txt', 'r')
-data = newf.read()
-print 'String from file corpus.txt: \n', data[:187], '...'
+def load(f):
+    f = open('E:\\corpus.txt', 'a')
+    data = a.read()
+    for line in data:
+        k=line.strip()
+    return k
 
 print '\n ========= Task 3 ========='
 #Перепишіть наступний цикл як list comprehension:
@@ -80,8 +78,8 @@ print bb[:15]
 
 
 print '\n ========= Task 13 ========='
-13.	Використовуючи Porter стемер нормалізуйте будь-який токенізований текст . До того самого тексту застосуйте Lancaster стемер.
-Результати порівняйте та поясніть.
+#13.	Використовуючи Porter стемер нормалізуйте будь-який токенізований текст . До того самого тексту застосуйте Lancaster стемер.
+#Результати порівняйте та поясніть.
 
 import nltk
 nltk.corpus.gutenberg.fileids()
@@ -123,16 +121,6 @@ sent_tokenizer=nltk.data.load('tokenizers/punkt/english.pickle')
 text = nltk.corpus.abc.raw('science.txt')
 sents = sent_tokenizer.tokenize(text)
 pprint.pprint(sents[11:13])
-'''
-#Task 2
-
-def load(f):
-    a=open('E:\corpus.txt', 'r')
-    data = a.read()
-    for line in data:
-        k=line.strip()
-    return k
-
 
 
 
