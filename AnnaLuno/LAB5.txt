@@ -1,0 +1,114 @@
+﻿# -*- coding: cp1251 -*-
+from __future__ import division
+import nltk, re, pprint
+#1. Напишіть функцію, яка приймає адресу URL, як аргумент, і повертає те що міститься за цією адресою з видаленням HTML розмітки.
+#Використовувати urllib.urlopen для доступу до контенту наступним чином raw_contents = urllib.urlopen('http://www.nltk.org/').read().
+import urllib
+def function(url):
+	from urllib import urlopen
+	raw_contents=urllib.urlopen("http://www.nltk.org/").read()
+	raw = nltk.clean_html(raw_contents)
+	tokens=nltk.word_tokenize(raw)
+	return tokens
+
+print "Vmist www.nltk.org"
+print function("http://www.nltk.org/")
+print ######################################
+#2. Збережіть деякий текст у файлі corpus.txt.
+#Визначити функцію load(f) для читання файлу, назва якого є її аргументом і повертає стрічку, яка містить текст з файлу.
+def load(f):
+	func=open(f)
+	raw=func.read()
+	return raw
+
+print load ('C:\Python27\corpus.txt')
+print ######################################
+#3. Перепишіть наступний цикл як list comprehension:
+#sent = ['The', 'dog', 'gave', 'John', 'the', 'newspaper']
+#result = []
+#for word in sent:
+#word_len = (word, len(word))
+#result.append(word_len)
+#result
+#[('The', 3), ('dog', 3), ('gave', 4), ('John', 4), ('the', 3), ('newspaper', 9)]
+sent = ['The', 'dog', 'gave', 'John', 'the','newspaper']
+result = [(w, len(w)) for w in sent]
+print result
+print ######################################
+#4. Перевірити різницю між стрічками і цілим виконавши наступні дії: "3" * 7 та 3 * 7.
+#Спробуйте здійснити конвертування між стрічками і цілими використавши int("3") та str(3).
+a="3"*7
+print 'a=', a
+b=3*7
+print 'b=', b
+c=int("3")*7
+print 'c=', c
+d=str(3)*7
+print 'd=', d
+print 'a==b', a==b
+print 'a==c', a==c
+print 'a==d', a==d
+print 'b==c', b==c
+print 'b==d', b==d
+print 'c==d', c==d
+print "a=d i b=c"
+print ######################################
+#5. Що станеться, коли стрічки форматування %6s та %-6s використовується для відображення стрічки довшої ніж 6 символів?
+print '%6s' % 'baby'
+print '%-6s' % 'baby'
+print '%6s' % 'accessorize'
+print '%-6s' % 'accessorize'
+print 'Yakshcho strichka maie bilshe nizh 6 symvoliv, to vyrivniuvannia ne vidbuvaietsia'
+print ######################################
+#7. Створіть файл, який буде містити слова та їх частоту записані в окремих рядках через пробіл ( fuzzy 53).
+#Прочитайте цей файл використовуючи open(filename).readlines().
+#Розділіть кожну стрічку на дві частини використовуючи split(), і перетворіть число в ціле значення використовуючи int().
+#Результат повинен бути у вигляді списку: [['fuzzy', 53], ...].
+f = open('C:\Python27\wfreq.txt').readlines()
+print f
+a=[]
+for i in f:
+        b=i.split()
+        a.append([b[0],int(b[1])])
+print a
+print ######################################
+#10. Модуль random включає функцію choice(), яка випадковим чином вибирає елементи послідовності.
+#Наприклад, choice("aehh ") буде вибирати один з чотирьох символів.
+#Напишіть програму генерації стрічки з 500 випадково вибраних символів "aehh ".
+#Для поєднання елементів в стрічку використовуйте ''.join() .
+#Нормалізуйте отриманий результат використовуючи split() та join().
+import random
+a=''
+for i in range(500):
+	a=a+''.join(random.choice('aehh '))
+
+	
+print a[:100]
+b=a.split()
+print b[:50]
+print ######################################
+#11. Здійсніть аналіз числового виразу в наступному реченні з корпуса MedLine:
+#The corresponding free cortisol fractions in these sera were 4.53 +/- 0.15% and 8.16 +/- 0.23%, respectively.
+#Чи можна сказати, що 4.53 +/- 0.15% це три окремих слова?  Чи це одне складне слово?
+#Чи це дев’ять слів "four point five three, plus or minus fifteen percent"?
+#Чи це взагалі не можна вважати словом? При вирішенні яких задач потрібно вибирати ту чи іншу відповідь? 
+raw='The corresponding free cortisol fractions in these sera were 4.53 +/- 0.15% and 8.16 +/- 0.23%, respectively.'
+tokens=nltk.word_tokenize(raw)
+print tokens
+print "4.53 +/- 0.15% programa rozpiznaie yak chotyry okremi elementy spysku '4.53', '+/-', '0.15', '%'"
+print ######################################
+#15. Перепишіть наступний цикл, як list comprehension:
+#words = ['attribution', 'confabulation', 'elocution', 'sequoia', 'tenacious', 'unidirectional']
+#vsequences = set()
+#for word in words:
+#       vowels = []
+#       for char in word:
+#               if char in 'aeiou':
+#                       vowels.append(char)
+#       vsequences.add(''.join(vowels))
+#sorted(vsequences)
+#['aiuio', 'eaiou', 'eouio', 'euoia', 'oauaio', 'uiieioa']
+words = ['attribution', 'confabulation', 'elocution', 'sequoia', 'tenacious', 'unidirectional']
+vsequences = set()
+[vsequences.add(''.join(vowels)) for vowels in [[char for char in word if char in 'aeiou'] for word in words]]
+print sorted(vsequences)
