@@ -1,0 +1,84 @@
+#2 Створіть змінну sentence і присвойте їй значення ‘she sells sea shells by the sea shore’
+та напишіть фрагмент програми для виведення на екран всіх сліва, довжина яких
+більша ніж 4 символи.
+
+sentence= 'she sells sea shells by the sea shore'
+sentence=sentence.split (" ")
+sentence.sort ()
+print (sentence)
+length=[]
+for word in sentence:
+    print len(word),word
+
+for word in sentence:
+    if len (word)>4:
+        print (word)
+#4 Напишіть програму, яка видаляє всі голосні зі стрічки, яка відповідає
+імені, по батькові та прізвищу студента. Програма повинна здійснювати наступну
+послідовність дій: створення початкової стрічки; створення стрічки, у якій буде
+зберігатися результат; for цикл для обробки стрічки символ за символом і запису
+неголосних символів в результуючу стрічку.
+
+s = "Kryyyyyyviuk Myroslava Petrivna";
+l = list(s);
+result=[]
+holosni=['a', 'o', 'u', 'y', 'i', 'e']
+for index, word in enumerate(l):
+    flag = 0
+    for letter in holosni:
+        if word == letter:
+            flag = 1
+    if flag == 1:
+        del l[index]
+
+print(result)
+print(l)
+
+#7 Виконати настіпні приклади і пояснити чому отримані різні результати (різні з
+начення змінних)
+	sorted(set([w.lower() for w in text1]))
+	sorted([w.lower() for w in set(text1)])
+
+#sorted(set([w.lower() for w in text1]))-вибирає слова з тексту один написані з малої літери, сортує по алфавіту слова не повторяються
+#sorted([w.lower() for w in set(text1)])- вибирає слова з тексту один написані з малої літери, сортує по алфавіту слова повторяються
+
+#9 3.9.	Знайдіть в тексті № 5 всі слова довжина яких дорівнює 4 і побудуйте для них частотний розподіл.
+
+import nltk
+from nltk.book import*
+fdist=FreqDist(text5)
+sorted([w for w in set(text5)
+	if len(w)==4])
+V = set(text5)
+words=[w for w in V if len(w)==4]
+sorted(words)
+fdist=FreqDist(text5)
+print fdist
+
+
+#11 Напишіть вираз для знаходження в тексті №6 всіх слів які відповідають
+наступним вимогам: закінчуються на ize; містять літеру z; містять послідовність
+літер pt; написані з великої літери .
+Результат представити, як список слів.
+
+fdist6=FreqDist(text6)
+spysok=['']
+spysok = sorted ([w for w in set(text6) if 'z' in w or 'pt' in w or w.endswith('ow')or w.istitle()])
+for word in spysok:
+    print word
+
+#18 Побудуйте колокації для текстів №1 та №7. Результати порівняйте.
+import nltk
+from nltk.book import*
+text1.collocations()
+print '\n >> For text1:'
+text7.collocations()
+print '\n >> For text7:'
+a = []
+a.append(text1.collocations)
+b = []
+b.append(text7.collocations)
+if (b==a or a==b):
+    print 'Collocations are identical'
+else:
+    print 'Collocations are not identical!'
