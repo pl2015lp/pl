@@ -1,0 +1,85 @@
+завдання 1: Використовуючи модуль corpus прочитайте текст austin-persuasion.txt.
+Визначить скільки tokens (слів) і type (унікальних слів)містить ця книжка.
+
+import nltk
+nltk.corpus.gutenberg.fileids ()
+['austen-emma.txt', 'austen-persuasion.txt', 'austen-sense.txt', 'bible-kjv.txt', 'blake-poems.txt', 'bryant-stories.txt', 'burgess-busterbrown.txt', 'carroll-alice.txt', 'chesterton-ball.txt', 'chesterton-brown.txt', 'chesterton-thursday.txt', 'edgeworth-parents.txt', 'melville-moby_dick.txt', 'milton-paradise.txt', 'shakespeare-caesar.txt', 'shakespeare-hamlet.txt', 'shakespeare-macbeth.txt', 'whitman-leaves.txt']
+austin=nltk.corpus.gutenberg.words ('austen-persuasion.txt')
+tokens=len(austin)
+print(tokens)
+98171
+types=len(set(austin))
+print (types)
+6132
+
+
+завдання 5: 5.	Виберіть пару текстів і дослідіть відмінності між ними (кількість оригінальних слів, багатство мови, жанр).
+
+import nltk
+from nltk.corpus import brown
+w=brown.words ('ch15')
+w1=brown.words ('cg22')
+print (w)
+print (w1)
+a=brown.words('ch15')
+b=brown.words ('cg22')
+aa=len(a)
+print (aa)
+bb=len (b)
+print(bb)
+a1=set(a)
+b1=set(b)
+print (a1)
+print (b1)
+aa1=len(a1)
+print(aa1)
+bb1=len(b1)
+print(bb1)
+c1=brown.categories ('ch15')
+print (c1)
+c2=brown.categories ('cg22')
+print (c2)
+
+
+завдання 7: Напишіть програму для знаходження всіх слів в корпусі Brown, які зустрічаються не менш ніж три рази.
+
+import nltk
+from nltk.corpus import brown
+words=brown.words ()
+fd=nltk.FreqDist (words)
+spysok = [w for w in set (words) if fd[w]>=3]
+print (spysok)
+
+завдання 8: Напишіть програму генерації таблиці відношень  кількість слів/кількість оригінальних слів для всіх жанрів корпуса Brown.
+Проаналізуйте отримані результати та поясніть їх.
+
+import nltk
+from nltk.corpus import brown
+for a in nltk.corpus.brown.categories():
+	words_in_a = nltk.corpus.brown.words(categories=a)
+	print a,  float(len(words_in_a)) / len(set(words_in_a))
+
+авдання 10: Напишіть програму яка виводить на екран 50 найчастотніших біграмів тексту, за виключенням біграмів до складу яких входять незначущі слова.
+
+import nltk
+from nltk.corpus import gutenberg
+gutenberg.fileids()
+text1=gutenberg.words('burgess-busterbrown.txt')
+stopwords=nltk.corpus.stopwords.words('english')
+a=([w.lower() for w in text1])
+bigrams=nltk.bigrams(a)
+fdist= nltk.FreqDist([bi for bi in bigrams if bi[0] not in stopwords and bi[1] not in stopwords])
+print fdist.keys()[:50]
+
+завдання 12: Напишіть функцію word_freq(), яка приймає слово і назву частини корпуса Brown як аргументи і визначає частоту слова в заданій частині корпуса.
+
+import nltk
+from nltk.corpus import brown
+def word_freq(word, section):
+	freq = nltk.probability.FreqDist(nltk.corpus.brown.words(categories = section))
+	word_frequency = freq[word]
+	return word_frequency
+a=word_freq('play','hobbies')
+print(a)
+b=word_freq('news', 'government')
+print(b)
