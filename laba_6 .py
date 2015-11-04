@@ -1,31 +1,13 @@
 from __future__ import division
 import nltk, re, pprint
 
-wordlist=[w for w in nltk.corpus.words.words('en') if w.islower()]
-a=[w for w in wordlist if re.search('^[ghijklmno][def]'+'$', w)]
-print a
-
-b=[w for w in wordlist if re.search('^[ghi][mno][jkl][def]$', w)]
-print b
-chat_words=sorted(set(w for w in nltk.corpus.nps_chat.words()))
-c=[w for w in chat_words if re.search('^m+i+n+e+$',w)]
-print c
-d=[w for w in chat_words if re.search('^m*i*n*e*$',w)]
-
 print "\n<<<task 1>>>"
-#1. Описати, які класи стрічок відповідають наступному регулярному виразу. [a-zA-Z]+.
-#Результати перевірити використовуючи nltk.re_show()
-
-# Регулярному виразу відповідають всі стрічки, що складаються з >=1 великих або малих літер англійського алфавіту.
 a=nltk.re_show('[a-zA-Z]+','That famous Monty Python Company, costed $1123.13 in 12.04.1968.')
 print a
 #{That} {famous} {Monty} {Python} {Company}, {costed} $1123.13 {in} 12.04.1968.
 ##########################################################################
 
 print "\n<<<task 2>>>"
-#2.Описати, які класи стрічок відповідають наступному регулярному виразу. [A-Z][a-z]*. Результати перевірити використовуючи nltk.re_show()
-
-#Регулярному виразу відповідають всі стрічки, що складаються з однієї першої великої англійської літери та >=0 маленьких англійських літер.
 b=nltk.re_show('[A-Z][a-z]*','That famous Monty Python Company, costed $1123.13 in 12.04.1968.')
 print b
 # {That} famous {Monty} {Python} {Company}, costed $1123.13 in 12.04.1968.
@@ -33,19 +15,12 @@ print b
 ##############################################################################
 
 print "\n<<<task 3>>>"
-#3.Описати, які класи стрічок відповідають наступному регулярному виразу. \d+(\.\d+)?. Результати перевірити використовуючи nltk.re_show()
-
-#Регулярному виразу відповідають всі стрічки, що складаються з >=1 цифри або з >=1 цифри та >=1 цифри після крапки (\.).
 c=nltk.re_show('\d+(\.\d+)?','That famous Monty Python Company, costed $1123.13 in 12.04.1968.')
 print c
 #That famous Monty Python Company, costed ${1123.13} in {12.04}.{1968}.
 
 ########################################################################################
 print "\n<<<task 4>>>"
-#4.Описати, які класи стрічок відповідають наступному регулярному виразу. ([^aeiou][aeiou][^aeiou])*. Результати перевірити використовуючи nltk.re_show()
-
-#Регулярному виразу відповідають всі стрічки, що складаються з  >=0 послідовностей букв «не голосна»-«голосна»-«не голосна».
-#В ролі «не голосної» можуть виступати як приголосні, так і пробіли та знаки пунктуації, якщо вони підходять під послідовність.
 d=nltk.re_show('([^aeiou][aeiou][^aeiou])*','Does your boss seem to favor your administrative professional coworker and think the sun rises and sets with her (or him)?')
 print d
 # {}D{}o{}e{}s{} {}y{}o{}u{}r{} {bos}s{} {}s{}e{}e{}m{} {to fav}o{}r{} {}y{}o{}u{}r{ admin}i{}s{}t{rat}i{ve }p{rof}e{}s{}s{}i{}o{nal} {cow}o{}r{ker an}d{} {}t{hin}k{} {}t{he sun}
@@ -54,10 +29,6 @@ print d
 ######################################################################################
 
 print "\n<<<task 5>>>"
-#5.Описати, які класи стрічок відповідають наступному регулярному виразу. \w+|[^\w\s]+.. Результати перевірити використовуючи nltk.re_show()
-
-#Регулярному виразу відповідають стрічки, що складаються з >=1 літери або цифри,
-#стрічки що починаються з >=1 літери або цифри або символу пробіл та ще одного будь-якого символу.
 e=nltk.re_show('\w+|[^\w\s]+.','In astronomy and cosmology, dark matter is a type of matter hypothesized to account for a large part of the total mass in the universe.')
 print e 
 #{In} {astronomy} {and} {cosmology}{, }{dark} {matter} {is} {a} {type} {of} {matter} {hypothesized} {to}
@@ -66,9 +37,6 @@ print e
 ##############################################################################################################
 
 print "\n<<<task 6>>>"
-#6.Описати, які класи стрічок відповідають наступному регулярному виразу. p[aeiou]{,2}t  Результати перевірити використовуючи nltk.re_show()
-
-#Регулярному виразу відповідають всі стрічки, що складаються з 3 або 4 букв, першою з яких є p, а останньою – t. Між ними може стояти =<2 букв зі списку [aeiou] 
 f=nltk.re_show('p[aeiou]{,2}t','In astronomy and cosmology, dark matter is a type of matter hypothesized to account for a large part of the total mass in the universe.')
 print f
 #In astronomy and cosmology, dark matter is a type of matter hy{pot}hesized to account for a large part of the total mass in the universe.
@@ -76,8 +44,6 @@ print f
 #################################################################################################################
 
 print "\n<<<task 7>>>"
-#7. Написати регулярний вираз, який встановлює відповідність наступному класу стрічок: всі артиклі (a, an, the).
-
 chat_words=sorted(set(w for w in nltk.corpus.nps_chat.words()))
 articles=[w for w in chat_words if re.search('^(an?|the)$',w)]# '?' вказує на опціональність, тобто а і an
 print articles
@@ -86,10 +52,6 @@ print articles
 ##########################################################################
 
 print "\n<<<task 9>>>"
-#9.Зберегти довільний текст у файлі corpus.txt. Визначити функцію  для читання з цього файлу (назва файлу аргумент функції) і повертає стрічку,
-#яка містить текст з файлу. Використовуючи nltk.regexp_tokenize() розробити токенізатор для токенізації
-#різних типів пунктуації в цьому тексті. Використовувати багаторядковий запис регулярного виразу з коментарями та «verbose flag»
-
 def Mytext (t):
     w=''
     for line in t:
@@ -121,8 +83,6 @@ print nltk.regexp_tokenize(text,pattern)
 ######################################################################################################################################
 
 print "\n<<<task 11 >>>"
-#11.Написати функцію unknown(), яка приймає інтернет адресу як аргумент і повертає не відомі слова, які зустрічаються в тексті.
-#При розробці функції використовувати re.findall() для виявлення всіх підстрічок та корпус Words Corpus (nltk.corpus.words) для виявлення не відомих слів.
 import urllib, nltk
 from urllib import urlopen
 def Unknown (url):
@@ -136,9 +96,6 @@ print Unknown ("http://news.bbc.co.uk/2/hi/health/2284783.stm")
 ######################################################################################################################################
 
 print "\n<<<task 15 >>>"
-#15.Прочитати Додаток А. Дослідити явища описані у Додатку А використовуючи корпуси текстів та метод findall()для пошуку
-#в токенізованому тексті.
-
 from nltk.corpus import gutenberg, nps_chat
 text=nltk.Text(gutenberg.words('milton-paradise.txt'))
 print text.findall(r'<as> <best> <\w*> <can>')
