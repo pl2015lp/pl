@@ -46,9 +46,6 @@ print(l)
 
 import nltk
 from nltk.book import*
-fdist=FreqDist(text5)
-sorted([w for w in set(text5)
-	if len(w)==4])
 V = set(text5)
 words=[w for w in V if len(w)==4]
 sorted(words)
