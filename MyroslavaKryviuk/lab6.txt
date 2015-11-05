@@ -1,0 +1,128 @@
+﻿# -*- coding: cp1251 -*-
+from __future__ import division
+import nltk, re, pprint
+#1. Описати, які класи стрічок відповідають наступному регулярному виразу.[a-zA-Z]+.
+#Результати перевірити використовуючи nltk.re_show()
+a='''The documents themselves come from the private records of a reform commission set up by the Pope four months into his reign in 2013.
+The Vatican accuses two former commission members, 54-year-old Monsignor Lucio Angel Vallejo Balda and Italian laywoman Francesca Chaouqui, 33, of leaking the documents.'''
+nltk.re_show('[a-zA-Z]+', a)
+print 'Vysnovok: Takomu vyrazu ([a-zA-Z]+) vidpovidaiut strichky z velykyh abo malyh liter dovilnoi dovzhyny, ne vrahovuiuchy tsyfry ta rozdilovi znaky'
+
+
+#2. Описати, які класи стрічок відповідають наступному регулярному виразу. [A-Z][a-z]*.
+#Результати перевірити використовуючи nltk.re_show()
+a='''The documents themselves come from the private records of a reform commission set up by the Pope four months into his reign in 2013.
+The Vatican accuses two former commission members, 54-year-old Monsignor Lucio Angel Vallejo Balda and Italian laywoman Francesca Chaouqui, 33, of leaking the documents.'''
+nltk.re_show('[A-Z][a-z]*', a)
+print 'Vysnovok: Takomu vyrazu ([A-Z][a-z]*) vidpovidaiut strichky, yaki pochynaiutsia z velykoii bukvy'
+
+
+
+#3. Описати, які класи стрічок відповідають наступному регулярному виразу. \d+(\.\d+)?.
+#Результати перевірити використовуючи nltk.re_show()
+a='''The documents themselves come from the private records of a reform commission set up by the Pope four months into his reign in 2013.
+The Vatican accuses two former commission members, 54-year-old Monsignor Lucio Angel Vallejo Balda and Italian laywoman Francesca Chaouqui, 33, of leaking the documents.'''
+nltk.re_show('\d+(\.\d+)?', a)
+print "Vysnovok: Takomu vyrazu (\d+(\.\d+)?) vidpovidaiut strichky, yaki mistiat cili dodatni chysla ta chusla pislia krapky, drobovi cherez 'slash' rozpiznaie yak okremi chysla."
+
+
+
+#4. Описати, які класи стрічок відповідають наступному регулярному виразу. ([^aeiou][aeiou][^aeiou])*.
+#Результати перевірити використовуючи nltk.re_show()
+a='The documents themselves come from the private records of a reform commission set up by the Pope four months into his reign in 2013.
+The Vatican accuses two former commission members, 54-year-old Monsignor Lucio Angel Vallejo Balda and Italian laywoman Francesca Chaouqui, 33, of leaking the documents.'
+nltk.re_show('([^aeiou][aeiou][^aeiou])*', a)
+print "Vysnovok: Takomu vyrazu ([^aeiou][aeiou][^aeiou])*) vidpovidaiut strichky, yaki mistiat taku poslidovnist z 3 elementiv 'not aeiou-aeiou-not aeiou', de 'not vowel' mozhut buty yak prygolosni, tak i bud-yaki inshi symvoly"
+
+
+
+#5. Описати, які класи стрічок відповідають наступному регулярному виразу. \w+|[^\w\s]+..
+#Результати перевірити використовуючи nltk.re_show()
+a='Emergency officials said 21 people had been rescued and one other person was still missing. The boat, Leviathan II, made a mayday call before sinking about 8 miles (12km) west of Tofino. Sea conditions at the time were reported to be calm.'
+nltk.re_show('\w+|[^\w\s]+.', a)
+print "Vysnovok: Takomu vyrazu (\w+|[^\w\s]+.) vidpovidaiut strichky, yaki skladaiutsia z dovilnoii kilkosti bukv abo cyfr (\w+), abo z dovilnoii kilkosti ne bukv, cyfr, probiliv ([^\w\s]+) i bud-yakoho symvolu (.)"
+
+
+
+#6. Описати, які класи стрічок відповідають наступному регулярному виразу. p[aeiou]{,2}t
+#Результати перевірити використовуючи nltk.re_show()
+a='Canadian Prime Minister-designate Justin Trudeau thanked all those who participated in the rescue effort and offered his condolences to the victims and their families.'
+nltk.re_show('p[aeiou]{,2}t', a)
+print "Vysnovok: Takomu vyrazu (p[aeiou]{,2}t) vidpovidaie strichka, yaka skladaiutsia z 3 bukv, pershoiu yakoiu ie (p), 3 abo 4 bukvoiu ie (t),zalezhno vid kilkosti holosnyh mizh nymy, iakyh mozhe buty 0,1 abo 2"
+
+
+
+#7. Написати регулярний вираз, який встановлює відповідність наступному класу стрічок: всі артиклі (a, an, the).
+a="'I should probably make an appearance at a few of them.' A lot of the design houses gave parties in Paris, but Timmie O was not going to this year, which was something of a relief, and it was also why Jade and David were able to get away to London. Otherwise, they would have been stuck, working in Paris over the weekend..."
+nltk.re_show('(An?)|(an?)|(The)|(the)', a)
+
+
+
+#10. Зберегти довільний текст у файлі corpus.txt. Визначити функцію  для читання з цього файлу (назва файлу аргумент функції) і повертає стрічку, яка містить текст з файлу.
+#Використовуючи nltk.regexp_tokenize() розробити токенізатор для токенізації різних типів виразів: грошові одиниці, дати, імена людей та організацій.
+#Використовувати багаторядковий запис регулярного виразу з коментарями та «verbose flag».
+a=open('D:\\corpus2.txt')
+text=f.read()
+pattern=r'''(?x)
+([A-Z]\.)+                                       #абревіатури
+|\d+([./-]\d+){2}                                #дати
+|\$?\d+(\. \d+)?                                 #грошові одиниці
+|[A-Z] [a-z]+\s([A-Z]\.)+                        #імена
+|[A-Z]\w+\s([A-Z]\w+)+'''                        #назви організацій
+print nltk.regexp_tokenize(text, pattern)
+
+
+
+#13. Напишіть програму, яка конвертує текст в Pig Latin. String->ingstray, idle->idleay.
+#(Конвертація відбувається переміщенням приголосної або групи приголосних на початок слова та додаванням до слова ay ).
+import nltk, re
+from nltk.corpus import gutenberg
+def latin (w):
+    piece = re.findall(regexp, w)
+    pos = len(piece[0])
+    new = w[pos:] + piece[0] + 'ay'
+    return new
+raw = gutenberg.raw('austen-sense.txt')
+text = re.split(r'(\W\d]+', raw)
+print text[:20]
+regexp = r'^[^AEIOUaeiou]*'
+pig latin = []
+for word in text:
+    pig_latin.append(latin(word))
+print pig_latin[:20]
+
+
+
+#15. Прочитати Додаток А. Дослідити явища описані у Додатку А використовуючи корпуси текстів та метод findall()для пошуку в токенізованому тексті.
+from nltk.corpus import gutenberg, brown, movie_reviews, inaugural, shakespeare, sinica_treebank, state_union, treebank, webtext
+def best(f):
+	a=[]
+	b=[]
+	for i in f.fileids():
+		c=f.raw(i)
+		a+=re.findall(r'as best as .{,4} can', c)
+		b+=re.findall(r'as best .{,4} can', c)
+	return a,b
+print 'In gutenberg:', best(gutenberg)
+print 'In brown:', best(brown)
+print 'In movie_reviews:', best(movie_reviews)
+print 'In inaugural:', best(inaugural)
+print 'In shakespeare:', best(shakespeare)
+print 'In sinica_treebank:', best(sinica_treebank)
+print 'In state_union:', best(state_union)
+print 'In treebank:', best(treebank)
+print 'In webtext:', best(webtext)
+c=[]
+for i in best(movie_reviews):
+	c+=i
+for i in best(state_union):
+	c+=i
+for i in best(webtext):
+	c+=i
+str=''
+for w in c:
+	str+=' '+w
+print 'Result:', str
+d=re.findall('as best\s+\w+\s+can|as best as\s+\w+\s+\can', str)
+fdist=nltk.FreqDist(d)
+print 'Frequency result:', fdist.items()
