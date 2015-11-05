@@ -1,0 +1,78 @@
+﻿#1. Описати, які класи стрічок відповідають наступному регулярному виразу. [a-zA-Z]+. Результати перевірити використовуючи nltk.re_show()
+from __future__ import division
+import nltk, re, pprint
+f = open ('E://Russian Crash in the Sinai.txt')
+raw = f.read ()
+nltk.re_show ('[a-zA-Z]+', raw)
+#відповідають ті,які складаються з літер,не відповідають цифри і розділові знаки.
+#2.Описати, які класи стрічок відповідають наступному регулярному виразу. [A-Z][a-z]*. Результати перевірити використовуючи nltk.re_show()
+from __future__ import division
+import nltk, re, pprint
+f = open ('E://Russian Crash in the Sinai.txt')
+raw = f.read ()
+nltk.re_show ('[A-Z][a-z]*', raw)
+#відповідають лише слова, які починаються з великої літери.
+#3.Описати, які класи стрічок відповідають наступному регулярному виразу. \d+(\.\d+)?. Результати перевірити використовуючи nltk.re_show()
+from __future__ import division
+import nltk, re, pprint
+f = open ('E://Russian Crash in the Sinai.txt')
+raw = f.read ()
+nltk.re_show ('\d+(\.\d+)?', raw)
+# відповідає цифрам
+#4.Описати, які класи стрічок відповідають наступному регулярному виразу. ([^aeiou][aeiou][^aeiou])*. Результати перевірити використовуючи nltk.re_show()
+from __future__ import division
+import nltk, re, pprint
+f = open ('E://Russian Crash in the Sinai.txt')
+raw = f.read ()
+nltk.re_show ('([^aeiou][aeiou][^aeiou])*', raw)
+# відповідає послідовності символів, що складаються з трьох символів, перший і третій з яких не є голосною, а другий – будь-яка голосна з [aeiou] і зустрічаються 0 і більше разів.
+#5.Описати, які класи стрічок відповідають наступному регулярному виразу. \w+|[^\w\s]+.. Результати перевірити використовуючи nltk.re_show()
+from __future__ import division
+import nltk, re, pprint
+f = open ('E://Russian Crash in the Sinai.txt')
+raw = f.read ()
+nltk.re_show ('\w+|[^\w\s]+.', raw)
+# відповідає словам, цифрам та символам.
+#6.Описати, які класи стрічок відповідають наступному регулярному виразу. p[aeiou]{,2}t  Результати перевірити використовуючи nltk.re_show()
+from __future__ import division
+import nltk, re, pprint
+f = open ('E://Russian Crash in the Sinai.txt')
+raw = f.read ()
+nltk.re_show ('p[aeiou]{,2}t', raw)
+# відповідає слова які складаються з літери “p”, від 0 до 2 голосних і літери “t”.
+#8.8.Написати регулярний вираз, який встановлює відповідність наступному класу стрічок:арифметичний вираз з цілими значеннями і, який містить операції множення та додавання (2*3+8).
+from __future__ import division
+import nltk, re, pprint
+f = open ('E://math.txt')
+raw = f.read ()
+print re.findall(r"\d+[+|*]\d+[+|*]\d+", raw)
+#12.Написати регулярний вираз для токенізації такого тексту, як don't до  do та n't? Пояснити  чому цей регулярний вираз не працює: «n't|\w+».
+from __future__ import division
+import nltk, re, pprint
+f = open ('E://al.txt')
+raw = f.read ()
+nltk.re_show("n't|\w+", raw)
+#не працює бо під час токенізації апостроф сприймається як розділювач і виводиться резутьтат такого чину {don}`{t}
+#14.Прочитати файл допомоги  про функцію re.sub() використовуючи help(re.sub) Використовуючи re.sub напишіть програму видалення HTML розмітки замінивши її на пробіли. 
+from __future__ import division
+import nltk, re, pprint
+import urllib
+from urllib import urlopen
+help(re.sub)
+url = "http://www.cosmopolitan.co.uk/beauty-hair/makeup/news/a39360/this-halloween-lip-art-is-pretty-special/"
+html = urlopen(url).read()
+a = html[400:600]
+print a
+print re.sub(r"<.*>",' ',a)
+#15.Прочитати Додаток А. Дослідити явища описані у Додатку А використовуючи корпуси текстів та метод findall()для пошуку в токенізованому тексті. 
+import nltk
+from nltk.corpus import gutenberg, nps_chat, brown
+moby = nltk.Text(gutenberg.words('melville-moby_dick.txt'))
+print moby.findall(r"<the> <best> (<.*>) <can>") 
+chat=nltk.Text (nps_chat.words())
+print chat.findall(r"<the> <best> (<.*>) <can>")
+brown1=nltk.corpus.brown(categories='adventure')
+print brown1.findall (r"<the> <best>(<.*>) <can>") 
+
+
+
