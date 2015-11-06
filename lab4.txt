@@ -1,0 +1,63 @@
+Використовуючи компаративний словник знайти для німецької, італійської та англійської мов близькі слова. Чи можуть отримані результати використовуватися для здійснення перекладу?
+import nltk
+from nltk.corpus import swadesh
+similar = swadesh.entries (['de', 'it', 'en'])
+print (similar[:20])
+Який відсоток синсетів іменників не мають гіпонімів? До всіх синсетів можна доступитися за допомогою wn.all_synsets('n').  
+from_future_import division
+from nltk.corpus import wordnet as wn
+s=0
+h=0
+for w in wn.all_synsets('n'):
+	s=s+1
+	if len(w.hyponyms())==0:
+		h=h+1
+print similarprint hyponymsresult=(h*100)/s
+print result
+Визначити функцію supergloss(s) , яка буде приймати синсет s як аргумент і повертати стрічку в якій будуть поєднані всі описи всіх значень  синсету s та описи всіх  гіпернімів та гіпонімів s.
+from nltk.corpus import wordnet as wn
+def supergloss (s)
+	a='DEFINITION: ' +str(wn.synset(s).definition) + '\n' +\
+	+ 'HYPERONYMS: ' +str(wn.synset(s).hypernyms()) + '\n' + \
+	'HYPONIMS: ' +str(wn.synset(s).hyponims))
+	return all_synsetsprint supergloss ('coffee.n.01')
+	Модифікувати програму генерації випадкового тексту для виконання наступного: тренувати програму на текстах різних жанрів та різних корпусів.Генерацію тексту провести з 5-ма різними початковими словами. Результати проаналізувати та порівняти.
+from nltk.corpus import*
+from  nltk import bigrams
+from nltk.probebility import ConditionalFreqDist
+def generate_model (txt, w, num=20):
+	bigram=bigrams(txt)
+	cfd=ConditionalFreqDist(bigram)
+	for i in range(num):
+		print w,
+		w=cfd[w].max()
+text=genesis.words()
+word=raw_input ('input the initial word')
+print enerate_model(text, word)
+Використовуючи один із методів визначення подібності слів побудуйте побудований по спаданню список значень подібності для наступних пар слів: bird-crane, tool-implement, brother-monk, crane-implement, journey-car, monk-oracle, cemetery-woodland
+import nltk
+from nltk.corpus import wordnet as wnbird=wn.synset('bird.n.01')
+crane=wn.synset('crane.n.01')
+tool=wn.synset('tool.n.01')
+implement=wn.synset('implement.n.01')
+brother=wn.synset('brother.n.01')
+monk=wn.synset('monk.n.01')
+lad=wn.synset('lad.n.01')
+brother=wn.synset('brother.n.01')
+crane=wn.synset('crane.n.01')
+implement=wn.synset('implement.n.01')
+journey=wn.synset('jorney.n.01')
+car=wn.synset('car.n.01')
+monk=wn.synset('monk.n.01')
+oracle=wn.synset('oracle.n.01')
+cemetery=wn.synset('cemetery.n.01')
+woodland=wn.synset('woodland.n.01')
+simil=bird.path_similarity(crane), tool.path_similarity(implement), brother.path_similarity(monk), crane.path_similarity(implement), journey.path_similarity(car), monk.path_similarity(oracle), cemetery.path_similarity(woodland)
+print (simil)
+def sort(text):
+	sorted_simil=sorted(text)
+	w=0
+	for k in range(8):
+		w=w-1
+		print(sorted_simil[w]),
+sort(simil)

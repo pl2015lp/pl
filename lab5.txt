@@ -1,0 +1,50 @@
+. Напишіть функцію, яка приймає адресу URL, як аргумент, і повертає те що міститься за цією адресою з видаленням HTML розмітки. Використовувати urllib.urlopen для доступу до контенту наступним чином raw_contents = urllib.urlopen('http://www.nltk.org/').read().
+import urllib
+from urllib import urlopen
+def Clean (url):
+    raw = urlopen(url).read()
+    raw_contents = nltk.clean_html(raw)
+    tokens = nltk.word_tokenize(raw_contents)
+    return tokens
+url = "http://www.gutenberg.org/files/1342/1342.txt"
+s = Clean(url) 
+print s[1000:1060]
+Збережіть деякий текст у файлі corpus.txt. Визначити функцію load(f) для читання файлу, назва якого є її аргументом і повертає стрічку, яка містить текст з файлу.
+def load (f)
+	text=open(f)
+	raw=text.read()
+	return raw
+print load ('C:\Documents\Github\crpus.txt')
+Перепишіть наступний цикл як list comprehension: 	
+>>> sent = ['The', 'dog', 'gave', 'John', 'the', 'newspaper']
+>>> result = []
+>>> for word in sent:
+...     word_len = (word, len(word))
+...     result.append(word_len)
+>>> result
+[('The', 3), ('dog', 3), ('gave', 4), ('John', 4), ('the', 3), ('newspaper', 9)]
+
+sent=['The', 'dog', 'gave', 'John', 'the', 'newspaper']
+result=[(word, len(word)) for word in sent]
+print result
+Перевірити різницю між стрічками і цілим виконавши наступні дії: "3" * 7 та 3 * 7. Спробуйте здійснити конвертування між стрічками і цілими використавши int("3") та str(3)
+print '3'*7
+print 3*7
+print int('3')*7
+print str(3)*7
+Прочитайте деякий текст з корпуса, здійсніть його токенізацію і збережіть у список всі wh-слова, які в ньому зустрічаються.
+import nltk
+from nltk.corpus import gutenberg
+print gutenberg.fileids()
+a=gutenber.raw('milton-paradise.txt')
+tokens=nltk.word_tokenize(a)
+wh_words=[w.lower() for w in tokens if w.startswith('wh)]
+print wh_words[:30]
+Модуль random включає функцію choice(), яка випадковим чином вибирає елементи послідовності. Наприклад, choice("aehh ") буде вибирати один з чотирьох символів. Напишіть програму генерації стрічки з 500 випадково вибраних символів "aehh ". Для поєднання елементів в стрічку використовуйте ''.join() . Нормалізуйте отриманий результат використовуючи split() та join().
+import random
+line = []
+sym= 'yuup'
+for element in range (500):
+	line.append(random.choice(sym))
+line2=' '.join (line)
+print line2print line2.split()

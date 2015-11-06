@@ -1,0 +1,32 @@
+﻿Роздрукувати вміст змінної msg двома шляхами, перший набравши назву змінної в інтерпретаторі, другий - використавши команду print.
+msg='lab1'
+>>> msg
+'lab1'
+>>> print msg
+lab1
+Визначити стрічку s=’colorless’. Використовуючи зрізи та операцію поєднання змінити стрічку до вигляду ‘colourless’
+s[0:4] + 'u' + s[4:9]
+'colourless'
+Представити прізвище, ім’я та по батькові як список стрічок. Розділити речення на окремі елементи, межа розділу голосна буква
+phrase1= ['vasyliv', 'marta', 'karlivna']
+>>> str=' '
+>>> for word in phrase1:
+	str +=' ' + word
+	str
+'  vasyliv marta karlivna'
+phrase3=str
+phrase3.split('a')
+['  v', 'syliv m', 'rt', ' k', 'rlivn', '']
+>>> phrase3.split('i')
+['  vasyl', 'v marta karl', 'vna']
+Створити список phrase1, який складається із значень ім’я , по батькові, прізвище студента. Що відбудеться при спробі ввести в інтерпретатор наступний оператор phrase1[2][2]. Поясніть результат
+'r' - доступ до 2-го символа 2-го елемента списку.
+Визначіть змінну silly, яка буде містити стрічку ’newly formed bland ideas are inexpressible in an infuriating way’ і напишіть програму перетворення стрічки на список стрічок (кожне слово окрема стрічка). Результати збережіть в змінній bland.
+silly='newly formed bland ideas are inexpressible in an infuriating way'
+bland=silly.split(' ')
+bland
+['newly', 'formed', 'bland', 'ideas', 'are', 'inexpressible', 'in', 'an', 'infuriating', 'way']
+Напишіть програму, яка надрукує слова із стрічки silly за абеткою
+bland.sort()
+bland
+['an', 'are', 'bland', 'formed', 'ideas', 'in', 'inexpressible', 'infuriating', 'newly', 'way']

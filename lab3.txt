@@ -1,0 +1,72 @@
+2.	Напишіть, використовуючи модуль читання корпусу текстів Brown nltk.corpus.brown.words(), програму, яка дозволяє доступитися до фрагментів текстів у двох різних жанрах корпусу Brown, і назва яких відповідає першій літері прізвища і імені студента.
+from nltk.corpus import brown
+>>> brown.categories()
+[u'adventure', u'belles_lettres', u'editorial', u'fiction', u'government', u'hobbies', u'humor', u'learned', u'lore', u'mystery', u'news', u'religion', u'reviews', u'romance', u'science_fiction']
+>>> brown.words(categories='mystery')
+[u'There', u'were', u'thirty-eight', u'patients', ...]
+brown.words(categories='adventure')
+[u'Dan', u'Morgan', u'told', u'himself', u'he', ...]
+6.	Проаналізуйте таблицю частот модальних дієслів для різних жанрів. Спробуйте її пояснити. Знайдіть інші класи слів вживання яких також відрізняються в різних жанрах.
+cfd=nltk.ConditionalFreqDist(
+	(genre,word)
+	for genre in brown.categories()
+	for word in brown.words(categories=genre))
+	>>> genres=['news', 'hobbies', 'himour', 'fiction', 'science']
+>>> pronouns=['I', 'he', 'she', 'it', 'we', 'you', 'they']
+>>> cfd.tabulate(conditionals=genres, samples=pronouns)
+                   I   he  she   it   we  you they 
+      adventure  652  761  240  492   87  362  206 
+ belles_lettres  845 1174  178 1059  398  188  488 
+      editorial  201  268   41  386  167   83  148 
+        fiction  511  813  280  458   85  236  230 
+     government   97  120    0  218  112   74   92 
+        hobbies  154  155   21  476  100  383  177 
+          humor  239  146   58  162   32  131   70 
+        learned  182  328   54  856  397   39  338 
+           lore  265  541  232  566  132  209  303 
+        mystery  583  670  219  515   62  340  106 
+           news  179  451   42  363   77   55  205 
+       religion  155  137   10  264  176  100  115 
+        reviews   49  161   42  206   40   29   74 
+        romance  951  702  496  573   78  456  168 
+science_fiction   98  139   36  129   30   81   53 
+7.	Напишіть програму для знаходження всіх слів в корпусі Brown, які зустрічаються не менш ніж три рази
+from nltk.corpus import brown
+>>> slowa_all=brown.words(categories='hobbies')
+>>> fdist=nltk.FreqDist([w.lower() for w in slowa_all])
+>>> for m in slowa_all:
+	if fdist[m] > 3:
+		print m + ':', fdist[m]
+8.	Напишіть програму генерації таблиці відношень  кількість слів/кількість оригінальних слів для всіх жанрів корпуса Brown. Проаналізуйте отримані результати та поясніть їх.
+from nltk.corpus import brown
+>>> for style in brown.categories ():
+	num_words=len (brown.words(categories=style))
+	num_original=len(set(brown.words(categories=style)))
+	print num_words, num_original, int(num_words/num_original), style
+10.	Напишіть програму яка виводить на екран 50 найчастотніших біграмів тексту, за виключенням біграмів до складу яких входять незначущі слова.
+from nltk import bigrams
+from nltk.probability import FreqDist
+m=bigrams(text2)
+tags=".,!?:;''-[]"
+new_bigrams=[]
+stopwords=nltk.corpus.stopwords.words('english')
+new_bigrams=[bi for bi in m if bi[0].lower() not in stopwords\
+	     and bi[1].lower() not in stopwords and bi[0].lower() not in tags\
+             and bi[1].lower() not in tags]
+fdist-FreqDist(new_bigrams)
+fdist.plot(50, cumulative=True)
+13.	Визначити функцію hedge(text), яка обробляє текст і створює нову версію цього тексту додаючи слово ‘like’ перед кожним третім словом.
+def hedge(text):
+	i=1
+	b=[]
+	text=text.split()
+	for x in text:
+		if 1 %3==0:
+			b.append('like' +x)
+		else:
+			b.append(x)
+		i+=1
+	new_text = ''
+	for word in b:
+		new_text+=word+ ' '
+	print new_text

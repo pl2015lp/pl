@@ -1,0 +1,38 @@
+3.2.	 —твор≥ть зм≥нну sentence ≥ присвойте њй значенн€ Сshe sells sea shells by the sea shoreТ  та напиш≥ть фрагмент програми дл€ виведенн€ на екран вс≥х сл≥ва, довжина €ких б≥льша н≥ж 4 символи
+import nltk
+from nltk.book import *
+>>> sentence='she sells sea shells by the sea shore'
+>>> words=sentence.split()
+>>> words
+['she', 'sells', 'sea', 'shells', 'by', 'the', 'sea', 'shore']
+>>> four=([word for word in set(words) if len(word)>4])
+>>> four
+['shells', 'sells', 'shore']
+3.6.	ѕерегл€ньте результати виконанн€ умовних вираз≥в: ТrowТ in ТbrownТ та ТrowТ in [Т brownТ, ТcowТ]. Ќапиш≥ть програму дл€ перев≥рки на€вност≥ в стр≥чц≥ sent=Т Тcolorless green ideas sleep furiouslyТ окремих сл≥в та п≥дстр≥чок
+sent='colorless green ideas sleep furiously'
+>>> words=sent.split()
+>>> words
+['colorless', 'green', 'ideas', 'sleep', 'furiously']
+ for word in words:
+	if word.endswith('en'):
+		print word
+
+
+	3.12.	¬икористайте вираз sum([len(w) for w in text1]) дл€ знаходженн€ середньоњ довжини сл≥в в текст≥
+	sum([len(w) for w in text1])
+999044
+	3.13.	ѕерев≥рте виконанн€ виразу set(sent3) < set(text1). «м≥н≥ть аргументи функц≥њ. –езультати по€сн≥ть
+set(sent3) < set(text1)
+True
+	3.15.	ѕобудуйте колокац≥њ дл€ текст≥в є1 та є4. –езультати пор≥вн€йте
+	text1.collocations()
+Sperm Whale; Moby Dick; White Whale; old man; Captain Ahab; sperm
+whale; Right Whale; Captain Peleg; New Bedford; Cape Horn; cried Ahab;
+years ago; lower jaw; never mind; Father Mapple; cried Stubb; chief
+mate; white whale; ivory leg; one hand
+>>> text4.collocations()
+United States; fellow citizens; four years; years ago; Federal
+Government; General Government; American people; Vice President; Old
+World; Almighty God; Fellow citizens; Chief Magistrate; Chief Justice;
+God bless; every citizen; Indian tribes; public debt; one another;
+foreign nations; political parties
