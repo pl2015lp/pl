@@ -1,0 +1,137 @@
+﻿# -*- coding: cp1251 -*-
+#Variant 8
+#1. Знайти в Python's help додаткову інформацію про послідовності. В інтерпретаторі, набрати по черзі help(str), help(list), та help(tuple).
+#На екрані буде відображено повний список функцій властивих кожному з типів. Деякі функції мають спеціальні імена з подвійними підкреслюваннями.
+#Кожній такій функції відповідає і інший запис показаний  в документації. Наприклад x.__getitem__(y) відповідає x[y].
+x='Have a nice day'
+y='All the best'
+s=''
+print x.__add__(y)
+print x.__eq__(y)
+print x.replace('Have', 'Let it be')
+a=['What a']
+b=['beautiful day']
+print a.__add__(b)
+print a.__eq__(b)
+print b.__reversed__()
+c=('Keep', 'calm')
+d= (8, 'study', 'hard')
+print c.__add__(d)
+print c.__eq__(d)
+print d.__sizeof__()
+print ######################################
+#2. Знайти три операції, які можна здійснювати і зі списками та із кортежами. Знайти три операції, які не можна здійснювати над кортежами.
+#Знайдіть коли використання списку замість кортежу приводить до Python помилки.
+print 'Operations with lists and tuples'
+print a.__sizeof__()
+print c.__sizeof__()
+print b.__getattribute__('day')
+print d.__getattribute__('hard')
+print a.__contains__(b)
+print c.__contains__(d)
+print 'Operations not applicable to tuples'
+print d.replace('study', 'work')
+print c.remove('calm')
+print d.insert(2,'and')
+print 'Error when using lists instead of tuples'
+print c+=d
+print ######################################
+#3. Яким чином можна створити кортеж з одного елемента.
+#Продемонструвати два різні способи.
+s=('University',)
+print s
+k=tuple.__new__(tuple, ('University',))
+print k
+print ######################################
+#4. Створити список words = ['is', 'NLP', 'fun', '?'].
+#Використовуючи операції присвоювання подібні до words[1] = words[2] та тимчасову змінну  tmp перетворити цей список в список ['NLP', 'is', 'fun', '!'].
+#Здійснити аналогічні перетворення використовуючи присвоювання в кортежах.
+print 'Lists'
+words=['is', 'NLP', 'fun', '?']
+tmp=words[0]
+words[0]=words[1]
+words[1]=tmp
+words[3]='!'
+print words
+print 'Tuples'
+words=('is', 'NLP', 'fun', '?')
+words1=()
+words1+=(words[1], words[0], words[2], '!')
+print words1
+print ######################################
+#5. Прочитати про вбудовану функцію здійснення порівнянь cmp, набравши help(cmp).
+#Продемонструвати чим поведінка цієї функції відрізняється від поведінки операторів порівняння. 
+s1=['Applied']
+s2=['Linguistics']
+print s1<s2
+print s1>s2
+print s1==s2
+print cmp(s1,s2)
+print cmp(s2,s1)
+print 'cmp result is ineteger, that is why -1 and 1'
+print ######################################
+#6. Написати програму для коректного виділення в тексті n-грамів з врахуванням граничних випадків: n = 1, та n = len(sent)?
+import nltk
+sent='In Greenland the shortest day of the year can have little more than three hours of sunlight - but although the winter is long, cold and dark, it can also be a thing of beauty, writes Antonia Quirke.'
+def ng(s,n):
+	a=nltk.word_tokenize(s)
+	b=nltk.ngrams(a,n)
+	return b
+print ng(sent,1)
+print ng(sent,2)
+print ng(sent, len(nltk.word_tokenize(sent)))
+print ######################################
+#7. Використати оператори нерівності для порівняння стрічок, наприклад.
+#'Monty' < 'Python'. Що станеться, якщо виконати  'Z' < 'a'?
+#Порівняти стрічки,як мають однаковий префікс, наприклад 'Monty' < 'Montague'.
+#Спробувати порівняти структуровані об’єкти ,наприклад. ('Monty', 1) < ('Monty', 2).
+#Чи отримали очікувані результати?
+print 'Monty'<'Python'
+print 'Z'<'a'
+print 'Monty' < 'Montague'
+print ('Monty', 1) < ('Monty', 2)
+print 'Monty'>'Python'
+print 'Z'>'a'
+print 'Monty' > 'Montague'
+print ('Monty', 1) > ('Monty', 2)
+print 'String are compared according to the position of a letter in the alphabet. The first comes capital letters.'
+print ######################################
+#8. Написати програму видалення пробілів на початку і в кінці стрічки та для видалення зайвих пробілів між словами.
+#Використовувати split() та join(). Оформити у вигляді функції.
+#Функція повинна містити повну стрічку документування.
+def func(a):
+	'The function deletes spaces at the beginning and end of the string and odd spaces between words'
+	f=' '.join(a.split())
+	return f
+b='In   Greenland the shortest day of the year can have little more than three hours of sunlight - '
+print func(b)
+print ######################################
+#9. Написати програму видалення пробілів на початку і в кінці стрічки та для видалення зайвих пробілів між словами.
+#Використовувати re.sub(). Оформити у вигляді функції.
+#Функція повинна містити повну стрічку документування
+import re
+def func(a):
+	'The function deletes spaces at the beginning and end of the string and odd spaces between words'
+	f=re.sub('\s+', ' ',a)
+	ff=re.sub('^\s|\s$','',f)
+	return f
+
+b='In   Greenland the shortest day of the year can have little more than three hours of sunlight - '
+print func(b)
+print ######################################
+#10. Написати програму сортування слів за їх довжиною.
+#Визначити допоміжну функцію cmp_len, яка буде використовувати функцію  cmp для порівняння довжин слів.
+#Функція повинна містити повну стрічку документування.
+def cmp_len (a,b):
+	'Compare the lengths of the words'
+	if cmp(len(a), len(b))==(-1):
+		a,b=b,a
+	return [a,b]
+def sort(f):
+	'Sort the words by their lengths'
+	for j in range(len(f)-1):
+		for i in range(len(f)-1):
+			f[i], f[i+1]=cmp_len(f[i], f[i+1])
+	return f
+sent=['In',   'Greenland', 'the', 'shortest', 'day', 'of', 'the', 'year', 'can', 'have', 'little', 'more', 'than', 'three', 'hours', 'of', 'sunlight', '- ']
+print sort(sent)

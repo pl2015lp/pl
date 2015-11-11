@@ -1,0 +1,92 @@
+﻿# -*- coding: cp1251 -*-
+#Variant8
+#2. Створити список слів і зберегти їх в змінній sent1.
+#Здійснити операцію присвоювання sent2 = sent1[:].
+#Змінити один з елементів в sent1 і перевірити чи змінився sent2.
+#Результат письмово пояснити.
+sent1=['One', 'hundred', 'years', 'of', 'solitude', '.']
+sent2=sent1[:]
+print sent2
+sent1[1]='thousand'
+print sent1
+print sent2
+print 'sent2 did not change its meaning, because changes were provided after the equation'
+print ########################################
+#6. Написати програму для створення двовимірного масиву word_vowels елементами якого є набори.
+#Програма повинна обробити список слів і додати результати обробки до word_vowels[l][v] де l – довжина слова,  v – кількість голосних у слові.
+import numpy
+from numpy import array
+def sets(text):
+	l=[len(word) for word in text]
+	v=[len([letter for letter in word if letter.lower() in 'aeiouy']) for word in text]
+	word_vowels=array(([l],[v]))
+	print word_vowels
+sent=['Computer', 'linguistics']
+print sets(sent)
+print ########################################
+#10. Гематрія – метод виявлення прихованого змісту слів на основі порівняння чисел, які відповідають словам.
+#Слова з однаковими числами мають однаковий зміст.
+#Число слова визначається сумуванням чисел, як відповідають його літерам.
+#Здійснити аналіз корпусу (наприклад nltk.corpus.state_union).
+#Для кожного з текстів визначити скільки слів мають номер 555 та 777.
+#(Використовувати letter_vals з попередньої задачі)
+import nltk, re, pprint, string
+from string import ascii_lowercase
+letter_vals={'a':1, 'b':2, 'c':3, 'd':4, 'e':5, 'f':80, 'g':3, 'h':8, 'i':10, 'j':10, 'k':20, 'l':30, 'm':40, 'n':50, 'o':70, 'p':80, 'q':100, 'r':200, 's':300, 't':400, 'u':6, 'v':6, 'w':800, 'x':60, 'y':10, 'z':7}
+def gematria555and777(text):
+	tokens=nltk.word_tokenize(text)
+	count=0
+	s=[]
+	words=[]
+	for token in tokens:
+		sum=0
+		word_list=list(token)
+		if token not in s:
+			s.append(token)
+			for letter in word_list:
+				if letter in string.ascii_lowercase:
+					sum+=letter_vals[letter]
+		if sum==555 or sum==777:
+			count+=1
+			words.append(token)
+	return count
+from nltk.corpus import state_union
+for fileid in state_union.fileids():
+	w=gematria555and777(string.lower(state_union.raw(fileid)))
+	print w, fileid
+print ########################################
+#13. Написати list comprehension для сортування списку синсетів WordNet за близькістю до заданого синсету.
+#Наприклад, дані синсети  minke_whale.n.01, orca.n.01, novel.n.01, та tortoise.n.01, потрібно їх відсортувати згідно їх path_distance() від right_whale.n.01.
+from nltk.corpus import wordnet as wn
+right_whale=wn.synset('right_whale.n.01')
+synsets=['minke_whale.n.01', 'orca.n.01', 'novel.n.01', 'tortoise.n.01']
+for i in synsets:
+	list_sim=[]
+	w1=right_whale
+	w2=wn.synset(i)
+	similarity=w1.path_similarity(w2)
+	list_sim.append((i,similarity))
+	sorted(list_sim)
+print ########################################
+#16. Імпортувати функцію itemgetter() модуля operator зі стандартної бібліотеки Python ( from operator import itemgetter).
+#Створити список words , який містить декілька слів.
+#Спробувати виконати: sorted(words, key=itemgetter(1)), та sorted(words, key=itemgetter(-1)).
+#Пояснити письмово роботу функції itemgetter().
+from operator import itemgetter
+words=['autumn','spring','summer','winter','four','seasons']
+print sorted(words,key=itemgetter(1))
+print sorted(words,key=itemgetter(-1))
+print 'When index=1, it is sorted according to the first letters of the words, when index=(-1), according to the last ones'
+print ########################################
+#17. В NLTK реалізовано алгоритм Левінштейна для порівняння стрічок.
+#Спробуйте скористатись цим модулем nltk.edit_dist().
+#Яким чином в цьому модулі використовується динамічне програмування?
+#Який підхід використовується знизу-вверх чи зверху-вниз? Пояснити письмово. 
+word1='beauty'
+word2='beatiful'
+print nltk.edit_distance(word1,word2)
+print nltk.edit_distance('have','has')
+print nltk.edit_distance('world','word')
+print 'This algorithm calculates the Levenshtein edit-distance between two strings. The edit distance is the number of characters that need to be substituted, inserted, or deleted, to transform s1 into s2'
+print 'The direction is from the bottom up, at first we define the length of s1 and s2 and then the distance between them'
+
