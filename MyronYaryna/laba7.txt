@@ -1,0 +1,131 @@
+﻿#1.Знайти в Python's help додаткову інформацію про послідовності. В інтерпретаторі, набрати по черзі help(str), help(list), та help(tuple). На екрані буде відображено повний список функцій властивих кожному з типів. Деякі функції мають спеціальні імена з подвійними підкреслюваннями. Кожній такій функції відповідає і інший запис показаний  в документації. Наприклад x.__getitem__(y) відповідає x[y].
+#операції які можна здійснити і зі списками, і з кортежами:
+str='life, world,love'
+print str
+sps=['life', 'world','love']
+print sps
+kortez=('London','NewYork','Prague')
+print kortez
+print str+('night')
+print len(sps)
+print kortez*2
+#2.Знайти три операції, які можна здійснювати і зі списками та із кортежами. Знайти три операції, які не можна здійснювати над кортежами. Знайдіть коли використання списку замість кортежу приводить до Python помилки.
+#3 операції які можна здійснити і зі списками, і з кортежами:
+str='life, world,love'
+print str
+sps=['life', 'world','love']
+print sps
+kortez=('London','NewYork','Prague')
+print kortez
+print str+('night')
+print len(sps)
+print len(str)
+print len(kortez)
+print kortez*2
+print str*2
+print sps*2 
+print kortez[1]
+print str[1]
+print sps[1]
+# 3 операції які не можна здійснювати над кортежами
+print kortez+('night')
+print kortez.append('lifestyle')
+print kortez.upper()
+#використання списку замість кортежу приводить до Python помилки.
+ti=['one','two']
+kr=('noun','verb','numeral')
+print kr+ti
+#3.Яким чином можна створити кортеж з одного елемента. 
+my=('fjfv', 'fvfv','ffdv')
+your=tuple.__new__(tuple, ('fjfv', 'fvfv','ffdv',))
+print your
+print type(your)
+#4.Створити список words = ['is', 'NLP', 'fun', '?']. Використовуючи операції присвоювання подібні до words[1] = words[2] та тимчасову змінну  tmp перетворити цей список в список ['NLP', 'is', 'fun', '!']. Здійснити аналогічні перетворення використовуючи присвоювання в кортежах.
+words=['is', 'NLP', 'fun', '?']
+tmp=words[0]
+words[0]=words[1]
+words[1]=tmp
+words[3]='!'
+print words
+kortezwords=()
+kortezwords+=(words[1],words[0],words[2],'!')
+print kortezwords
+#5.Прочитати про вбудовану функцію здійснення порівнянь cmp, набравши help(cmp). Продемонструвати чим поведінка цієї функції відрізняється від поведінки операторів порівняння.
+line1=['hanuna','matata']
+line2=['lala','lalal','lalalac']
+print line1>line2
+print line1==line2
+print cmp(line1,line2)
+print cmp(line2,line1)
+#у функція cmp результат є типу integer,cmp повертає 1, -1 або 0, а оператори порівняння – true або false.
+#6.Написати програму для коректного виділення в тексті n-грамів з врахуванням граничних випадків: n = 1, та n = len(sent)?
+import nltk
+from nltk.corpus import*
+sentence='we wonna dance till we can`t no more'
+def ngr(f,n):
+    tk=nltk.word_tokenize(f)
+    tp=nltk.ngrams(tk, n)
+    return tp
+print ngr(sentence, 1)
+print ngr (sentence, len(nltk.word_tokenize(sentence)))
+#7.Використати оператори нерівності для порівняння стрічок, наприклад. 'Monty' < 'Python'. Що станеться, якщо виконати  'Z' < 'a'? Порівняти стрічки,як мають однаковий префікс, наприклад 'Monty' < 'Montague'. Спробувати порівняти структуровані об’єкти, наприклад. ('Monty', 1) < ('Monty', 2). Чи отримали очікувані результати?
+print'Italy'>'Hungary'
+print'Italy'<'Hungary'
+print'A'>'a'
+print'a'>'A'
+print'republic'>'restriction'
+print'republic'=='restriction'
+print('life',1)<('life',2)
+print('lifi',1)<('life',2)
+print('lifi',1)>('life',2)
+##оператори нерівності порівнюють перший відміний символ,«I» за алфавітом далі ніж «H», тому стрічка 'Italy'>'Hungary' є правдивою Першими йдуть усі великі букви, тоді маленькі, тому 'a' >'A'. Елементи  структурованих об’єктів, порівнюються по черзі.
+#8. Написати програму видалення пробілів на початку і в кінці стрічки та для видалення зайвих пробілів між словами. Використовувати split() та join(). Оформити у вигляді функції. Функція повинна містити повну стрічку документування.
+def trim (s):
+    "This program deletes all unnecessary whitespaces, including whitespaces at the beginning and at the end of the string"
+    tr=' '.join(s.split())
+    return tr
+rech='  She makes   everybody  laught  '
+print'vhidne'
+print rech
+print'vuxidne'
+print trim(rech)
+#9. Написати програму видалення пробілів на початку і в кінці стрічки та для видалення зайвих пробілів між словами. Використовувати re.sub() . Оформити у вигляді функції. Функція повинна містити повну стрічку документування
+import re
+def trim (s):
+    "Program deletes all unnecessary whitespaces, including whitespaces at the beginning and at the end of the string"
+    rpr=re.sub('\s+',' ', s)
+    rpp=re.sub('^\s|\s$', '', rpr)
+    return rpp
+
+rech = '  It was a sunny   day  '
+print 'vxidne'
+print rech
+trim(rech)
+print 'vuxidne'
+print trim(rech)
+#10. Написати програму сортування слів за їх довжиною. Визначити допоміжну функцію cmp_len, яка буде використовувати функцію cmp для порівняння довжин слів. Функція повинна містити повну стрічку документування.
+sent = 'Some people today are eager to start their own bussiness'
+def cmp_len(word1, word2):
+    return cmp (len(word1),len(word2))
+def sort_words(sent):
+    words=sent.split()
+    words.sort(lambda word1, word2: cmp_len(word1, word2))
+    print words 
+print sort_words(sent)
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

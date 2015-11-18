@@ -1,0 +1,75 @@
+﻿#3Створити список списків слів [ [‘’,’’,’’… ], [[‘’,’’,’’…  ], [[‘’,’’,’’…],…] (наприклад текст складається з речень, які складаються з стрічок). Здійснити операцію присвоювання text2 = text1[:], та здійснити операцію присвоювання нового значення одному зі слів (text1[1][1] = 'Monty'). Перевірити як ці операції вплинули на text2. Результат письмово пояснити.
+text1=[['All','wanted','to','believe','him','.'],['But','they','could','not','.']]
+text2=text1[:]
+text1[1][1]='Monty'
+print text1
+print text2
+# text2 не змінився, бо рядок text2= text1[:] копіює вміст змінної text1.
+
+#7Написати функцію novel10(text), яка виводить на екран нові слова що вперше зустрілися в останніх 10% тексту
+import nltk
+from nltk.corpus import gutenberg
+def nove110(text,n):
+    delt=int(0,9*len(text))
+    persha_ch=text[:cut]
+    druga_ch=text[cut:]
+    vub1=[w.lower() for w in  persha_ch]
+    vub2=[w.lower() for w in  druga_ch]
+    new=[w for w in set(vub2).difference(vub1)]
+    return new[:n]
+nltk.corpus.gutenberg.fileids()
+hamlet=gutenberg.words('shakespeare-hamlet.txt')
+print nove110(hamlet,50)
+
+#11.Гематрія – метод виявлення прихованого змісту слів на основі порівняння чисел, які відповідають словам. Слова з однаковими числами мають однаковий зміст. Число слова визначається сумуванням чисел, як відповідають його літерам. Написати функцію decode() для обробки тексту, яка випадковим чином замінює слова на їх Гематрія-еквіваленти. Чи вдалося виявити "прихований зміст" тексту? (Використовувати letter_vals з попередньої задачі)
+
+import nltk
+text=' He was near our house'
+def decode(text):
+    import random,string
+    s=0
+    text_n=text.lower().split()
+    word=random.choice(text_n)
+    letter_vals = {'a':1, 'b':2, 'c':3, 'd':4, 'e':5, 'f':80, 'g':3, 'h':8, 'i':10, 'j':10, 'k':20, 'l':30, 'm':40, 'n':50, 'o':70, 'p':80, 'q':100, 'r':200, 's':300, 't':400, 'u':6, 'v':6, 'w':800, 'x':60, 'y':10, 'z':7}
+    for w in letter_vals.keys():
+        if w in word:
+            s=s+letter_vals[w]
+    for i in text_n:
+        if i==word:
+            text_n[text_n.index(i)]=str(s)
+            print string.join(text_n)
+decode(text)
+
+#14.Написати функцію, яка обробляє список слів (з дублюванням слів) і повертає список слів (без дублювання) відсортований в порядку спадання їх частоти.
+import nltk
+from nltk import*
+def sortuvannia(text):
+    text=nltk.FreqDist(text.lower().split())
+    return text.keys()
+rp='Trade Center in New York City, a third plane hit the Pentagon just outside Washington, D.C., and the fourth plane crashed in a field in Pennsylvania. Often referred to as 9/11, the attacks resulted in extensive death and destruction, triggering major U.S. initiatives to combat terrorism and defining the presidency of George W. Bush. Over 3,000 people were killed during the attacks in New York City and Washington, D.C., including more than 400 officers'
+sortuvannia(rp)
+print sortuvannia(rp)
+
+
+#15Написати функцію, яка приймає текст і словник, як аргументи і повертає набір слів, які є у тексті але відсутні у словнику. Аргументи повинні бути представлені, як списки стрічок. Чи може функція мати один рядок при використанні set.difference()?
+txt=['This','life','and', 'grass', 'tree', 'animal', 'monkey', 'ant','were','beautiful']
+dictn=['life', 'grass', 'tree', 'animal', 'monkey', 'ant']
+def diff(text,dic):
+    return set(text).difference(dic)
+diff(txt,dictn)
+print'слова, які є у тексті але відсутні у словнику'
+print diff(txt,dictn) 
+
+#17. В NLTK реалізовано алгоритм Левінштейна для порівняння стрічок. Спробуйте скористатись цим модулем nltk.edit_dist().
+#Яким чином в цьому модулі використовується динамічне програмування? Який підхід використовується знизу-вверх чи зверху-вниз? Пояснити письмово.
+import nltk
+nltk.edit_distance('cat','nice')
+nltk.edit_distance('honey','tasty')
+nltk.edit_distance('monkey','stupid')
+print nltk.edit_distance('cat','nice')
+print nltk.edit_distance('honey','tasty')
+print nltk.edit_distance('monkey','stupid')
+# відстань Левінштайна обраховує відстань між двома стрічками, використовуючи підхід знизу-вверх.
+
+
+
