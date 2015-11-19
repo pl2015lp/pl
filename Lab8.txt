@@ -1,0 +1,76 @@
+﻿"""3. Створити список списків слів [ [‘’,’’,’’… ], [[‘’,’’,’’…  ], [[‘’,’’,’’…],…] (наприклад текст складається з речень, які складаються з стрічок). Здійснити операцію присвоювання text2 = text1[:], та здійснити операцію присвоювання нового значення одному зі слів (text1[1][1] = 'Monty'). Перевірити як ці операції вплинули на text2. Результат письмово пояснити."""
+text1 = [['Practice', 'makes', 'perfect', '!'], ['Do', 'you', 'want', 'to','improve','your','English','skills','?'],['Our', 'school','will', 'help', 'you','!']]
+text2 = text1[:]
+print text2
+
+text1[1][1] = 'we'
+print text1
+
+"""6. Написати програму для створення двовимірного масиву word_vowels елементами якого є набори. Програма повинна обробити список слів і додати результати обробки до word_vowels[l][v] де l – довжина слова,  v – кількість голосних у слові."""
+import nltk
+import pprint
+from nltk.corpus import brown
+list_w = [w.lower() for w in brown.words()[:30]]
+len_m_of_array=max([len(w) for w in list_w])
+len_n_of_array=max([len([char for char in w if char in 'aoieu']) for w in list_w])
+array = [[set() for i in range(len_n_of_array+1)] for j in range(len_m_of_array+1)]
+for w in list_w:
+    array[len(w)][len([char for char in w if char in 'aoieu'])].add(w)
+pprint.pprint(array)
+
+"""11. Гематрія – метод виявлення прихованого змісту слів на основі порівняння чисел, які відповідають словам. Слова з однаковими числами мають однаковий зміст. Число слова визначається сумуванням чисел, як відповідають його літерам. Написати функцію decode() для обробки тексту, яка випадковим чином замінює слова на їх Гематрія-еквіваленти. Чи вдалося виявити "прихований зміст" тексту? (Використовувати letter_vals з попередньої задачі)"""
+import nltk
+import random
+from nltk.corpus import state_union
+letter_vals = {'a':1, 'b':2, 'c':3, 'd':4, 'e':5, 'f':80, 'g':3,
+'h':8,'i':10, 'j':10, 'k':20, 'l':30, 'm':40, 'n':50, 'o':70, 'p':80,
+'q':100, 'r':200, 's':300, 't':400, 'u':6, 'v':6, 'w':800, 'x':60, 'y':10,
+'z':7}
+words = {}
+res_text = ''
+
+def sum_word(word):
+    result = 0
+    for char in word:
+        if char in letter_vals.keys():
+            result += letter_vals[char]
+    return result
+
+for word in state_union.words('1945-Truman.txt'):
+    key = sum_word(word.lower())
+    if key in words.keys():
+        words[key].append(word)
+    else:
+        words[key] = [word]
+
+for word in state_union.words('1945-Truman.txt'):
+    key = sum_word(word.lower())
+    res_text += random.choice(words[key]) + ' '
+
+print res_text
+
+"""14 Написати функцію, яка обробляє список слів (з дублюванням слів) і повертає список слів (без дублювання) відсортований в порядку спадання їх частоти."""
+
+def get_freq_set_list(words):
+    freq_set_dict = {}
+    for word in words:
+        if not word in freq_set_dict.keys():
+            freq_set_dict[word] = words.count(word)
+    return [key for key, value in reversed(sorted(freq_set_dict.items()))]
+
+print get_freq_set_list(['2', '2', '3', '3', '3', '1'])
+        
+"""15.	Написати функцію, яка приймає текст і словник, як аргументи і повертає набір слів, які є у тексті але відсутні у словнику. Аргументи повинні бути представлені, як списки стрічок. Чи може функція мати один рядок при використанні set.difference()?"""
+
+def get_diff(text, words):
+    return set(text).difference(set(words))
+
+print get_diff(['1', '2', '5', '4'], ['7','5','asd', '1', '1'])
+
+"""17.	В NLTK реалізовано алгоритм Левінштейна для порівняння стрічок. Спробуйте скористатись цим модулем nltk.edit_dist(). Яким чином в цьому модулі використовується динамічне програмування? Який підхід використовується знизу-вверх чи зверху-вниз? Пояснити письмово. """
+from nltk.metrics import *
+
+print edit_distance(['1', '2', '5', '4'], ['2','5','asd', '1', '1'])
+print binary_distance(['1', '2', '5', '4'], ['2','5','asd', '1', '1'])
+        
+        
