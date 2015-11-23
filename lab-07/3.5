@@ -1,0 +1,29 @@
+# Прочитати про вбудовану функцію здійснення порівнянь cmp, набравши help(cmp). 
+Продемонструвати чим поведінка цієї функції відрізняється від поведінки операторів порівняння.
+
+>>> print help(cmp)
+Help on built-in function cmp in module __builtin__:
+
+cmp(...)
+    cmp(x, y) -> integer
+    
+    Return negative if x<y, zero if x==y, positive if x>y.
+
+None
+>>> x=2
+>>> y=3
+>>> print cmp(x,y)
+-1
+>>> print x>y
+False
+>>> print x<y
+True
+>>> x=5
+>>> y=5
+>>> print cmp(x,y)
+0
+>>> x=10
+>>> y=2
+>>> print cmp(x,y)
+1
+>>> 
