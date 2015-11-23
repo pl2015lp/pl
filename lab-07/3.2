@@ -1,0 +1,44 @@
+# Знайти три операції, які можна здійснювати і зі списками та із кортежами. 
+Знайти три операції, які не можна здійснювати над кортежами. 
+Знайдіть коли використання списку замість кортежу приводить до Python помилки.
+
+>>> spysok = ['Have', 'a', 'nice', 'meal']
+>>> kortezh = 'Have', 'a', 'nice', 'meal'
+>>> a = spysok[2]
+>>> b = kortezh[2]
+>>> print '1)  ',a,b
+1)   nice nice
+>>> a = spysok[1:4]
+>>> b = kortezh[1:4]
+>>> print '2)   ', a, b
+2)    ['a', 'nice', 'meal'] ('a', 'nice', 'meal')
+>>> print '3)   ', 'a' in spysok, 'a' in kortezh
+3)    True True
+>>> kortezh[2] = 'good'
+
+Traceback (most recent call last):
+  File "<pyshell#9>", line 1, in <module>
+    kortezh[2] = 'good'
+TypeError: 'tuple' object does not support item assignment
+>>> print kortezh.append('tomorrow')
+
+Traceback (most recent call last):
+  File "<pyshell#10>", line 1, in <module>
+    print kortezh.append('tomorrow')
+AttributeError: 'tuple' object has no attribute 'append'
+>>> print kortezh.reverse()
+
+Traceback (most recent call last):
+  File "<pyshell#11>", line 1, in <module>
+    print kortezh.reverse()
+AttributeError: 'tuple' object has no attribute 'reverse'
+
+#використання списку замість кортежу призводить до помилки
+>>> print kortezh + kortezh
+('Have', 'a', 'nice', 'meal', 'Have', 'a', 'nice', 'meal')
+>>> print spysok + kortezh
+
+Traceback (most recent call last):
+  File "<pyshell#13>", line 1, in <module>
+    print spysok + kortezh
+TypeError: can only concatenate list (not "tuple") to list
