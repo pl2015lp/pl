@@ -1,0 +1,9 @@
+# Написати програму видалення пробілів на початку і в кінці стрічки та для видалення зайвих пробілів між словами. Використовувати split() та join(). Оформити у вигляді функції. Функція повинна містити повну стрічку документування.
+sent = 'My city is old and beautiful'
+def clean (sent):
+    words=sent.split()
+    words=' '.join(words)
+    return words
+string = 'My city is old and        beautiful'
+string_2 = backspace(string)
+print string_2
