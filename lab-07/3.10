@@ -1,0 +1,11 @@
+# Написати програму сортування слів за їх довжиною. 
+Визначити допоміжну функцію cmp_len, яка буде використовувати функцію  cmp для порівняння довжин слів. 
+Функція повинна містити повну стрічку документування.
+def cmp_len(word1, word2):
+    return cmp (len(word1),len(word2))
+def sort_words(sent):
+    words=sent.split()
+    words.sort(lambda word1, word2: cmp_len(word1, word2))
+    print words 
+sent = 'My city is old and beautiful '
+print sort_words(sent)
