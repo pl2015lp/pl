@@ -1,0 +1,9 @@
+# Написати програму для коректного виділення в тексті n-грамів з врахуванням граничних випадків: n = 1, та n = len(sent)?
+
+sent = 'My native city is old and beautiful'
+s=sent.split()
+print s 
+n=1
+print [s[i:i+n] for i in range (len(s)-n+1)] 
+n=len(s)
+print [s[i:i+n] for i in range (len(s)-n+1)]
