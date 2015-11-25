@@ -1,0 +1,105 @@
+﻿1.	Токенізувати та здійснити морфологічний аналіз наступного речення: They wind back the clock, while we chase after the wind. 
+>>> import nltk
+>>> text=nltk.word_tokenize('They wind back the clock, while we chase after the wind.')
+>>> nltk.pos_tag(text)
+[('They', 'PRP'), ('wind', 'VBP'), ('back', 'RB'), ('the', 'DT'), ('clock', 'NN'), (',', ','), ('while', 'IN'), ('we', 'PRP'), ('chase', 'VBP'), ('after', 'IN'), ('the', 'DT'), ('wind', 'NN'), ('.', '.')]
+3. Опрацювати всі приклади з методичних вказівок по роботі зі словниками. Що станеться, якщо доступитися до неіснуючого запису звичайного словника та словника по замовчуванню?
+>>> pos={}
+>>> pos
+{}
+>>> pos['colorless']='ADJ'
+>>> pos
+{'colorless': 'ADJ'}
+>>> pos['ideas']='N'
+>>> pos['sleep']='V'
+>>> pos['furiously']='ADV'
+>>> pos
+{'furiously': 'ADV', 'sleep': 'V', 'ideas': 'N', 'colorless': 'ADJ'}
+>>> pos['ideas']
+'N'
+>>> pos['colorless']
+'ADJ'
+>>> pos['green']
+Traceback (most recent call last):
+  File "<pyshell#28>", line 1, in <module>
+    pos['green']
+KeyError: 'green'
+>>> pos={}
+>>> pos['colorless']='ADJ'
+>>> pos['ideas']='N'
+>>> pos['sleep']='V'
+>>> pos['furiously']='ADV'
+>>> pos
+{'furiously': 'ADV', 'sleep': 'V', 'ideas': 'N', 'colorless': 'ADJ'}
+>>> list(pos)
+['furiously', 'sleep', 'ideas', 'colorless']
+>>> sorted(pos)
+['colorless', 'furiously', 'ideas', 'sleep']
+>>> [w for w in pos if w.endswith('s')]
+['ideas', 'colorless']
+>>> for word in sorted(pos):
+	print word+"+",pos[word]
+
+	
+colorless+ ADJ
+furiously+ ADV
+ideas+ N
+sleep+ V
+>>> 
+7. Використовуючи sorted() та set() отримайте відсортований список всіх тегів корпуса Brown без їх дублювання.
+import nltk
+brown = nltk.corpus.brown.tagged_words()
+def tag(text):	
+	tag_list = []
+	for tags in text:
+		tag_list+=[tags[1]]
+	print "The number of tags id : %d" % (len(set(tag_list)))
+	return sorted(list(set(tag_list)))[:100]
+                                             
+>>> tag(brown)
+The number of tags id : 472
+["'", "''", '(', '(-HL', ')', ')-HL', '*', '*-HL', '*-NC', '*-TL', ',', ',-HL', ',-NC', ',-TL', '--', '---HL', '.', '.-HL', '.-NC', '.-TL', ':', ':-HL', ':-TL', 'ABL', 'ABN', 'ABN-HL', 'ABN-NC', 'ABN-TL', 'ABX', 'AP', 'AP$', 'AP+AP-NC', 'AP-HL', 'AP-NC', 'AP-TL', 'AT', 'AT-HL', 'AT-NC', 'AT-TL', 'AT-TL-HL', 'BE', 'BE-HL', 'BE-TL', 'BED', 'BED*', 'BED-NC', 'BEDZ', 'BEDZ*', 'BEDZ-HL', 'BEDZ-NC', 'BEG', 'BEM', 'BEM*', 'BEM-NC', 'BEN', 'BEN-TL', 'BER', 'BER*', 'BER*-NC', 'BER-HL', 'BER-NC', 'BER-TL', 'BEZ', 'BEZ*', 'BEZ-HL', 'BEZ-NC', 'BEZ-TL', 'CC', 'CC-HL', 'CC-NC', 'CC-TL', 'CC-TL-HL', 'CD', 'CD$', 'CD-HL', 'CD-NC', 'CD-TL', 'CD-TL-HL', 'CS', 'CS-HL', 'CS-NC', 'CS-TL', 'DO', 'DO*', 'DO*-HL', 'DO+PPSS', 'DO-HL', 'DO-NC', 'DO-TL', 'DOD', 'DOD*', 'DOD*-TL', 'DOD-NC', 'DOZ', 'DOZ*', 'DOZ*-TL', 'DOZ-HL', 'DOZ-TL', 'DT', 'DT$']
+11. Напишіть програму, яка обробить Brown Corpus і допоможе відповісти на наступне запитання: які теги для маркування іменників найчастіше використовуються і що вони означають.
+import nltk
+brown = nltk.corpus.brown.tagged_words()
+def findtag(tags, text):
+	tag_list=[]
+	for tag in text:
+		if tag[1].startswith(tags):
+			tag_list+=[tag[1]]
+
+	fd=nltk.FreqDist(tag_list)
+	print "The number of tags starting with ", (tags,len(set 
+(tag_list)))
+	print "All:", fd.keys()
+	return "The most frequent:", fd.keys()[:5]
+>>> findtag('NN',brown)
+The number of tags starting with  ('NN', 29)
+All: ['NN', 'NNS', 'NN-TL', 'NNS-TL', 'NN$', 'NN-HL', 'NNS-HL', 'NN$- 
+TL', 'NNS$', 'NN-TL-HL', 'NN-NC', 'NNS$-TL', 'NN+BEZ', 'NNS-NC', 'NN$- 
+HL', 'NNS-TL-HL', 'NN+HVZ', 'NNS$-HL', 'NN-TL-NC', 'NNS-TL-NC', 'NN 
++BEZ-TL', 'NN+MD', 'NNS$-NC', 'NNS+MD', 'NN+HVD-TL', 'NN+HVZ-TL', 'NN 
++IN', 'NN+NN-NC', 'NNS$-TL-HL']
+('The most frequent:', ['NN', 'NNS', 'NN-TL', 'NNS-TL', 'NN$'])
+21.	Написати програму побудови словника, записами якого будуть набори словників. Використовуючи створений словник, збережіть у ньому набори можливих тегів, які зустрічаються після заданого слова з певним тегом, наприклад wordi → tagi → tagi+1.
+>>> import nltk
+>>> kp=nltk.corpus.brown.tagged_words()
+>>> def search(word, tag):
+	x=dict()
+	y=nltk.defaultdict(dict)
+	z=[]
+	for i in range(len(kp)-1):
+		d=kp[i]
+		e=kp[i+1]
+		if d[0]==word and d[1]==tag:
+			z+=[e[1]]
+	x[tag]=set(z)
+        y[word]=x
+        return y
+
+>>> search('sentence', 'NN')
+defaultdict(<type 'dict'>, {'sentence': {'NN': set(['PPS', 'AT-NC', 'MD', '--', ',', 'BED', '.', 'BEZ', 'CC', 'VBN', 'AT', 'RB', 'IN', 'CS', 'BEDZ', ':', 'VBZ'])}})
+>>> search ('a', 'AT')
+defaultdict(<type 'dict'>, {'a': {'AT': set(['JJT', 'VBG', 'VBN-TL', 'NN-TL', 'VBN', "''", "'", 'JJ', '.', 'NN+HVZ', 'VB-TL', 'NNS-TL', '(', '*', 'NP$-TL', 'NN$-TL', 'PPS', 'RB', 'NP$', 'NP', 'NR', 'NNS', 'UH', '``', 'FW-IN', 'NN+MD', 'NN$', 'RBR', 'ABN', 'CD', 'AP', 'AT', 'NR-TL', 'NN+BEZ', 'NNS$', 'NP-TL', 'NN+IN', 'NN', 'RB-NC', 'PN', 'OD', 'JJS', 'JJR', 'FW-NN-TL', 'VB', 'FW-NN', 'FW-VBN', 'JJ-TL', 'QL', 'VBG-TL'])}})
+>>>
+

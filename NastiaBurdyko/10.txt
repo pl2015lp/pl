@@ -1,0 +1,234 @@
+﻿1 Здійсніть тренування юніграм аналізатора на основі частини корпуса, який відповідає першій або другій літері прізвища студента та виконайте аналіз тексту з частини корпуса, яка відповідає першій або другій літері імені студента. Результати поясніть. Чому для деяких слів не встановлені теги.
+>>> import nltk
+>>> from nltk.corpus import brown
+>>> ts=brown.tagged_sents(categories='belles_lettres')
+>>> unigram_tagger=nltk.UnigramTagger(ts)
+>>> unigram_tagger.tag(ts[10])
+[(('Most', 'AP'), None), (('of', 'IN'), None), (('them', 'PPO'), None), (('are', 'BER'), None), (('Democrats', 'NPS'), None), (('and', 'CC'), None), (('nearly', 'QL'), None), (('all', 'ABN'), None), (('consider', 'VB'), None), (('themselves', 'PPLS'), None), ((',', ','), None), (('and', 'CC'), None), (('are', 'BER'), None), (('viewed', 'VBN'), None), (('as', 'CS'), None), ((',', ','), None), (('liberals', 'NNS'), None), (('.', '.'), None)]
+>>> s=brown.tagged_sents(categories='adventure')
+>>> unigram_tagger=nltk.UnigramTagger(s)
+>>> unigram_tagger.tag(s[10])
+[(('Each', 'DT'), None), (('day', 'NN'), None), (('he', 'PPS'), None), (('found', 'VBD'), None), (('himself', 'PPL'), None), (('thinking', 'VBG'), None), (('less', 'QL'), None), (('often', 'RB'), None), (('of', 'IN'), None), (('Ann', 'NP'), None), ((';', '.'), None), ((';', '.'), None)]
+>>> 
+Уніграм аналізатор ставить тег None всім словам, які не зустрічаються в текстах на основі яких тренувався аналізатор.
+3. Здійсніть тренування біграм аналізатора на частинах корпуса з вправи 3.1 без backoff аналізатора. Перевірте його роботу. Що відбулося з продуктивністю аналізатора? Чому?
+>>> import nltk
+>>> from nltk.corpus import brown
+>>> ts=brown.tagged_sents(categories='belles_lettres')
+>>> s=brown.sents(categories='adventure')
+>>> bigram_tagger=nltk.BigramTagger(ts,backoff=None)
+>>> bigram_tagger.tag(s[10])
+[('Each', 'DT'), ('day', 'NN'), ('he', 'PPS'), ('found', 'VBD'), ('himself', 'PPL'), ('thinking', None), ('less', None), ('often', None), ('of', None), ('Ann', None), (';', None), (';', None)]
+>>> bigram_tagger.evaluate(ts)
+0.7600695567777418
+4. Дослідити наступні проблеми. що виникають при роботі з аналізатором на основі підстановок: що відбудеться з продуктивністю аналізатора, якщо опустити backoff аналізатор (дослідити на частині броунівського корпусу, яка відповідає першій або другій літері прізвища студента); на основі рис.1. та відповідного фрагмента програми встановити точку максимальної продуктивності незважаючи на розмір списку (об’єм оперативної пам’яті) і точку достатньої продуктивності при мінімальному розмірі списку.
+ 
+Python 2.7.3 (default, Apr 10 2012, 23:31:26) [MSC v.1500 32 bit (Intel)] on win32
+Type "copyright", "credits" or "license()" for more information.
+>>> import nltk
+>>> from nltk.corpus import brown
+>>> fd=nltk.FreqDist(brown.words(categories='adventure'))
+>>> most_freq_words=fd.keys()[:100]
+>>> cfd=nltk.ConditionalFreqDist(brown.tagged_words(categories='adventure))
+						
+SyntaxError: EOL while scanning string literal
+>>> cfd=nltk.ConditionalFreqDist(brown.tagged_words(categories='adventure'))
+>>> likely_tags=dict((word,cfd[word].max())for word in most_freq_words)
+>>> baseline_tagger=nltk.UnigramTagger(model=likely_tags)
+>>> brown_tagged_sents=nltk.corpus.brown.tagged_sents(categories='adventure')
+>>> baseline_tagger.evaluate(brown_tagged_sents)
+0.5220357070750772
+>>> def performance(cfd,wordlist):
+	lt=dict((word,cfd[word].max()) for word in wordlist)
+	baseline_tagger=nltk.UnigramTagger(model=lt,backoff=None)
+	return baseline_tagger.evaluate(brown.tagged_sents(categories='adventure'))
+
+>>> def display():
+	import pylab
+	words_by_freq=list(nltk.FreqDist(brown.words(categories='adventure')))
+	cfd=nltk.ConditionalFreqDist(brown.tagged_words(categories='adventure'))
+	sizes=2 ** pylab.arange(15)
+	perfs = [performance(cfd, words_by_freq[:size]) for size in sizes]
+	pylab.plot(sizes, perfs, '-bo')
+        pylab.title('Lookup Tagger Performance with Varying Model Size')
+        pylab.xlabel('Model Size')
+        pylab.ylabel('Performance')
+        pylab.show()
+
+
+>>> display()
+
+Точка максимальної продуктивностіданого аналізатора становить 94%, при цьому розмірсписку дорівнює 16400слів.За графіком можна визначити, що достатня продуктивність дорівнює 88% при розмірі словника 7550 слів
+
+5 Знайдіть розмічені корпуси текстів для інших мов які вивчаєте або володієте (українська, польська, німецька, російська, італійська, японська). Здійсніть тренування та оцініть продуктивність роботи різних аналізаторів та комбінацій різних аналізаторів. Точність роботи аналізаторів порівняйте з точністю роботи аналізаторів для англійських корпусів. Результати поясніть.
+
+>>> import nltk, re,pprint
+>>> from nltk.corpus import*
+>>> size=int(len(mac_morpho.tagged_sents())*0.9)
+>>> size
+46257
+>>> train=mac_morpho.tagged_sents()[:size]
+>>> test=mac_morpho.tagged_sents()[size:]
+>>> u_t=nltk.UnigramTagger(train)
+>>> u_t.evaluate(test)
+0.806675019738423
+>>> b_t=nltk.BigramTagger(train)
+>>> b_t.evaluate(test)
+0.20824894442346642
+>>> t_t=nltk.TrigramTagger
+>>> t_t=nltk.TrigramTagger(train)
+>>> t_t.evaluate(test)
+0.11788129484054786
+>>> t0=nltk.DefaultTagger('NN')
+>>> t1=nltk.UnigramTagger(train,backoff=t0)
+>>> t2=nltk.BigramTagger(train,backoff=t1)
+>>> t3=nltk.TrigramTagger(train,backoff=t2)
+>>> t3.evaluate(test)
+0.8226459785108647
+
+        
+6. Створити аналізатор по замовчуванню та набір юніграм і n-грам аналізаторів. Використовуючи backoff здійсніть тренування аналізаторів. Дослідіть три різні комбінації поєднання цих аналізаторів. Перевірте точність роботи аналізаторів. Визначіть комбінацію аналізаторів з максимальною точністю аналізу. Змініть розмір даних на яких проводилось тренування. Повторіть експерименти для змінених даних для тренування. Результати порівняйти і пояснити.
+>>> default_tagger = nltk.DefaultTagger('NN')
+>>> brown_a = nltk.corpus.brown.tagged_sents(categories='belles_lettres')
+>>> unigram_tagger = nltk.UnigramTagger(brown_b)
+>>> bigram_tagger = nltk.BigramTagger(brown_b, cutoff=0)
+>>> t0=nltk.DefaultTagger('NN')
+>>> t1=nltk.UnigramTagger(brown_b, backoff=t0)
+>>> t2=nltk.BigramTagger(brown_b, backoff=t1)
+>>> nltk.tag.accuracy(t2, brown_b)
+0.96992420390996903
+>>> brown_a = nltk.corpus.brown.tagged_sents(categories='adventure')
+>>> nltk.tag.accuracy(t2, brown_a)
+0.85590262755617086
+>>> t0=nltk.UnigramTagger(brown_b)
+>>> t1=nltk.BigramTagger(brown_b, backoff=t0)
+>>> t2=nltk.DefaultTagger('NN')
+>>> nltk.tag.accuracy(t2, brown_a)
+0.11610567909780509
+>>> t0=nltk.DefaultTagger('NN')
+>>> t1=nltk.BigramTagger(brown_b, backoff=t0)
+>>> t2=nltk.UnigramTagger(brown_b, backoff=t2)
+>>> nltk.tag.accuracy(t2, brown_a)
+0.84117850653283721
+>>> t0=nltk.DefaultTagger('NN')
+>>> t1=nltk.UnigramTagger(brown_a, backoff=t0)
+>>> t2=nltk.BigramTagger(brown_a, backoff=t1)
+>>> nltk.tag.accuracy(t2, brown_a)
+0.97332064261198115
+>>> t0=nltk.DefaultTagger('NN')
+>>> unigram_tagger = nltk.UnigramTagger(brown_b)
+>>> unigram_tagger = nltk.UnigramTagger(brown_a)
+>>> brown_n = nltk.corpus.brown.tagged_sents(categories='news')
+>>> brown_r = nltk.corpus.brown.tagged_sents(categories='romance')
+>>> t0=nltk.DefaultTagger('NN')
+>>> t1=nltk.UnigramTagger(brown_n, backoff=t0)
+>>> t2=nltk.BigramTagger(brown_n, backoff=t1)
+>>> nltk.tag.accuracy(t2, brown_a)
+0.83780392835510942
+>>> t0=nltk.DefaultTagger('NN')
+>>> t1=nltk.UnigramTagger(brown_r, backoff=t0)
+>>> t2=nltk.BigramTagger(brown_r, backoff=t1)
+>>> nltk.tag.accuracy(t2, brown_a)
+0.85333564073721557
+>>> t0=nltk.DefaultTagger('NN')
+>>> t1=nltk.BigramTagger(brown_r, backoff=t0)
+>>> t2=nltk.UnigramTagger(brown_r, backoff=t1)
+>>> nltk.tag.accuracy(t2, brown_a)
+0.76376510628479133
+
+Я здійснила тренування створених аналізаторів на частині корпусу «'belles_lettres'» і дослідила три різні комбінації поєднання цих аналізаторів. Також я перевірила точність їх роботи на частині корпусу «adventure»  . Найефективнішою виявилась комбінація з першим аналізатором по замовчуванню, другим – юніграм аналізатором і третім – біграм аналізатором. Ефективність комбінаціїї аналізаторів з перестановкою юніграм і біграм аналізаторів не дуже сильно відрізнялась від максимальної. Потім я змінила частину корпуса, на якому тренувала аналізатори («news» і «romance») і повторила експерименти. Точність аналізаторів зменшилась, але найефективнішою залишилась та сама комбінація аналізаторів.
+
+7 Прочитати стрічку документування функції demo Brill аналізатора. Здійснити експерименти з різними значення параметрів цієї функції. Встановити який взаємозв’язок є між часом тренування (навчання аналізатора) і точністю його роботи.
+Python 2.7.3 (default, Apr 10 2012, 23:31:26) [MSC v.1500 32 bit (Intel)] on win32
+Type "copyright", "credits" or "license()" for more information.
+>>> import nltk
+>>> nltk.tag.brill.demo(num_sents=2000, max_rules=200, min_score=3)
+Loading tagged data... 
+Done loading.
+Training unigram tagger:
+    [accuracy: 0.832151]
+Training bigram tagger:
+    [accuracy: 0.837930]
+Training Brill tagger on 1600 sentences...
+Finding initial useful rules...
+    Found 9757 useful rules.
+
+           B      |
+   S   F   r   O  |        Score = Fixed - Broken
+   c   i   o   t  |  R     Fixed = num tags changed incorrect -> correct
+   o   x   k   h  |  u     Broken = num tags changed correct -> incorrect
+   r   e   e   e  |  l     Other = num tags changed incorrect -> incorrect
+   e   d   n   r  |  e
+------------------+-------------------------------------------------------
+  11  15   4   0  | WDT -> IN if the tag of words i+1...i+2 is 'DT'
+  10  12   2   0  | IN -> RB if the text of the following word is
+                  |   'well'
+   9   9   0   0  | WDT -> IN if the tag of the preceding word is
+                  |   'NN', and the tag of the following word is 'NNP'
+   7   9   2   0  | RBR -> JJR if the tag of words i+1...i+2 is 'NNS'
+   7  10   3   0  | WDT -> IN if the tag of words i+1...i+2 is 'NNS'
+   5   5   0   0  | WDT -> IN if the tag of the preceding word is
+                  |   'NN', and the tag of the following word is 'PRP'
+   4   4   0   1  | WDT -> IN if the tag of words i+1...i+3 is 'VBG'
+   3   3   0   0  | RB -> IN if the tag of the preceding word is 'NN',
+                  |   and the tag of the following word is 'DT'
+   3   3   0   0  | RBR -> JJR if the tag of the following word is
+                  |   'NN'
+   3   3   0   0  | VBP -> VB if the tag of words i-3...i-1 is 'MD'
+   3   3   0   0  | NNS -> NN if the text of the preceding word is
+                  |   'one'
+   3   3   0   0  | RP -> RB if the text of words i-3...i-1 is 'were'
+   3   3   0   0  | VBP -> VB if the text of words i-2...i-1 is "n't"
+
+Brill accuracy: 0.839156
+Done; rules and errors saved to rules.yaml and errors.out.
+>>> nltk.tag.brill.demo(num_sents=2000, max_rules=200, min_score=3,train=0.9)
+Loading tagged data... 
+Done loading.
+Training unigram tagger:
+    [accuracy: 0.840758]
+Training bigram tagger:
+    [accuracy: 0.845745]
+Training Brill tagger on 1800 sentences...
+Finding initial useful rules...
+    Found 11202 useful rules.
+
+           B      |
+   S   F   r   O  |        Score = Fixed - Broken
+   c   i   o   t  |  R     Fixed = num tags changed incorrect -> correct
+   o   x   k   h  |  u     Broken = num tags changed correct -> incorrect
+   r   e   e   e  |  l     Other = num tags changed incorrect -> incorrect
+   e   d   n   r  |  e
+------------------+-------------------------------------------------------
+  11  17   6   0  | WDT -> IN if the tag of words i+1...i+2 is 'DT'
+  10  12   2   0  | IN -> RB if the text of the following word is
+                  |   'well'
+   9   9   0   0  | WDT -> IN if the tag of the preceding word is
+                  |   'NN', and the tag of the following word is 'NNP'
+   8  11   3   0  | WDT -> IN if the tag of words i+1...i+2 is 'NNS'
+   6   6   0   0  | RBR -> JJR if the tag of the following word is
+                  |   'NN'
+   5   5   0   0  | WDT -> IN if the tag of the preceding word is
+                  |   'NN', and the tag of the following word is 'PRP'
+   4   4   0   0  | RBR -> JJR if the tag of the following word is
+                  |   'NNS'
+   4   4   0   1  | WDT -> IN if the tag of words i+1...i+3 is 'VBG'
+   3   3   0   0  | IN -> RB if the text of the preceding word is
+                  |   'month', and the text of the following word is
+                  |   '.'
+   3   4   1   0  | IN -> WDT if the text of the preceding word is
+                  |   'in', and the text of the following word is
+                  |   'the'
+   3   3   0   0  | JJ -> NNP if the text of the following word is
+                  |   'Union'
+   3   3   0   0  | NNS -> NN if the text of the preceding word is
+                  |   'one'
+   3   3   0   0  | RBR -> JJR if the text of words i-3...i-1 is
+                  |   '*T*-1'
+   3   3   0   0  | RP -> IN if the text of the following word is 'of'
+   3   3   0   0  | RP -> RB if the text of words i-3...i-1 is 'were'
+   3   3   0   0  | VBP -> VB if the text of words i-2...i-1 is "n't"
+
+Brill accuracy: 0.846742
+
+Точність аналізатора є більшою при збільшенні обсягу матеріалу для тренування, і відповідно, при збільшенні часу на його опрацювання.
