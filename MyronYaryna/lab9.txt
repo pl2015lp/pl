@@ -1,0 +1,112 @@
+﻿#3.Опрацювати всі приклади з методичних вказівок по роботі зі словниками. Що станеться, якщо доступитися до неіснуючого запису звичайного словника та словника по замовчуванню?
+pos={}
+print pos
+pos['colorless']='ADJ'
+print pos
+pos['ideas']='N'
+pos['sleep']='V'
+pos['furiously']='ADV'
+print pos['sleep']
+list(pos)
+print sorted(pos)
+print [w for w in pos if w.endswith('s')]
+for word in sorted(pos):
+    print word+":", pos[word]
+
+# доступ до неіснуючого запису звичайного словника видає помилку. 
+#5.  Створити два словники Що станеться зі словниками після виконання команди d1.update(d2)
+import nltk
+d1={'furious':'ADJ','jump':'V',}
+d2={'life':'N','flower':'N'}
+d1.update(d2)
+print 'slovnuk 1'
+print d1
+print 'slovnuk 2'
+print d2
+#словник d1 оновився
+#7. Використовуючи sorted() та set() отримайте відсортований список всіх тегів корпуса Brown без їх дублювання.
+import nltk
+from nltk.corpus import*
+brown = nltk.corpus.brown.tagged_words()
+def tag(text):
+	tag_list = []
+	for tags in text:
+		tag_list+=[tags[1]]
+	print (len(set(tag_list)))
+	return sorted(list(set(tag_list)))[200:220]
+print tag(brown)
+#11Напишіть програму, яка обробить Brown Corpus і допоможе відповісти на наступне запитання: які теги для маркування іменників найчастіше використовуються і що вони означають.
+brown = nltk.corpus.brown.tagged_words()
+findtag('NN',brown)
+def findtag(tags, text):
+	tag_list=[]
+	for tag in text:
+		if tag[1].startswith(tags):
+			tag_list+=[tag[1]]
+
+	fd=nltk.FreqDist(tag_list)
+	print "The number of tags stering with ", (tags,len(set (tag_list))
+                print "All:", fd.keys()
+                return "The most frequent:", fd.keys()[:5]
+print findtag('NN',brown)
+#13Напишіть програму для збору статистичних даних по розмічених корпусах і відповіді на наступне запитання: скільки слів мають неоднозначності
+#в змісті того, що маркуються двома і більше тегами; 
+import nltk
+from nltk.corpus import brown
+def create_dict():
+        tag_count = nltk.defaultdict(list)
+        for (word,tag) in brown.tagged_words(simplify_tags=True):
+            if tag not in tag_count[word.lower()]:
+                tag_count[word.lower()].append(tag)
+        return tag_count
+def not_one_tag():
+	dict_tags = create_dict()
+	n = 0
+	for word in dict_tags:
+		if len(dict_tags[word])>=2 and word.isalpha():
+			n=n+1
+	print n
+print not_one_tag ()
+
+#18.Напишіть програми для знаходження слів та словосполучень згідно відповідних їм тегів для відповіді на наступне питання: яке співвідношення між займенниками (чоловічими і жіночими).
+from nltk import FreqDist, ConditionalFreqDist
+from nltk.corpus import brown
+fd = FreqDist()
+cfd = ConditionalFreqDist()
+for sentence in brown.tagged_sents():
+    for (token, tag) in sentence:
+        fd.inc(tag)
+        cfd[token].inc(tag)
+male = ['he','his','him','himself'] # masculine pronouns
+female = ['she','hers','her','herself'] # feminine pronouns
+n_male, n_female = 0, 0
+for m in male:
+    n_male += cfd[m].N()
+for f in female:
+    n_female += cfd[f].N()
+print float(n_male)/n_female
+
+#21. Написати програму побудови словника, записами якого будуть набори словників. Використовуючи створений словник, збережіть у ньому набори можливих тегів, які зустрічаються після заданого слова з певним тегом, наприклад wordi → tagi → tagi+1.
+import nltk
+from nltk.corpus import*
+kp=nltk.corpus.brown.tagged_words()
+def search(word, tag):
+	x=dict()
+	y=nltk.defaultdict(dict)
+	z=[]
+	for i in range(len(kp)-1):
+		d=kp[i]
+		e=kp[i+1]
+		if d[0]==word and d[1]==tag:
+			z+=[e[1]]
+	x[tag]=set(z)
+        y[word]=x
+        return y
+
+search('sentence', 'NN')
+print search('sentence', 'NN')
+search ('a', 'AT')
+print search ('a', 'AT')
+
+
+
