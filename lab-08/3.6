@@ -1,0 +1,19 @@
+#6. Написати програму для створення двовимірного масиву word_vowels елементами якого є набори.
+#Програма повинна обробити список слів і додати результати обробки до word_vowels[l][v] де l – довжина слова,  v – кількість голосних у слові.
+
+>>> import numpy
+>>> from numpy import array
+>>> def sets(text):
+	l=[len(word) for word in text]
+	v=[len([letter for letter in word if letter.lower() in 'aeiouy']) for word in text]
+	word_vowels=array(([l],[v]))
+	print word_vowels
+
+	
+>>> sent=['My', 'birthday', 'party']
+>>> print sets(sent)
+[[[2 8 5]]
+
+ [[1 3 2]]]
+None
+>>> print
