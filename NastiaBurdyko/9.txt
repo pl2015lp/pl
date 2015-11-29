@@ -46,6 +46,7 @@ furiously+ ADV
 ideas+ N
 sleep+ V
 >>> 
+
 7. Використовуючи sorted() та set() отримайте відсортований список всіх тегів корпуса Brown без їх дублювання.
 import nltk
 brown = nltk.corpus.brown.tagged_words()
@@ -81,6 +82,31 @@ HL', 'NNS-TL-HL', 'NN+HVZ', 'NNS$-HL', 'NN-TL-NC', 'NNS-TL-NC', 'NN
 +BEZ-TL', 'NN+MD', 'NNS$-NC', 'NNS+MD', 'NN+HVD-TL', 'NN+HVZ-TL', 'NN 
 +IN', 'NN+NN-NC', 'NNS$-TL-HL']
 ('The most frequent:', ['NN', 'NNS', 'NN-TL', 'NNS-TL', 'NN$'])
+12.Напишіть програму для збору статистичних даних по розмічених корпусах і відповіді на наступне запитання: який відсоток типів слів (types) завжди маркуються тими самими тегами.
+
+
+
+importnltk
+fromnltk.corpusimportbrown
+brown_fiction_tags=brown.tagged_words(categories='fiction',simplify_tags=True)
+data=nltk.ConditionalFreqDist((word.lower(),tag) for (word,tag) inbrown_fiction_tags)
+result=[]
+forwordindata.conditions():
+iflen(data[word])==1:
+tags=data[word].keys()
+result.append(word)
+printlen(result)
+printlen (brown_fiction_tags)
+printlen(result)*100/len(brown_fiction_tags)
+
+
+
+>>>
+7914
+68488
+11
+>>>
+
 21.	Написати програму побудови словника, записами якого будуть набори словників. Використовуючи створений словник, збережіть у ньому набори можливих тегів, які зустрічаються після заданого слова з певним тегом, наприклад wordi → tagi → tagi+1.
 >>> import nltk
 >>> kp=nltk.corpus.brown.tagged_words()
