@@ -1,0 +1,90 @@
+#3
+words=['Dog']
+tags=['noun']
+print zip(words,tags)
+print list(enumerate(words))
+
+#4
+words = ['is', 'NLP', 'fun', '?']
+bar = words
+words[1] = ''
+words[3] = ''
+words[1] = 'is'
+words[0] = 'NLP'
+words[3] = '!'
+print(bar)
+
+#5
+Help on built-in function cmp in module __builtin__:
+
+cmp(...)
+    cmp(x, y) -> integer
+
+    Return negative if x<y, zero if x==y, positive if x>y.
+
+x=5
+y=6
+a=cmp(x,y)
+print (a)
+x=5
+y=5
+b=cmp(x,y)
+print (b)
+x=6
+y=5
+c=cmp(x,y)
+print (c)
+
+#6.
+sent = ['All', 'we', 'need', 'is', 'love']
+n1 = 1
+result1 = [sent[i:i+n1] for i in range(len(sent)-n1+1)]
+print result1
+
+n2 = len(sent)
+result2 = [sent[i:i+n2] for i in range(len(sent)-n2+1)]
+print result2
+
+n3=3
+result3 = [sent[i:i+n3] for i in range(len(sent)-n3+1)]
+print result3
+
+#7.
+print 'Monty'<'Python'
+print 'Z'<'a'
+print 'Monty'<'Montague'
+print ('Monty',1)<('Monty',2)
+
+#8.
+def del_function(sent):
+    a = ' '
+    new_sent = (word for word in sent.split() if word !='')
+    result= a.join(new_sent)
+    return result
+b = ' Hope to see    you soon '
+result = del_function(b)
+print result
+
+#9
+import re
+s2 = '  My name         is    Myroslava  '
+def clean(sent1):
+    result = re.sub(r'\s{2,}',' ',sent1)
+    return result
+result1 = clean(s2)
+print result1
+
+#10
+def cmp_len(word1, word2):
+    "Find out which word is longer"
+    return cmp(len(word1), len(word2))
+
+str = 'My name is Myroslava'
+sent = str.split()
+sent_len = len(sent)
+for i in range(sent_len-1):
+    for j in range(sent_len-1-i):
+        if cmp_len(sent[j], sent[j+1]) == 1:
+            sent[j],sent[j+1] = sent[j+1],sent[j]
+
+print(sent)
