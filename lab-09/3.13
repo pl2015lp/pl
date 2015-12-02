@@ -5,9 +5,9 @@ import nltk
 from nltk.corpus import brown
 words = brown.tagged_words()
 dictionary = nltk.defaultdict(list)
-for a, b in words:
-if b not in dictionary[a]:
-dictionary[a].append(b)
+for a, t in words:
+if t not in dictionary[a]:
+dictionary[a].append(t)
 neodnoznachni = [w for w in dictionary.items() if len(w[1]) >= 2]
 print neodnoznachni [:10]
 print len(neodnoznachni)
