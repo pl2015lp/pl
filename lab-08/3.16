@@ -7,5 +7,5 @@ from operator import itemgetter
 words=['husband','wife','son','daughter','big','family']
 print sorted(words,key=itemgetter(1))
 print sorted(words,key=itemgetter(-1))
-print 'When index=1, it is sorted according to the first letters of the words, when index=(-1), according to the last ones'
+print 'Коли index=1, програма сортує відповідно до перших букв слів, якщо index=(-1), тоді до останніх букв'
 print
