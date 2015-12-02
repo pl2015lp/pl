@@ -5,6 +5,6 @@ import nltk
 from nltk.corpus import brown
 from nltk.probability import FreqDist
 list = brown.tagged_words()
-new_list = [a for b, b in list if b.startswith('N') and 'NUM' not in b]
+new_list = [t for c, t in list if t.startswith('N') and 'NUM' not in t]
 fdist = FreqDist(new_list)
 print fdist.items() [:10]
