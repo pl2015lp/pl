@@ -1,0 +1,14 @@
+Написати list comprehension для сортування списку синсетів WordNet за близькістю до заданого синсету.
+#Наприклад, дані синсети  minke_whale.n.01, orca.n.01, novel.n.01, та tortoise.n.01, потрібно їх відсортувати згідно їх path_distance() від right_whale.n.01.
+
+from nltk.corpus import wordnet as wn
+right_whale=wn.synset('right_whale.n.01')
+synsets=['minke_whale.n.01', 'orca.n.01', 'novel.n.01', 'tortoise.n.01']
+for i in synsets:
+	list_sim=[]
+	w1=right_whale
+	w2=wn.synset(i)
+	similarity=w1.path_similarity(w2)
+	list_sim.append((i,similarity))
+	sorted(list_sim)
+print
