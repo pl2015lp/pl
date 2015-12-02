@@ -1,0 +1,10 @@
+Написати програму побудови словника, записами якого будуть набори словників. Використовуючи створений словник,
+збережіть у ньому набори можливих тегів, які зустрічаються після заданого слова з певним тегом, наприклад wordi → tagi → tagi+1.
+
+import nltk
+from nltk.corpus import brown
+pos = nltk.defaultdict(lambda: nltk.defaultdict(int))
+brown_tagged = brown.tagged_words(simplify_tags = True)
+for ((w1, t1), (w2, t2)) in nltk.ibigrams(brown_tagged):
+pos[(w1, t1)] [t2] +=1
+print pos.items() [:10]
