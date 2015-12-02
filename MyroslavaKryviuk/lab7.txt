@@ -75,16 +75,12 @@ result1 = clean(s2)
 print result1
 
 #10
-def cmp_len(word1, word2):
-    "Find out which word is longer"
-    return cmp(len(word1), len(word2))
-
 str = 'My name is Myroslava'
 sent = str.split()
-sent_len = len(sent)
-for i in range(sent_len-1):
-    for j in range(sent_len-1-i):
-        if cmp_len(sent[j], sent[j+1]) == 1:
-            sent[j],sent[j+1] = sent[j+1],sent[j]
+my_list = list()
 
-print(sent)
+for i in reversed(sorted(sent, key=len)):
+   my_list.append(i)
+
+print(my_list)
+
