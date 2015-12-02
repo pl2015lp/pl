@@ -1,0 +1,15 @@
+Напишіть програму для збору статистичних даних по розмічених корпусах і відповіді на наступне запитання: 
+скільки слів мають неоднозначності в змісті того, що маркуються двома і більше тегами
+
+import nltk
+from nltk.corpus import brown
+words = brown.tagged_words()
+dictionary = nltk.defaultdict(list)
+for a, b in words:
+if b not in dictionary[a]:
+dictionary[a].append(b)
+neodnoznachni = [w for w in dictionary.items() if len(w[1]) >= 2]
+print neodnoznachni [:10]
+print len(neodnoznachni)
+
+8729
