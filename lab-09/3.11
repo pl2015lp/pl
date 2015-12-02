@@ -1,0 +1,10 @@
+Напишіть програму, яка обробить Brown Corpus і допоможе відповісти на наступне запитання:
+які теги для маркування іменників найчастіше використовуються і що вони означають.
+
+import nltk
+from nltk.corpus import brown
+from nltk.probability import FreqDist
+list = brown.tagged_words()
+new_list = [a for b, b in list if b.startswith('N') and 'NUM' not in b]
+fdist = FreqDist(new_list)
+print fdist.items() [:10]
