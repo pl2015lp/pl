@@ -1,0 +1,7 @@
+ Використовуючи sorted() та set() отримайте відсортований список всіх тегів корпуса Brown без їх дублювання.
+
+import nltk, re, pprint
+from nltk.corpus import brown
+list = brown.tagged_words()
+new_list = sorted(set([a for b, b in list]))
+print new[:50]
