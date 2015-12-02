@@ -1,0 +1,17 @@
+Напишіть програми для знаходження слів та словосполучень згідно відповідних їм тегів для відповіді на наступне питання: 
+яке співвідношення між займенниками (чоловічими і жіночими).
+
+from _future_ import division
+import nltk
+from nltk.corpus import brown
+words = brown.tagged_words(simplify_tags = True)
+req = raw_input('Enter a tag, you request: ')
+req_list = [w for w in words if req in w[1]]
+all_pro = [w[0] for w in req_list]
+female = [w for w in all_pro if w.lower() == 'she' or w.lower() == 'her']
+male = [w for w in all_pro if w.lower() == 'he' or w.lower() == 'his' or w.lower() == 'him']
+print 'Male_Pro/Female_Pro =', len(male)/len(female)
+
+>>> 
+Enter a tag, you request: PRO
+Male_Pro/Female_Pro = 3.24949118046
