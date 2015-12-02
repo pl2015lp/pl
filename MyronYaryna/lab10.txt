@@ -1,0 +1,175 @@
+﻿#1 Здійсніть тренування юніграм аналізатора на основі частини корпуса, який відповідає першій або другій літері прізвища студента та виконайте аналіз тексту з частини корпуса, яка відповідає першій або другій літері імені студента. Результати поясніть. Чому для деяких слів не встановлені теги.
+import nltk
+from nltk.corpus import*
+tegovani_rech=brown.tagged_sents(categories='learned')
+rech=brown.sents(categories='learned')
+unigram=nltk.UnigramTagger(tegovani_rech) 
+unigram.tag(rech[35])
+print unigram.tag(rech[35])
+print unigram.evaluate(tegovani_rech)
+tegovani_rech1=brown.tagged_sents(categories='romance')
+rech1=brown.sents(categories='romance')
+unigram=nltk.UnigramTagger(tegovani_rech1)
+unigram.tag(rech1[35])
+print unigram.tag(rech1[35])
+print unigram.evaluate(tegovani_rech1)
+analizator=nltk.DefaultTagger('NN') 
+bahatoprh=nltk.UnigramTagger(tegovani_rech,backoff=analizator) 
+print bahatoprh.evaluate(tegovani_rech1)
+#Уніграм аналізатор ставить тег None всім словам, які не зустрічаються в текстах на основі яких тренувався аналізатор.
+#2 Прочитати файл допомого про морфологічний аналізатор на основі афіксів (help(nltk.AffixTagger)). Напишіть програму, яка викликає аналізатор на основі афіксів в циклі, з різними значеннями довжини афіксів і мінімальними довжинами слів. При яких значеннях можна отримати кращі результати.
+import nltk
+from nltk.corpus import*
+tagrech= nltk.corpus.brown.tagged_sents(categories='humor')
+rech= nltk.corpus.brown.sents(categories='humor')[150]
+aff=[-1,-2,-3] 
+osnova=[2,3] 
+for i in aff:
+    for o in osnova:
+        tagger=affix_tagger=nltk.AffixTagger(tagrech,affix_length=i,min_stem_length=o) -min_stem_length=o
+        analyze=tagger.tag(rech)
+        ochin=tagger.evaluate(tagrech)
+        print analyze
+        print tagger
+        print ochin
+# Найкращий результат можна отримати, коли довжина афіксів- 2 і мінімальна довжина основи- 0. Найменш ефективним виявився аналізатор з довжиною афіксів 3 і мінімальною довжиною основи 3.
+#3.Здійсніть тренування біграм аналізатора на частинах корпуса з вправи 3.1 без backoff аналізатора. Перевірте його роботу. Що відбулося з продуктивністю аналізатора? Чому?
+import nltk
+from nltk.corpus import*
+rech=brown.tagged_sents(categories='learned')
+rech1=brown.tagged_sents(categories='romance')
+bigram_tagger=nltk.BigramTagger(rech) 
+print bigram_tagger.evaluate(rech1) 
+t1=nltk.DefaultTagger('NN') 
+t2=nltk.BigramTagger(rech)
+print t2.evaluate(rech)
+#без backoff, продуктивність аналізатора зменшиться.
+#4.Дослідити наступні проблеми  о виникають при роботі з аналізатором на основі підстановок: що відбудеться з продуктивністю аналізатора, якщо опустити backoff аналізатор (дослідити на частині броунівського корпусу, яка відповідає першій або другій літері прізвища студента); на основі рис.1. та відповідного фрагмента програми встановити точку максимальної продуктивності незважаючи на розмір списку (об’єм оперативної пам’яті) і точку достатньої продуктивності при мінімальному розмірі списку.
+import nltk
+from nltk.corpus import*
+fd=nltk.FreqDist(brown.words(categories='learned')) 
+most_freq_words=fd.keys()[50:100]
+naichastotnishi=most_freq_words
+print naichastotnishi
+cfd=nltk.ConditonalFreqDist(brown.tagged_words(categories='learned')) 
+likely_tags = dict((word, cfd[word].max()) for word in most_freq_words)
+prysvojenia_imovircnych = nltk.UnigramTagger(model=likely_tags, backoff=nltk.DefaultTagger('NN'))
+print prysvojenia_imovircnych.tag(nltk.corpus.brown.sents(categories='learned')[400])
+#bez back-off
+print 'bez back-off'
+prysvojenia_imovircnych= nltk.UnigramTagger(model=likely_tags)
+print prysvojenia_imovircnych.tag(nltk.corpus.brown.sents(categories='learned')[400])
+#Якщо опустити backoff аналізатор, продуктивність аналізатора на основі підстановок зменшиться. Аналізатор не присвоюватиме ніяких тегів словоформам, які не входять до означеного списку найчастотніших слів і ставитиме їм у відповідність тег None. При використанні backoff аналізатора таким словам присвоюється тег NN, що збільшує ефективнісь аналізатора.
+def performance(cfd, wordlist):
+    imovirni = dict((word, cfd[word].max()) for word in wordlist)
+    prysvojenia_imovircnych = nltk.UnigramTagger(model=lt, backoff=nltk.DefaultTagger('NN'))
+    return prysvojenia_imovircnych.evaluate(brown.tagged_sents(categories='news'))
+def display(): 
+    import pylab4
+    words_by_freq = list(nltk.FreqDist(brown.words(categories='learned')))
+    cfd = nltk.ConditionalFreqDist(brown.tagged_words(categories='learned'))
+    sizes = 2 ** pylab.arange(15)
+    perfs = [performance(cfd, words_by_freq[:size]) for size in sizes]
+    pylab.plot(sizes, perfs, '-bo')
+    pylab.title('Lookup Tagger Performance with Varying Model Size')
+    pylab.xlabel('Model Size')
+    pylab.ylabel('Performance')
+    pylab.show()
+display()
+#5.Знайдіть розмічені корпуси текстів для інших мов які вивчаєте або володієте (українська, польська, німецька, російська, італійська, японська). Здійсніть тренування та оцініть продуктивність роботи різних аналізаторів та комбінацій різних аналізаторів. Точність роботи аналізаторів порівняйте з точністю роботи аналізаторів для англійських корпусів. Результати поясніть.
+import nltk
+fd= nltk.FreqDist(nltk.corpus.floresta.words ())
+pop= fd.keys()[:30]
+print pop
+cfd= nltk.ConditionalFreqDist(nltk.corpus.floresta.tagged_words())
+kmp= dict((word, cfd[word].max()) for word in pop) 
+print kmp
+unigram_tagger = nltk.UnigramTagger (model=kmp)
+unigram_tagger.evaluate(nltk.corpus.floresta.tagged_sents())
+c= nltk.corpus.floresta.tagged_sents ()
+t0= nltk.DefaultTagger('NN')
+t1 = nltk.UnigramTagger(c, backoff=t0)
+t2=nltk.BigramTagger(c, cutoff=0, backoff=t1) 
+print 'tochnist robotu korpusu floresta'
+print t2.evaluate(c)
+from nltk.corpus import treebank
+d=nltk.corpus.treebank.tagged_sents()
+t0= nltk.DefaultTagger('NN')
+t1 = nltk.UnigramTagger(d, backoff=t0)
+t2=nltk.BigramTagger(d, cutoff=0, backoff=t1)
+print 'tochnist robotu korpusu treebank'
+print t2.evaluate(d)
+#6.Створити аналізатор по замовчуванню та набір юніграм і n-грам аналізаторів. Використовуючи backoff здійсніть тренування аналізаторів на частині корпуса з вправи 3.2. (Прочитати файл допомоги про морфологічний аналізатор на основі афіксів (help(nltk.AffixTagger)). Напишіть програму, яка викликає аналізатор на основі афіксів в циклі, з різними значеннями довжини афіксів і мінімальними довжинами слів. При яких значеннях можна отримати кращі результати.) Дослідіть три різні комбінації поєднання цих аналізаторів. Перевірте точність роботи аналізаторів. Визначіть комбінацію аналізаторів з максимальною точністю аналізу. Змініть розмір даних на яких проводилось тренування. Повторіть експерименти для змінених даних для тренування. Результати порівняти і пояснити.
+import nltk
+from nltk.corpus import brown
+b = nltk.corpus.brown.tagged_sents(categories='romance')
+sent = nltk.corpus.brown.sents(categories='romance')[250]
+g=[-1,-2,-3]	
+for i in g:
+    nltk.AffixTagger(b, affix_length=i, min_stem_length=3).tag(sent)
+b= nltk.corpus.brown.tagged_sents(categories='humor')
+sent = nltk.corpus.brown.sents(categories='humor')[250]
+g=[-1,-2,-3,-4]
+for i in g:
+    nltk.AffixTagger(b, affix_length=i, min_stem_length=3).tag(sent)
+import nltk
+default_tagger = nltk.DefaultTagger('NN')
+a = nltk.corpus.brown.tagged_sents(categories='romance')
+unigram_tagger = nltk.UnigramTagger(a)
+bigram_tagger = nltk.BigramTagger(a, cutoff=0)
+affix_tagger = nltk.AffixTagger(a, affix_length=-2, min_stem_length=3)
+t0=nltk.DefaultTagger('NN') 
+t1=nltk.UnigramTagger(a, backoff=t0)
+t2=nltk.BigramTagger(a, backoff=t1)
+t3=nltk.AffixTagger(a, backoff=t2)
+print t3.evaluate(a)
+b = nltk.corpus.brown.tagged_sents(categories='humor')
+print t3.evaluate(b)
+t0=nltk.UnigramTagger(a, backoff=t0)
+t1=nltk.BigramTagger(a, backoff=t1)
+t2=nltk.AffixTagger(a, backoff=t2)
+t3=nltk.DefaultTagger('NN')
+print t3.evaluate(b)
+t0=nltk.DefaultTagger('NN')
+t1=nltk.AffixTagger(a, backoff=t0)
+t2=nltk.UnigramTagger(a, backoff=t1)
+t3=nltk.BigramTagger(a, backoff=t1)
+print t3.evaluate(b)
+t0=nltk.DefaultTagger('NN')
+t1=nltk.UnigramTagger(a, backoff=t0)
+t2=nltk.AffixTagger(a, backoff=t1)
+t3=nltk.BigramTagger(a, backoff=t2)
+print t3.evaluate(b)
+t0=nltk.DefaultTagger('NN')
+t1=nltk.UnigramTagger(b, backoff=t0)
+t2=nltk.AffixTagger(b, backoff=t1)
+t3=nltk.BigramTagger(b, backoff=t2)
+print t3.evaluate(b)
+t0=nltk.DefaultTagger('NN')
+unigram_tagger = nltk.UnigramTagger(a)
+unigram_tagger = nltk.UnigramTagger(b)
+c = nltk.corpus.brown.tagged_sents(categories='fiction')
+d = nltk.corpus.brown.tagged_sents(categories='government')
+t0=nltk.DefaultTagger('NN')
+t1=nltk.UnigramTagger(c, backoff=t0)
+t2=nltk.AffixTagger(c, backoff=t1)
+t3=nltk.BigramTagger(c, backoff=t2)
+print t3.evaluate(b)
+t0=nltk.DefaultTagger('NN')
+t1=nltk.UnigramTagger(d, backoff=t0)
+t2=nltk.AffixTagger(d, backoff=t1)
+t3=nltk.BigramTagger(d, backoff=t2)
+print t3.evaluate(b)
+#7.Прочитати стрічку документування функції demo Brill аналізатора. Здійснити експерименти з різними значення параметрів цієї функції. Встановити який взаємозв’язок є між часом тренування (навчання аналізатора) і точністю його роботи.
+import nltk - морфологічний аналізатор коли всім словам розміченого корпусу присвоюються найбільш ймовірні теги, а далі досл. різноманітні трансформації тегів що дозволяють побудувати продукційні правила
+from nltk.book import*
+help(nltk.tag.brill.demo)
+print nltk.tag.brill.demo(num_sents=30, max_rules=48,  min_score=2, trace=5, train=0.9)
+
+
+
+
+
+
+
+ 
