@@ -1,0 +1,9 @@
+Здійсніть тренування біграм аналізатора на частинах корпуса з вправи 3.1 без backoff аналізатора.
+#Перевірте його роботу.
+
+brown_tagged_sents=brown.tagged_sents(categories='science_fiction')
+bigramm_tagger=nltk.BigramTagger(brown_tagged_sents, cutoff=0)
+brown_sents=brown.sents(categories='science_fiction')
+print bigramm_tagger.tag(brown_sents)
+print bigramm_tagger.evaluate(brown_tagged_sents)
+print
