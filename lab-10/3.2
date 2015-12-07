@@ -1,0 +1,20 @@
+Прочитати файл допомого про морфологічний аналізатор на основі афіксів (help(nltk.AffixTagger)). 
+Напишіть програму, яка викликає аналізатор на основі афіксів в циклі, з різними значеннями довжини афіксів і мінімальними довжинами слів.
+При яких значеннях можна отримати кращі результати.
+>>> import nltk
+>>> from nltk.corpus import brown
+>>> brown_s = nltk.corpus.brown.tagged_sents(categories='science_fiction')
+>>> sents = nltk.corpus.brown.sents(categories='science_fiction')
+>>> afsize=[-1,-2,-3]
+>>> stem_size=[2,3]
+>>> for i in afsize:
+	for j in stem_size:
+		tagger=affix_tagger=nltk.AffixTagger(brown_s,affix_length=i,min_stem_length=j)
+		analyze=tagger.tag(sent)
+		evaluation=tagger.evaluate(brown_s)
+		print analyze
+		print tagger
+		print evaluation
+		
+		
+	#Найкращипй результат коли афікс довжиною -2 і найменша довжина кореня =0'
