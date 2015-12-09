@@ -1,0 +1,118 @@
+Завдання1
+import nltk
+text=nltk.word_tokenize('They wind back the clock, while we chase after the wind.')
+print nltk.pos_tag(text)
+ 
+ 
+Завдання2
+pos = {}
+pos['I'] = 'PRP'
+pos['have'] = 'V'
+pos['a'] = 'DT'
+pos['cat'] = 'N'
+print pos #{'I': 'PRP', 'a': 'DT', 'have': 'V', 'cat': 'N'}
+pos['have'] #'V'
+print len(pos) #4
+print list(pos) #['I', 'a', 'have', 'cat']
+print sorted(pos) #['I', 'a', 'cat', 'have']
+print [w for w in pos if w.endswith('t')] #['cat']
+for word in sorted(pos):
+print word + ':', pos[word]
+
+I: PRP
+a: DT
+cat: N
+have: V
+
+simple = dict()
+simple['night']
+
+Traceback (most recent call last):
+  File "<pyshell#13>", line 1, in <module>
+    pos['night']
+KeyError: 'night'
+
+default = nltk.defaultdict(str)
+default['night'] #''
+
+
+Завдання4
+d = {'I':'PRO','like':'V','to':'TO','learn':'V','English':'N'}
+print d
+del d['I']
+print d
+del d ['like']
+print d
+
+
+Завдання5
+import nltk
+brown = nltk.corpus.brown.tagged_words()
+def tag(text):
+    tag_list = []
+    for tags in text:
+        tag_list += [tags[1]]
+print "The number of tags id : %d" % (len(set(tag_list)))
+return sorted(list(set(tag_list)))[:200]
+
+print tag(brown)
+
+
+Завдання6
+import nltk
+from nltk.corpus import brown
+def plural_nouns():
+    nouns = [word.lower() for (word,tag) in brown.tagged_words(simplify_tags=True) if tag=='N']
+    fdist = nltk.FreqDist(nouns)
+    dict_nouns = {}
+    for word in nouns:
+        if word.endswith('s'):
+            dict_nouns[word]=word[:-1]
+    results = []
+    for plural,singular in dict_nouns.iteritems():
+        if fdist[plural]>fdist[singular] and fdist[singular]>0:
+    results.append(plural)
+    for word in nltk.FreqDist(results).keys():
+print word + ': %i' % fdist[word]
+print plural_nouns
+
+Завдання7
+import nltk
+from nltk.corpus import brown
+def create_dict():
+    tag_count = nltk.defaultdict(list)
+    for (word,tag) in brown.tagged_words(simplify_tags=True):
+        if tag not in tag_count[word.lower()]:
+            tag_count[word.lower()].append(tag)
+    return tag_count
+def not_one_tag():
+    dict_tags = create_dict()
+    n = 0
+    for word in dict_tags:
+        if len(dict_tags[word])>=2 and word.isalpha():
+            n=n+1
+print n
+print not_one_tag ()
+
+Завдання8
+import nltk
+from nltk.corpus import brown
+
+words_tagged = brown.tagged_words()
+cfd = nltk.ConditionalFreqDist(words_tagged)
+print [w for w in cfd.conditions() if 'NNS' in cfd[w] and 'VBZ' in cfd[w]] [:50]
+
+#VBZ: verb, present tense, 3rd person singular\ NNS: noun, common, plural
+#Якщо вважати теги – умовою та слова подією,
+#то можна встановити слова, які найчастіше маркуються певним тегом
+
+Завдання9
+import nltk
+from nltk.corpus import brown
+pos=nltk.defaultdict(lambda: nltk.defaultdict(int))
+btags=brown.tagged_words(simplify_tags=True)
+for ((w1, t1), (w2, t2)) in nltk.bigrams(btags):
+    pos [(w1, t1)][t2] += 1
+
+print pos [('curly', 'ADJ')]
+print pos [('spring', 'N')]

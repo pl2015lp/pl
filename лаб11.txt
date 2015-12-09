@@ -1,0 +1,138 @@
+
+import nltk
+from nltk import grammar
+Завдання6
+Winnie_the_Pooh='''[You can imagine Piglet's joy when at last the ship came in sight of him.] In after-years he liked to think that he had been in Very Great Danger during the Terrible Flood, but the only danger he had really been in was the last half-hour of his imprisonment, when Owl, who had just flown up, sat on a branch of his tree to comfort him, and told him a very long story about an aunt who had once laid a seagull's egg by mistake, and the story went on and on, rather like this sentence, until Piglet who was listening out of his window without much hope, went to sleep quietly and naturally, slipping slowly out of the window towards the water until he was only hanging on by his toes, at which moment, luckily, a sudden loud squawk from Owl, which was really part of the story, being what his aunt said, woke the Piglet up and just gave him time to jerk himself back into safety and say, "How interesting, and did she?" when - well, you can imagine his joy when at last he saw the good ship, Brain of Pooh (Captain, C. Robin; 1st Mate, P. Bear) coming over the sea to rescue him...'''
+abstract=Winnie_the_Pooh.split()
+print abstract
+
+
+Завдання5
+grammar = nltk.parse_cfg("""
+S -> NP VP
+NP -> Det Nom | Det Nom Nom
+VP -> V NP
+Nom -> Adj N | N
+Det -> 'The'| 'a'
+Adj -> 'last'
+N -> 'woman' | 'man' | 'Thursday'
+V -> 'saw'
+""")
+sent = "The woman saw a man last Thursday".split()
+parser = nltk.ChartParser(grammar)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
+
+	
+Завдання2	
+from nltk import Tree
+help(Tree)
+print '''A Tree represents a hierarchical grouping of leaves and subtrees. A tree's children are encoded as a list of leaves and subtrees,where a leaf is a basic (non-tree) value; and a subtree is a nested Tree.
+chomsky_normal_form(self, factor='right', horzMarkov=None, vertMarkov=0, childChar='|', parentChar='^')'''
+
+
+Завдання4
+groucho_grammar = nltk.parse_cfg("""
+S -> NP VP
+PP -> P NP
+NP -> Det N | Det N PP | 'I'
+VP -> V NP | VP PP
+Det -> 'an' | 'my'
+N -> 'elephant' | 'pajamas'
+V -> 'shot'
+P -> 'in'
+""")
+sent = ['I', 'shot', 'an', 'elephant', 'in', 'my', 'pajamas']
+parser = nltk.ChartParser(groucho_grammar)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
+grammar1 = nltk.parse_cfg("""
+S -> NP VP
+VP -> V NP | V NP PP
+PP -> P NP
+V -> "saw" | "ate" | "walked"
+NP -> "John" | "Mary" | "Bob" | Det N | Det N PP
+Det -> "a" | "an" | "the" | "my"
+N -> "man" | "dog" | "cat" | "telescope" | "park"
+P -> "in" | "on" | "by" | "with"
+""")
+sent = "Mary saw Bob".split()
+rd_parser = nltk.RecursiveDescentParser(grammar1)
+for tree in rd_parser.nbest_parse(sent):
+    tree.draw()
+grammar2 = nltk.parse_cfg("""
+S  -> NP VP
+NP -> Det Nom | PropN
+Nom -> Adj Nom | N
+VP -> V Adj | V NP | V S | V NP PP
+PP -> P NP
+PropN -> 'Buster' | 'Chatterer' | 'Joe'
+Det -> 'the' | 'a'
+N -> 'bear' | 'squirrel' | 'tree' | 'fish' | 'log'
+Adj  -> 'angry' | 'frightened' |  'little' | 'tall'
+V ->  'chased'  | 'saw' | 'said' | 'thought' | 'was' | 'put'
+P -> 'on'
+""")
+sent = "the angry bear chased the frightened little squirrel ".split()
+parser = nltk.ChartParser(grammar2)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
+
+	
+Завдання8
+sr_parse = nltk.ShiftReduceParser(grammar1, trace=2)
+print sr_parse.parse(sent)
+sr_parse = nltk.ShiftReduceParser(grammar1)
+print sr_parse.parse(sent)
+for p in grammar1.productions():
+	print p
+import nltk.draw.rdparser
+nltk.draw.rdparser.demo()
+nltk.draw.srparser.demo()
+
+Завдання10
+Buffalo_grammar = nltk.parse_cfg("""
+S -> NP VP
+NP -> NP RC | PN N
+VP -> V NP
+RC -> NP V
+PN -> 'Buffalo'
+N -> 'buffalo'
+V -> 'buffalo'
+""")
+sent = "Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo".split()
+parser = nltk.ChartParser(Buffalo_grammar)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
+r="Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo"
+print r.lower()
+a=r.lower()
+b=a.split()
+for tree in rd_parser.nbest_parse(b):
+	print tree
+
+	
+Завдання12
+rd_parser = nltk.RecursiveDescentParser(grammar1)
+sr_parser = nltk.ShiftReduceParser(grammar1)
+sent1 = "Mary saw Bob".split(
+def timeit(sent1,parser):
+    import time
+    start=time.clock()
+    print parser.parse(sent1)
+    return time.clock()-start
+timeit(sent1,rd_parser)
+timeit(sent1,sr_parser)
+import timeit
+t1 = timeit.Timer(setup='from nltk import RecursiveDescentParser ')
+t1.timeit()
+t2 = timeit.Timer(setup='from nltk import ShiftReduceParser')
+t2.timeit()
+#13. Прочитати про  "garden path" речення http://en.wikipedia.org/wiki/Garden_path_sentence. Оцінити обчислювальну складність аналізу таких речень в порівнянні з труднощами аналізу таких речень людиною?
+print '''A garden path sentence is a grammatically correct sentence that starts in such a way that a reader's most likely interpretation will be incorrect; they are lured into an improper parse that turns out to be a dead end.'''
+print "Garden path sentences mostly appear in analytic languages, where word order is heavily relied upon to establish the grammatical case and function in a sentence. "
+print "Garden path sentences are less common in spoken communication because the prosodic qualities of speech (such as the stress and the tone of voice) often serve to resolve ambiguities in the written text."

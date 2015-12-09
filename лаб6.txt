@@ -1,0 +1,5 @@
+завдання 1
+a='''By Larry Bleiberg 20 October 2015. One hectic morning, early in my marriage, I was driving my father-in-law to the airport. While navigating the snarling highway traffic, my mind looped through to-do lists, calculating how long it would take to drop him off, say goodbye and make it cross-town to the office. Then a jet glided silently over the road like a giant heron, about to touch down at Dallas-Fort Worth Airport.
+"It's magic," my father-in-law said, interrupting my restless thoughts. I looked at him, confused.'''
+nltk.re_show('[a-zA-Z]+', a)
+print 'Vysnovok: Takomu vyrazu ([a-zA-Z]+) vidpovidaiut strichky z velykyh abo malyh liter dovilnoi dovzhyny, ne vrahovuiuchy tsyfry ta rozdilovi znaky'

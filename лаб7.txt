@@ -1,0 +1,252 @@
+1.Знайти в Python's help додаткову інформацію про послідовності. В інтерпретаторі, набрати по черзі help(str), help(list), та help(tuple). На екрані буде відображено 
+
+повний список функцій властивих кожному з типів. Деякі функції мають спеціальні імена з подвійними підкреслюваннями. Кожній такій функції відповідає і інший запис 
+
+показаний  в документації. 
+
+#Зі списками
+>>> msg= ['Popovych', 'Anna', 'Yevheniivna']
+>>> msn=['Studentka', 'NULP']
+>>> msg.__add__(msn)
+['Popovych', 'Anna', 'Yevheniivna', 'Studentka', 'NULP']
+>>> msg.__gt__(msn)
+False
+>>> msn.__gt__(msg)
+True
+>>> msn.__contains__(msg)
+False
+>>> msg.__contains__(msn)
+False
+#Зі стрічками
+>>> a='Anna'
+>>> b='Popovych'
+>>> b[0]
+'B'
+>>> hash(b)
+1006189587
+>>> a.__sizeof__()
+27
+>>> a.swapcase()
+'aNNA'
+>>> b.partition('y')
+('Burd', 'y', 'ko')
+#з кортежами
+>>> a=('Anna','Popovych')
+>>> a*3
+('Anna', 'Popovych', 'Anna', 'Popovych', 'Anna', 'Popovych')
+>>> a.count('Popovych')
+1
+>>> 
+2.Знайти три операції, які можна здійснювати і зі списками, і з кортежами. Знайти три операції, які не можна здійснювати над кортежами. Знайдіть коли використання 
+
+списку замість кортежу приводить до Python помилки.
+#Операції, які можна здійснити і зі списками, і з кортежами:
+>>> a=('walkie','talkie')
+>>> b = ['boogie','woogie']
+>>> a+('baby',)
+('walkie', 'talkie', 'baby')
+>>> b+['baby']
+['boogie', 'woogie', 'baby']
+>>> a[0]
+'walkie'
+>>> b[1]
+'woogie'
+>>> len(a)
+2
+>>> len(b)
+2
+>>> a*3
+('walkie', 'talkie', 'walkie', 'talkie', 'walkie', 'talkie')
+>>> b*2
+['boogie', 'woogie', 'boogie', 'woogie']
+#Операції, які не можна здійснювати над кортежами:
+>>> a=('walkie','talkie')
+>>> del a[2]
+
+Traceback (most recent call last):
+  File "<pyshell#13>", line 1, in <module>
+    del a[2]
+TypeError: 'tuple' object doesn't support item deletion
+>>> a.append('boogie')
+
+Traceback (most recent call last):
+  File "<pyshell#14>", line 1, in <module>
+    a.append('boogie')
+AttributeError: 'tuple' object has no attribute 'append'
+>>> a.insert(0,'-')
+
+Traceback (most recent call last):
+  File "<pyshell#15>", line 1, in <module>
+    a.insert(0,'-')
+AttributeError: 'tuple' object has no attribute 'insert'
+
+Помилка через використання списку замість кортежу:
+>>> a=('walkie','talkie')
+>>> b= ['boogie', 'woogie']
+>>> a+b
+
+Traceback (most recent call last):
+  File "<pyshell#18>", line 1, in <module>
+    a+b
+TypeError: can only concatenate tuple (not "list") to tuple
+>>> 
+
+3.	Яким чином можна створити кортеж з одного елемента. 
+>>> a=('cat','dog')
+>>> a
+('cat', 'dog')
+>>> b=tuple.__new__(tuple,('cat','dog'))
+>>> b
+('cat', 'dog')
+>>> 
+4.	Створити список words = ['is', 'NLP', 'fun', '?']. Використовуючи операції присвоювання подібні до words[1] = words[2] та тимчасову змінну  tmp перетворити цей 
+
+список в список ['NLP', 'is', 'fun', '!']. Здійснити аналогічні перетворення використовуючи присвоювання в кортежах.
+#У списку
+>>> msg=['is','NLP','fun','?']
+>>> tmp=msg[0]
+>>> msg[0]=msg[1]
+>>> msg[1]=tmp
+>>> msg[3]='!'
+>>> msg
+['NLP', 'is', 'fun', '!']
+
+#в кортежі
+
+>>> msg=('is','NLP','fun','?')
+>>> msg1=()
+>>> msg1+=(msg[1],msg[0],msg[2], '!')
+>>> msg1
+('NLP', 'is', 'fun', '!')
+>>> 
+5.	Прочитати про вбудовану функцію здійснення порівнянь cmp, набравши help(cmp). Продемонструвати чим поведінка цієї функції відрізняється від поведінки 
+
+операторів порівняння. 
+>>> help(cmp)
+Help on built-in function cmp in module __builtin__:
+
+cmp(...)
+    cmp(x, y) -> integer
+    
+    Return negative if x<y, zero if x==y, positive if x>y.
+
+>>> a=['Anna']
+>>> b=['Popovych']
+>>> b>a
+False
+>>> a>b
+True
+>>> cmp(a, b)
+1
+>>> cmp(b,a)
+-1
+6.	Написати програму для коректного виділення в тексті n-грамів з врахуванням граничних випадків: n = 1, та n = len(sent)?
+>>> from __future__ import division
+>>> import nltk, re, pprint
+>>> recz='The bicycle is the most popular form of two-wheeled transport in the world, but could we all soon be using hoverboards? Listen to Neil and Finn and learn 
+
+some new words.'
+>>> def ngr(f,n):
+	a=nltk.word_tokenize(f)
+	b=nltk.ngrams(a,n)
+	return b
+
+>>> ngr(recz,5)
+[('The', 'bicycle', 'is', 'the', 'most'), ('bicycle', 'is', 'the', 'most', 'popular'), ('is', 'the', 'most', 'popular', 'form'), ('the', 'most', 'popular', 'form', 
+
+'of'), ('most', 'popular', 'form', 'of', 'two-wheeled'), ('popular', 'form', 'of', 'two-wheeled', 'transport'), ('form', 'of', 'two-wheeled', 'transport', 'in'), 
+
+('of', 'two-wheeled', 'transport', 'in', 'the'), ('two-wheeled', 'transport', 'in', 'the', 'world'), ('transport', 'in', 'the', 'world', ','), ('in', 'the', 'world', 
+
+',', 'but'), ('the', 'world', ',', 'but', 'could'), ('world', ',', 'but', 'could', 'we'), (',', 'but', 'could', 'we', 'all'), ('but', 'could', 'we', 'all', 'soon'), 
+
+('could', 'we', 'all', 'soon', 'be'), ('we', 'all', 'soon', 'be', 'using'), ('all', 'soon', 'be', 'using', 'hoverboards'), ('soon', 'be', 'using', 'hoverboards', '?'), 
+
+('be', 'using', 'hoverboards', '?', 'Listen'), ('using', 'hoverboards', '?', 'Listen', 'to'), ('hoverboards', '?', 'Listen', 'to', 'Neil'), ('?', 'Listen', 'to', 
+
+'Neil', 'and'), ('Listen', 'to', 'Neil', 'and', 'Finn'), ('to', 'Neil', 'and', 'Finn', 'and'), ('Neil', 'and', 'Finn', 'and', 'learn'), ('and', 'Finn', 'and', 'learn', 
+
+'some'), ('Finn', 'and', 'learn', 'some', 'new'), ('and', 'learn', 'some', 'new', 'words'), ('learn', 'some', 'new', 'words', '.')]
+>>> ngr(recz,2)
+[('The', 'bicycle'), ('bicycle', 'is'), ('is', 'the'), ('the', 'most'), ('most', 'popular'), ('popular', 'form'), ('form', 'of'), ('of', 'two-wheeled'), ('two-
+
+wheeled', 'transport'), ('transport', 'in'), ('in', 'the'), ('the', 'world'), ('world', ','), (',', 'but'), ('but', 'could'), ('could', 'we'), ('we', 'all'), ('all', 
+
+'soon'), ('soon', 'be'), ('be', 'using'), ('using', 'hoverboards'), ('hoverboards', '?'), ('?', 'Listen'), ('Listen', 'to'), ('to', 'Neil'), ('Neil', 'and'), ('and', 
+
+'Finn'), ('Finn', 'and'), ('and', 'learn'), ('learn', 'some'), ('some', 'new'), ('new', 'words'), ('words', '.')]
+
+>>> ngr(recz, len(nltk.word_tokenize(recz)))
+[('The', 'bicycle', 'is', 'the', 'most', 'popular', 'form', 'of', 'two-wheeled', 'transport', 'in', 'the', 'world', ',', 'but', 'could', 'we', 'all', 'soon', 'be', 
+
+'using', 'hoverboards', '?', 'Listen', 'to', 'Neil', 'and', 'Finn', 'and', 'learn', 'some', 'new', 'words', '.')]
+>>> 
+7.	Використати оператори нерівності для порівняння стрічок, наприклад. 'Monty' < 'Python'. Що станеться, якщо виконати  'Z' < 'a'? Порівняти стрічки,як мають 
+
+однаковий префікс, наприклад 'Monty' < 'Montague'. Спробувати порівняти структуровані об’єкти ,наприклад. ('Monty', 1) < ('Monty', 2). Чи отримали очікувані 
+
+результати?
+
+При роботі зі стрічками оператори нерівності порівнюють перший неодинаковий символ. Оскільки «P» за алфавітом далі, ніж «M», а «y» дальше, ніж «a» то 'Monty' < 
+
+'Python', а 'Monty' > 'Montague'. Першими йдуть усі великі букви, тоді маленькі, тому 'Z' < 'a'. Те ж саме стосується і структурованих об’єктів, елементи порівнюються 
+
+по черзі.
+
+>>> 'Monty'<'Python'
+True
+>>> 'Monty'>'Python'
+False
+>>> 'Z'>'a'
+False
+>>> 'Z'<'a'
+True
+>>> 'Monty'<'Montague'
+False
+>>> ('Monty',1)<('Monty',2)
+True
+8.	Написати програму видалення пробілів на початку і в кінці стрічки та для видалення зайвих пробілів між словами. Використовувати split() та join(). Оформити у 
+
+вигляді функції. 
+>>> def deletion(s):
+	de=' '.join(s.split())
+	return de
+
+>>> recz='   The best of the best   '
+>>> deletion(recz)
+'The best of the best'
+>>> 
+9.	Написати програму видалення пробілів на початку і в кінці стрічки та для видалення зайвих пробілів між словами. Використовувати re.sub() . Оформити у вигляді 
+
+функції. 
+>>> def deletion(s):
+	import re
+	de=re.sub('\s+', ' ', s)
+	de1=re.sub('^\s|\s$', '', de)
+	return de1
+
+>>> recz='   The best of the best   '
+>>> deletion(recz)
+'The best of the best'
+>>> 
+10.	Написати програму сортування слів за їх довжиною. Визначити допоміжну функцію cmp_len, яка буде використовувати функцію  cmp для порівняння довжин слів. 
+
+Функція повинна містити повну стрічку документування.
+def cmp_len(a,b):
+	"Compare the length of two words, switching them if the second word is longer"
+	if cmp(len(a),len(b))==(-1):
+		a,b=b,a
+		return [a,b]
+
+	
+def sorting(s):
+	"Sort the words in the given string starting from the longest one"
+	for j in range(len(s)-1):
+		for i in range(len(s)-1):
+			s[i],s[i+1]=cmp_len(s[i],s[i+1])
+			return s
+
+
+
+
+
