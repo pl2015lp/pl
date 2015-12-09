@@ -1,0 +1,2 @@
+Most frequent word: state
+Syns length: 31
