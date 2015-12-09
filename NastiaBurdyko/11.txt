@@ -1,0 +1,263 @@
+﻿1.	Здійснити аналіз речення Kim arrived or Dana left and everyone cheered. Знайти частини речення які охоплюють сполучники and та or. Побудувати дерева, які відповідають цим двом інтерпретаціям.
+import nltk
+grammar = nltk.parse_cfg("""
+S -> CP | VP 
+CP -> VP C VP | CP C VP | VP C CP
+VP -> NP V 
+NP -> 'Kim' | 'Dana' | 'everyone'
+V -> 'arrived' | 'left' |'cheered'
+C -> 'or' | 'and'
+""")
+
+print "======= Kim arrived ========="
+sent = "Kim arrived".split()
+parser = nltk.ChartParser(grammar)
+for t in parser.nbest_parse(sent):
+    print t
+
+print "\n======= Kim arrived or Dana left ========="
+sent = "Kim arrived or Dana left".split()
+parser = nltk.ChartParser(grammar)
+for t in parser.nbest_parse(sent):
+    print t 
+
+print "\n=== Kim arrived or Dana left and everyone cheered ===="
+sent = "Kim arrived or Dana left and everyone cheered".split()
+parser = nltk.ChartParser(grammar)
+for t in parser.nbest_parse(sent):
+    print t
+[out]:
+
+======= Kim arrived =========
+(S (VP (NP Kim) (V arrived)))
+
+======= Kim arrived or Dana left =========
+(S (CP (VP (NP Kim) (V arrived)) (C or) (VP (NP Dana) (V left))))
+
+=== Kim arrived or Dana left and everyone cheered ====
+(S
+  (CP
+    (CP (VP (NP Kim) (V arrived)) (C or) (VP (NP Dana) (V left)))
+    (C and)
+    (VP (NP everyone) (V cheered))))
+(S
+  (CP
+    (VP (NP Kim) (V arrived))
+    (C or)
+    (CP
+      (VP (NP Dana) (V left))
+      (C and)
+      (VP (NP everyone) (V cheered)))))
+. >>> import nltk
+>>> groucho_grammar = nltk.parse_cfg("""
+ S -> NP VP
+NP -> N  V
+N -> "Kim"
+V -> "arrived"
+VP -> NP VP
+NP -> P  NP
+P -> "or"
+NP -> N V
+N -> "Dana"
+V -> "left"
+VP -> P NP
+P -> "and"
+NP -> N V
+N -> "everyone"
+V -> "cheered"
+""")
+>>> sent = "Kim arrived or Dana left and everyone cheered".split()
+>>> parser = nltk.ChartParser(groucho_grammar)
+>>> trees = parser.nbest_parse(sent)
+>>> for tree in trees:
+tree.draw()
+  
+#4.Перетворити всі дерева , які зустрічаються в методичних вказівка і зображені за допомогою дужок використовуючи  nltk.Tree() . Використовувати draw() для побудови графічного зображення дерева.
+import nltk
+groucho_grammar = nltk.parse_cfg("""
+S -> NP VP
+PP -> P NP
+NP -> Det N | Det N PP | 'I'
+VP -> V NP | VP PP
+Det -> 'an' | 'my'
+N -> 'elephant' | 'pajamas'
+V -> 'shot'
+P -> 'in'	
+""")
+sent = ['I', 'shot', 'an', 'elephant', 'in', 'my', 'pajamas']
+parser = nltk.ChartParser(groucho_grammar)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
+
+grammar1 = nltk.parse_cfg("""
+S -> NP VP
+VP -> V NP | V NP PP
+PP -> P NP
+V -> "saw" | "ate" | "walked"
+NP -> "John" | "Mary" | "Bob" | Det N | Det N PP
+Det -> "a" | "an" | "the" | "my"
+N -> "man" | "dog" | "cat" | "telescope" | "park"
+P -> "in" | "on" | "by" | "with"
+""")
+
+sent = "Mary saw Bob".split()
+rd_parser = nltk.RecursiveDescentParser(grammar1)
+for tree in rd_parser.nbest_parse(sent):
+    tree.draw()
+
+grammar1 = nltk.parse_cfg("""
+S -> NP VP
+NP -> Det N
+Det -> "the"
+N -> "dog"
+VP -> V NP
+V -> "saw"
+NP -> Det N PP
+Det -> "a"
+N -> "man"
+PP -> P NP
+P -> "in"
+NP -> Det N
+Det -> "the"
+N -> "park"
+""")
+sent = "the dog saw a man in the park ".split()
+parser = nltk.ChartParser(grammar1)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
+
+grammar2 = nltk.parse_cfg("""
+S  -> NP VP
+NP -> Det Nom | PropN
+Nom -> Adj Nom | N
+VP -> V Adj | V NP | V S | V NP PP
+PP -> P NP
+PropN -> 'Buster' | 'Chatterer' | 'Joe'
+Det -> 'the' | 'a'
+N -> 'bear' | 'squirrel' | 'tree' | 'fish' | 'log'
+Adj  -> 'angry' | 'frightened' |  'little' | 'tall'
+V ->  'chased'  | 'saw' | 'said' | 'thought' | 'was' | 'put'
+P -> 'on'
+""")
+sent = "the angry bear chased the frightened little squirrel ".split()
+parser = nltk.ChartParser(grammar2)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
+
+grammar3 = nltk.parse_cfg("""
+S  -> NP VP
+NP -> Det Nom | PropN
+Nom -> Adj Nom | N
+VP -> V Adj | V NP | V S | V NP PP
+PP -> P NP
+PropN -> 'Buster' | 'Chatterer' | 'Joe'
+Det -> 'the' | 'a'
+N -> 'bear' | 'squirrel' | 'tree' | 'fish' | 'log'
+Adj  -> 'angry' | 'frightened' |  'little' | 'tall'
+V ->  'chased'  | 'saw' | 'said' | 'thought' | 'was' | 'put'
+P -> 'on'
+""")
+sent = "Chatterer said Buster thought the tree was tall".split()
+parser = nltk.ChartParser(grammar3)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
+
+grammar4 = nltk.parse_cfg("""
+S  -> NP VP
+NP -> "John"
+VP -> V NP
+V -> "saw"
+NP -> "Mary"
+""")
+sent = "John saw Mary".split()
+parser = nltk.ChartParser(grammar4)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()         
+                                                                                                                                                         
+groucho_grammar = nltk.parse_cfg("""
+S -> NP VP
+NP -> Det Nom | V  NP
+Nom -> Adj N | Adj Adj N | N
+VP -> NP PP
+PP -> P NP
+Det -> 'the'
+Adj -> 'little' | 'fine' | 'fat'
+N -> 'bear' | 'trout' | 'brook'
+V -> 'saw'
+P -> 'in'
+""")
+sent = "the little bear saw the fine fat trout in the brook".split()
+rd_parser = nltk.RecursiveDescentParser(groucho_grammar)
+for tree in rd_parser.nbest_parse(sent):
+    tree.draw()
+
+8. Написати програму для пошуку відповіді на питання.Чи може grammar1 граматика використовуватися для опису речення довжиною більше ніж 20 слів?
+sr_parse = nltk.ShiftReduceParser(grammar1, trace=2)
+print sr_parse.parse(sent)
+sr_parse = nltk.ShiftReduceParser(grammar1)
+print sr_parse.parse(sent)
+for p in grammar1.productions():
+	print p
+import nltk.draw.rdparser
+nltk.draw.rdparser.demo()
+nltk.draw.srparser.demo()
+
+
+3.10. Здійснити аналіз послідовності слів: Buffalo buffalo Buffalo buffalo
+buffalo buffalo Buffalo buffalo. Оскільки, це граматично правильне речення,
+напишіть контексно-вільну граматику на основі дерева наведеного на цій сторінці з Інтернету. Здійсніть нормалізацію слів (lowercase), для моделювання ситуації коли слухач сприймає це речення на слух. Скільки дерев розбору може мати це дерево в такому випадку? 
+ 
+import nltk
+Bufalo_grammar = nltk.parse_cfg("""
+S -> NP VP
+NP -> NP RC | PN N
+VP -> V NP
+RC -> NP V
+PN -> 'Buffalo'
+N -> 'buffalo'
+V -> 'buffalo'
+""")
+sent = "Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo".split()
+parser = nltk.ChartParser(Bufalo_grammar)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
+r="Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo"
+print r.lower()
+
+
+
+12 Написати програму порівняння швидкодії всіх аналізаторів, які згадувалися в методичних. Використовувати timeit функцію для визначення часу синтаксичного аналізу одного і того самого речення різними аналізаторами.
+import nltk.corpus
+grammar=nltk.parse_cfg("""
+S -> NP VP
+PP -> P NP
+NP -> Det N | Det N PP | 'I'
+VP -> V NP | VP PP
+Det -> 'a'
+N -> 'cake'
+V -> 'want'	
+""")
+recur=nltk.RecursiveDescentParser(grammar)
+shf=nltk.ShiftReduceParser(grammar)
+sent="I want a cake".split()
+def test1(sent,parser):
+    import time
+    start=time.clock()
+    print parser.parse(sent)
+    return time.clock()-start
+test1(sent,recur)
+test1(sent,shf)
+import timeit
+t1 = timeit.Timer(setup='from nltk import RecursiveDescentParser ')
+print t1.timeit()
+t2 = timeit.Timer(setup='from nltk import ShiftReduceParser')
+print t2.timeit()
+
+
+
