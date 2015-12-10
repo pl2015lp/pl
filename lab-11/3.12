@@ -1,0 +1,8 @@
+#Написати програму порівняння швидкодії всіх аналізаторів, які згадувалися в методичних. Використовувати timeit функцію для визначення часу синтаксичного аналізу одного і того самого речення різними аналізаторами.
+import timeit
+time = timeit.Timer(setup='from nltk import ChartParser')
+print time.timeit()
+time = timeit.Timer(setup='from nltk import RecursiveDescentParser ')
+print time.timeit()
+time = timeit.Timer(setup='from nltk import ShiftReduceParser')
+print time.timeit()
