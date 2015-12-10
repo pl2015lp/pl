@@ -1,0 +1,16 @@
+#Перетворити всі дерева, які зустрічаються в методичних вказівка і зображені за допомогою дужок використовуючи  nltk.Tree() . Використовувати draw() для побудови графічного зображення дерева.
+import nltk
+from nltk import Tree
+print help(Tree)
+t=nltk.Tree('(S(NP I)(VP(VP(V shot) (NP(Det an) (N elefant))) (PP((P in) (NP((Det my) (N pajamas)))))))')
+print t.draw()
+t=nltk.Tree('(S((NP((Det the)(Nom((Adj little)(N bear)))))(VP((VP(V saw)(NP(Det the)(Nom(Adj fine)(Adj fat)(N trout))))(PP(P in)(NP(Det the)(Nom(N brook))))))))')
+print t.draw()
+t=nltk.Tree('(S((NP(Det the)(N dog))(VP(V saw)(NP((Det a)(N man)(PP(P in)(NP(Det the)(N park))))))))')
+print t.draw()
+t=nltk.Tree('(S((NP(PropN Chattere))(VP(V said)(S(NP(PropN Buster))(VP(V thought)(S((NP((Det the)(N tree)))(VP(V was)(Adj tall)))))))))')
+print t.draw()
+t=nltk.Tree('(S((NP(Det the)(Nom((Adj angry)(Nom(N bear)))))(VP(V chased)(NP((Det the)(Nom((Adj little)(N squirrell))))))))')
+print t.draw()
+t=nltk.Tree('(S((NP John)(VP(V saw)(NP Mary))))')
+print t.draw()
