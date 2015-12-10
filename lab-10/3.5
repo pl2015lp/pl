@@ -1,0 +1,26 @@
+#5. Знайдіть розмічені корпуси текстів для інших мов які вивчаєте або володієте (українська, польська, німецька, російська, італійська, японська).
+#Здійсніть тренування та оцініть продуктивність роботи різних аналізаторів та комбінацій різних аналізаторів.
+#Точність роботи аналізаторів порівняйте з точністю роботи аналізаторів для англійських корпусів.
+#Результати поясніть.
+fd= nltk.FreqDist(nltk.corpus.conll2002.words ())
+a= fd.keys()[:50]
+print a
+cfd= nltk.ConditionalFreqDist(nltk.corpus.conll2002.tagged_words())
+b= dict((w, cfd[w].max()) for word in a)
+print b['abba']
+print b['ma']
+print b['Ka']
+unigram_tagger= nltk.UnigramTagger (model=b)
+unigram_tagger.evaluate(nltk.corpus.conll2002.tagged_sents())
+c= nltk.corpus.conll2002.tagged_sents ()
+t0= nltk.DefaultTagger('NN')
+t1 = nltk.UnigramTagger(c, backoff=t0)
+t2=nltk.BigramTagger(c, cutoff=0, backoff=t1)
+t2.evaluate(c)
+from nltk.corpus import treebank
+d=nltk.corpus.treebank.tagged_sents()
+t0= nltk.DefaultTagger('NN')
+t1 = nltk.UnigramTagger(d, backoff=t0)
+t2=nltk.BigramTagger(d, cutoff=0, backoff=t1)
+t2.evaluate(d)
+print 
