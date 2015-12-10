@@ -1,0 +1,9 @@
+#7. Використовуючи позиції в дереві побудувати список підметів перших 100 речень корпусу Penn treebank; для спрощення представлення результатів підмети представляти як піддерева з глибиною не більше 2.
+treebank.penn=treebank.parsed_sents()[:30]
+def filter(tree):
+	child_nodes=[child.node for child in tree
+		     if isinstance (child, nltk.Tree) and len(tree) <2]
+	return tree.node=='NP-SBJ'
+result=[subtree for tree in treebank.penn for subtree in tree.subtrees(filter)]
+print result
+print
