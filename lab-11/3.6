@@ -1,0 +1,22 @@
+#6. Здійснити аналіз речення з твору A.A. Milne , замінюючи всі прості речення символом S.
+#Намалювати дерево. Яке відповідає цій структурі.
+#Які основні синтаксичні конструкції було використано для побудови такого довгого речення?
+Winnie_the_Pooh='''[You can imagine Piglet's joy when at last the ship came in sight of him.] In after-years he liked to think that he had been in Very Great Danger during the Terrible Flood, but the only danger he had really been in was the last half-hour of his imprisonment, when Owl, who had just flown up, sat on a branch of his tree to comfort him, and told him a very long story about an aunt who had once laid a seagull's egg by mistake, and the story went on and on, rather like this sentence, until Piglet who was listening out of his window without much hope, went to sleep quietly and naturally, slipping slowly out of the window towards the water until he was only hanging on by his toes, at which moment, luckily, a sudden loud squawk from Owl, which was really part of the story, being what his aunt said, woke the Piglet up and just gave him time to jerk himself back into safety and say, "How interesting, and did she?" when - well, you can imagine his joy when at last he saw the good ship, Brain of Pooh (Captain, C. Robin; 1st Mate, P. Bear) coming over the sea to rescue him...'''
+abstract=Winnie_the_Pooh.split()
+print abstract
+#5. Написати програму побудови дерев для речення  The woman saw a man last Thursday.
+grammar = nltk.parse_cfg("""
+S -> NP VP
+NP -> Det Nom | Det Nom Nom
+VP -> V NP
+Nom -> Adj N | N
+Det -> 'The'| 'a'
+Adj -> 'last'
+N -> 'woman' | 'man' | 'Thursday'
+V -> 'saw'
+""")
+sent = "The woman saw a man last Thursday".split()
+parser = nltk.ChartParser(grammar)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
