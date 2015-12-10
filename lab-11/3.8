@@ -1,0 +1,11 @@
+ Написати програму для пошуку відповіді на питання.
+#Чи може grammar1 граматика використовуватися для опису речення довжиною більше ніж 20 слів?
+sr_parse = nltk.ShiftReduceParser(grammar1, trace=2)
+print sr_parse.parse(sent)
+sr_parse = nltk.ShiftReduceParser(grammar1)
+print sr_parse.parse(sent)
+for p in grammar1.productions():
+	print p
+import nltk.draw.rdparser
+nltk.draw.rdparser.demo()
+nltk.draw.srparser.demo()
