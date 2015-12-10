@@ -1,0 +1,7 @@
+#7. Прочитати стрічку документування функції demo Brill аналізатора.
+#Здійснити експерименти з різними значення параметрів цієї функції.
+#Встановити який взаємозв’язок є між часом тренування (навчання аналізатора) і точністю його роботи.
+from nltk.book import*
+help(nltk.tag.brill.demo)
+nltk.tag.brill.demo(num_sents=2000, max_rules=200, min_score=3, error_output='errors.out', rule_output='rules.yaml', randomize=False, train=0.80000000000000004, trace=3)
+print
