@@ -1,0 +1,18 @@
+#1. Написати рекурсивну функцію для перегляду дерева, яка визначає його глибину.
+#Дерево з одного вузла має глибину рівну нулю.
+#(глибина піддерева це максимальна глибина його дітей плюс один)
+import nltk
+from nltk.corpus import treebank
+t=nltk.Tree('(S(NP Ben)(VP met (NP Ann)))')
+def traverse(t):
+	try:
+		t.node
+	except AttributeError:
+		print t,
+	else:
+		print '(',t.node,
+		for child in t:
+			traverse(child)
+		print')',
+print 'Tree depth is ', t.height()
+print
