@@ -1,0 +1,13 @@
+#5. Вибрати декілька (2) загальних дієслова та напишіть програми для вирішення наступних задач:
+#Пошук дієслів в корпусі Prepositional Phrase Attachment Corpus nltk.corpus.ppattach.
+#Пошук всіх випадків вживання  дієслова з двома різними  РР в яких перший іменник, або другий іменник або прийменник залишаються незмінними
+#Розробити правила CFG граматики  для врахування цих випадків.
+entries = nltk.corpus.ppattach.attachments('training')
+table=nltk.defaultdict(lambda:nltk.defaultdict(set))
+for entry in entries:
+	key=entry.noun1 + '-' + entry.prep + '-' + entry.noun2
+	table[key][entry.attachment].add(entry.verb)
+for key in sorted(table):
+	if len(table[key])>1:
+		print key, 'N', sorted(table[key]['N']),'V:', sorted(table[key]['V'])
+print
