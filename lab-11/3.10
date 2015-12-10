@@ -1,0 +1,24 @@
+#10. Здійснити аналіз послідовності слів: Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo.
+#Оскільки, згідно з http://en.wikipedia.org/wiki/Buffalo_buffalo_Buffalo_buffalo_buffalo_buffalo_Buffalo_buffalo це граматично правильне речення, напишіть контексно-вільну граматику на основі дерева наведеного на цій сторінці з Інтернету.
+#Здійсніть нормалізацію слів (lowercase), для моделювання ситуації коли слухач сприймає це речення на слух.
+#Скільки дерев розбору може мати це дерево в такому випадку? 
+Buffalo_grammar = nltk.parse_cfg("""
+S -> NP VP
+NP -> NP RC | PN N
+VP -> V NP
+RC -> NP V
+PN -> 'Buffalo'
+N -> 'buffalo'
+V -> 'buffalo'
+""")
+sent = "Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo".split()
+parser = nltk.ChartParser(Buffalo_grammar)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
+r="Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo"
+print r.lower()
+a=r.lower()
+b=a.split()
+for tree in rd_parser.nbest_parse(b):
+	print tree
