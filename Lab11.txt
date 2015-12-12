@@ -1,0 +1,196 @@
+﻿"""3. Написати програму побудови двох дерев, кожне з яких відповідає виразу old men and women"""
+import nltk
+grammar1 = nltk.parse_cfg("""
+S -> NP N
+NP -> Adj Nominal
+N -> Conj Noun
+Adj -> 'old'
+Nominal -> 'men'
+Conj -> 'and'
+Noun -> 'women'""")
+sent = "old men and women".split()
+rd_parser = nltk.RecursiveDescentParser(grammar1)
+for tree in rd_parser.nbest_parse(sent):
+    print tree
+
+grammar2 = nltk.parse_cfg("""
+S -> NP
+NP -> Adj Nominal
+Nominal -> Noun Conj N
+Adj -> 'old'
+Conj -> 'and'
+Noun -> 'men'
+N -> 'women'""")
+sent = "old men and women".split()
+rd_parser = nltk.RecursiveDescentParser(grammar2)
+for tree in rd_parser.nbest_parse(sent):
+    print tree
+
+"""2. В класі Tree реалізовано різноманітні корисні методи. Переглянути файл допомоги  Tree з документації та описати основні з цих методів (import Tree,  help(Tree)."""
+print help(tree)
+from nltk.tree import Tree
+#chomsky_normal_form(self, factor='right', horzMarkov=None, vertMarkov=0, childChar='|', parentChar='^')
+print 'chomsky_normal_form: Convert a tree into its Chomsky Normal Form (CNF)'
+#height(self)
+print 'Return the height of the tree'
+#leaves(self)
+print ' Return the leaves of the tree'
+
+"""4. Перетворити всі дерева , які зустрічаються в методичних вказівка і зображені за допомогою дужок використовуючи  nltk.Tree() . Використовувати draw() для побудови графічного зображення дерева."""
+groucho_grammar = nltk.parse_cfg("""
+S -> NP VP
+PP -> P NP
+NP -> Det N | Det N PP | 'I'
+VP -> V NP | VP PP
+Det -> 'an' | 'my'
+N -> 'elephant' | 'pajamas'
+V -> 'shot'
+P -> 'in'
+""")
+sent = ['I', 'shot', 'an', 'elephant', 'in', 'my', 'pajamas']
+parser = nltk.ChartParser(groucho_grammar)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
+
+grammar1 = nltk.parse_cfg("""
+S -> NP VP
+VP -> V NP | V NP PP
+PP -> P NP
+V -> "saw" | "ate" | "walked"
+NP -> "John" | "Mary" | "Bob" | Det N | Det N PP
+Det -> "a" | "an" | "the" | "my"
+N -> "man" | "dog" | "cat" | "telescope" | "park"
+P -> "in" | "on" | "by" | "with"
+""")
+sent = "Mary saw Bob".split()
+rd_parser = nltk.RecursiveDescentParser(grammar1)
+for tree in rd_parser.nbest_parse(sent):
+    tree.draw()
+
+grammar2 = nltk.parse_cfg("""
+S  -> NP VP
+NP -> Det Nom | PropN
+Nom -> Adj Nom | N
+VP -> V Adj | V NP | V S | V NP PP
+PP -> P NP
+PropN -> 'Buster' | 'Chatterer' | 'Joe'
+Det -> 'the' | 'a'
+N -> 'bear' | 'squirrel' | 'tree' | 'fish' | 'log'
+Adj  -> 'angry' | 'frightened' |  'little' | 'tall'
+V ->  'chased'  | 'saw' | 'said' | 'thought' | 'was' | 'put'
+P -> 'on'
+""")
+sent = "the angry bear chased the frightened little squirrel ".split()
+parser = nltk.ChartParser(grammar2)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
+
+"""5.Написати програму побудови дерев для речення The woman saw a man last Thursday."""
+sent_grammar = nltk.parse_cfg("""
+S -> NP VP
+NP -> Det Nominal
+VP -> V ADP
+V -> Verb N
+N -> D Noun
+ADP -> Adj PP
+Det -> 'The'
+Nominal -> 'woman'
+D -> 'a'
+Noun -> 'man'
+Verb -> 'saw'
+Adj -> 'last'
+PP -> 'Thursday'
+""")
+sent = "The woman saw a man last Thursday".split()
+parser = nltk.ChartParser(sent_grammar)
+trees = parser.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
+"""10. Здійснити аналіз послідовності слів: Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo. Оскільки, згідно з http://en.wikipedia.org/wiki/Buffalo_buffalo_Buffalo_buffalo_buffalo_buffalo_Buffalo_buffalo це граматично правильне речення, напишіть контексно-вільну граматику на основі дерева наведеного на цій сторінці з Інтернету. Здійсніть нормалізацію слів (lowercase), для моделювання ситуації коли слухач сприймає це речення на слух. Скільки дерев розбору може мати це дерево в такому випадку? """
+grammar_buffalo = nltk.parse_cfg("""
+S -> NP VP
+NP -> NP RC|PN N
+RC -> NP V
+VP -> V NP
+PN -> 'Buffalo'
+N -> 'buffalo'
+V -> 'buffalo'""")
+sent = 'Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo'.split()
+parser = nltk.ChartParser(grammar_buffalo)
+trees = parser.nbest_parse(sent)
+for t in trees:
+    print t
+
+for tree in trees:
+    tree.draw()
+
+sent = 'Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo'
+heard_sent = sent.lower()
+print heard_sent
+split_sent = heard_sent.split()
+print split_sent
+trees1 = parser.nbest_parse(split_sent)
+for t in trees1:
+    print t
+
+"""12.	Написати програму порівняння швидкодії всіх аналізаторів, які згадувалися в методичних. Використовувати timeit функцію для визначення часу синтаксичного аналізу одного і того самого речення різними аналізаторами."""
+import timeit
+grammar2 = nltk.parse_cfg("""
+S  -> NP VP
+NP -> Det Nom | PropN
+Nom -> Adj Nom | N
+VP -> V Adj | V NP | V S | V NP PP
+PP -> P NP
+PropN -> 'Buster' | 'Chatterer' | 'Joe'
+Det -> 'the' | 'a'
+N -> 'bear' | 'squirrel' | 'tree' | 'fish' | 'log'
+Adj  -> 'angry' | 'frightened' |  'little' | 'tall'
+V ->  'chased'  | 'saw' | 'said' | 'thought' | 'was' | 'put'
+P -> 'on'
+""")
+sent = "the angry bear chased the frightened little squirrel ".split()
+parser1 = nltk.ChartParser(grammar2)
+trees = parser1.nbest_parse(sent)
+for tree in trees:
+    tree.draw()
+
+def timeit(sent,parser):
+    import time
+    start=time.clock()
+    print parser.parse(sent)
+    return time.clock()-start
+time1 = timeit(sent,parser1)
+print time1
+
+parser2= nltk.RecursiveDescentParser(grammar2)
+for tree in parser2.nbest_parse(sent):
+    print tree
+time2 = timeit(sent,parser2)
+print time2
+
+parser3 = nltk.ShiftReduceParser(grammar2)
+print parser3.parse(sent)
+time3 = timeit(sent,parser3)
+print time3
+
+import timeit
+t1 = timeit.Timer(setup='from nltk import RecursiveDescentParser ')
+print t1.timeit()
+t2 = timeit.Timer(setup='from nltk import ShiftReduceParser')
+print t2.timeit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
