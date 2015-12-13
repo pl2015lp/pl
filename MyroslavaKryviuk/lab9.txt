@@ -1,0 +1,90 @@
+#3
+import collections
+d = {}
+d['hand'] = 'right'
+d['leg'] = 'left'
+print d
+print d.keys()
+print list(d)
+print sorted(d)
+print 'Euro' in d
+for key in d:
+    print key
+
+print d.values()
+d1 = dict([('Dolar',24), ('Gryvnia','1'), ('Euro', 25)])
+print d1
+d1.update(d)
+print d1
+d2 = collections.defaultdict(int)
+print d2
+print d2['test']
+print d2['test1']
+
+#5Створити два словники Що станеться зі словниками після виконання команди d1.update(d2)"""
+d1 = dict([('Ukraine','good'), ('Lviv','awesome')])
+d2 =dict([('Russia','bad'), ('Moskov','ill'),])
+print d1.update(d2)
+
+#7 Використовуючи sorted() та set() отримайте відсортований список всіх тегів корпуса Brown без їх дублювання.
+import nltk, re, pprint
+from nltk.corpus import brown
+def tag_list (tagged_words):
+	tags=[]
+	for (w,t) in tagged_words:
+		tags.append(t)
+	tags_list=set(tags)
+	return pprint.pprint (sorted(tags_list))
+print tag_list(nltk.corpus.brown.tagged_words())
+
+#8 Напишіть програму, яка обробить Brown Corpus і допоможе відповісти на наступне запитання: які іменники частіше зустрічаються у множині ніж в однині (розглядати тільки регулярні форми множини).
+import nltk
+from nltk.corpus import brown
+def plural_nouns():
+    nouns = [word.lower() for (word,tag) in brown.tagged_words(simplify_tags=True) if tag=='N']
+    fdist = nltk.FreqDist(nouns)
+    dict_nouns = {}
+    for word in nouns:
+        if word.endswith('s'):
+            dict_nouns[word]=word[:-1]
+    results = []
+    for plural,singular in dict_nouns.iteritems():
+        if fdist[plural]>fdist[singular] and fdist[singular]>0:
+    results.append(plural)
+    for word in nltk.FreqDist(results).keys():
+print word + ': %i' % fdist[word]
+print plural_nouns
+
+#13 Напишіть програму для збору статистичних даних по розмічених корпусах і відповіді на наступне запитання: скільки слів мають неоднозначності в змісті того, що маркуються двома і більше тегами;
+import nltk
+from nltk.corpus import brown
+words = brown.tagged_words()
+dictionary = nltk.defaultdict(list)
+for a, t in words:
+    if t not in dictionary[a]:
+        dictionary[a].append(t)
+neodnoznachni = [w for w in dictionary.items() if len(w[1]) >= 2]
+print neodnoznachni [:10]
+print len(neodnoznachni)
+
+#20 Напишіть програму для знаходження всіх слів, які маркуються як QL в корпусі Brown  і зустрічаються перед наступними дієсловами adore, love, like, prefer.
+import nltk
+from nltk.corpus import brown
+def process(sentence):
+    for (w1,t1), (w2,t2) in nltk.bigrams (sentence):
+        if ((t1=='QL' and w2=='like') or (t1=='QL' and w2=='adore') or (t1=='QL'and w2=='love') or (t1=='QL' and w2=='prefer')):
+            print w1,w2
+for tagged_sent in brown.tagged_sents():
+        process(tagged_sent)
+
+#21 	Написати програму побудови словника, записами якого будуть набори словників. Використовуючи створений словник, збережіть у ньому набори можливих тегів, які зустрічаються після заданого слова з певним тегом, наприклад wordi → tagi → tagi+1.
+import nltk
+from nltk.corpus import brown
+position = nltk.defaultdict(dict)
+tagging = brown.tagged_words(simplify_tags=True)
+for ((word1, tag1), (word2, tag2)) in nltk.bigrams(tagging):
+    pos_temp = position[word1].setdefault(tag1, set())
+    pos_temp.add(tag2)
+
+print position['small'].get('ADJ')
+print position['spring'].get('V')
