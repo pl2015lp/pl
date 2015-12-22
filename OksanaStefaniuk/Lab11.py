@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #Task1
-#Здійснити аналіз речення Kim arrived or Dana left and everyone cheered.
+#Здійснити аналіз речення Anna walks or Peter drives and nobody laught.
 #Знайти частини речення які охоплюють сполучники and та or.
 #Побудувати дерева, які відповідають цим двом інтерпретаціям.
 
