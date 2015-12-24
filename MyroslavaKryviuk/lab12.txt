@@ -1,0 +1,37 @@
+"""1. Написати рекурсивну функцію для перегляду дерева, яка визначає його глибину. Дерево з одного вузла має глибину рівну нулю. (глибина піддерева це максимальна глибина його дітей плюс один)"""
+import nltk
+from nltk.corpus import treebank
+from nltk import RecursiveDescentParser
+from nltk import parse_cfg
+
+def depth(node):
+    left_depth = depth(node[0]) if len(node) > 0 and type(node[0]) == nltk.tree.Tree else 1
+    right_depth = depth(node[1]) if len(node) > 1 and type(node[1]) == nltk.tree.Tree else 1
+    return max(left_depth, right_depth) + 1
+
+tree = nltk.Tree('(S (NP Alice) (VP chased (NP the rabbit)))')
+print 'depth=', depth(tree)
+print tree.height()
+tree.draw()
+
+#3. chart parser додає але ніколи не видаляє дуги з  chart. Чому?
+print 'Since it is a dynamic programming and it remembers only imtermediary result'
+
+#5. Вибрати декілька (2) загальних дієслова та напишіть програми для вирішення наступних задач:
+#Пошук дієслів в корпусі Prepositional Phrase Attachment Corpus nltk.corpus.ppattach.
+#Пошук всіх випадків вживання  дієслова з двома різними  РР в яких перший іменник, або другий іменник або прийменник залишаються незмінними
+#Розробити правила CFG граматики  для врахування цих випадків.
+entries = nltk.corpus.ppattach.attachments('training')
+table=nltk.defaultdict(lambda:nltk.defaultdict(set))
+for entry in entries:
+	key=entry.noun1 + '-' + entry.prep + '-' + entry.noun2
+	table[key][entry.attachment].add(entry.verb)
+for key in sorted(table):
+	if len(table[key])>1:
+		print key, 'N', sorted(table[key]['N']),'V:', sorted(table[key]['V'])
+
+12.Розробити програму обробки дерев корпуса Treebank  nltk.corpus.treebank , яка вилучить всі правила з кожного з дерев за допомогою  Tree.productions(). Правилами, які зустрічаються тільки один раз можна знехтувати. Правила з однаковими лівими частинами  та подібними правими частинами об’єднати для отримання еквівалентного але більш компактного набору правил."""
+from nltk.corpus import treebank
+t = treebank.parsed_sents('wsj_0002.mrg')[0]
+print t
+print t.productions()
