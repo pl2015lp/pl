@@ -1,0 +1,85 @@
+"""1.Знайти в Python's help додаткову інформацію про послідовності. В інтерпретаторі, набрати по черзі help(str), help(list), та help(tuple). На екрані буде відображено повний список функцій властивих кожному з типів. Деякі функції мають спеціальні імена з подвійними підкреслюваннями. Кожній такій функції відповідає і інший запис показаний  в документації. Наприклад x.__getitem__(y) відповідає x[y]."""
+	help(str)
+	help(list)
+	help(tuple)
+	
+	"""2. Знайти три операції, які можна здійснювати і зі списками та із кортежами. Знайти три операції, які не можна здійснювати над кортежами. Знайдіть коли використання списку замість кортежу приводить до Python помилки."""
+	cort = 'smile', 'cry', 7, 'love', 'hate', 5
+	print cort
+	print cort[2]
+	print cort[2:]
+	print len(cort)
+	d = {cort: 'cort'}
+	
+	"""3. Яким чином можна створити кортеж з одного елемента. Продемонструвати два різні способи."""
+	c = 'smile',
+	print c
+	cor = ('smile', )
+	print cor
+	
+	"""4. Створити список words = ['is', 'NLP', 'fun', '?']. Використовуючи операції присвоювання подібні до words[1] = words[2] та тимчасову змінну  tmp перетворити цей список в список ['NLP', 'is', 'fun', '!']. Здійснити аналогічні перетворення використовуючи присвоювання в кортежах."""
+	words = ['is', 'NLP', 'fun', '?']
+	tmp = ['NLP', 'is', 'fun', '!']
+	words[0] = tmp[0]
+	words[1] = tmp[1]
+	words[2] = tmp[2]
+	words[3] = tmp[3]
+	print words
+	cotrez1 = ('is', 'NLP', 'fun', '?')
+	cortez2 = ('NLP', 'is', 'fun', '!')
+	cortez1 = cortez2
+	print cortez1
+	
+"""5. Прочитати про вбудовану функцію здійснення порівнянь cmp, набравши help(cmp). Продемонструвати чим поведінка цієї функції відрізняється від поведінки операторів порівняння."""
+	help(cmp)
+	print cmp(10,1)
+		"""6. Написати програму для коректного виділення в тексті n-грамів з врахуванням граничних випадків: n = 1, та n = len(sent)?"""
+	sent = ['The', 'cat', 'gave', 'birth', 'to', 'three', 'kids']
+	n1 = 1
+	result1 = [sent[i:i+n1] for i in range(len(sent)-n1+1)]
+	print result1
+	
+	n2 = len(sent)
+	result2 = [sent[i:i+n2] for i in range(len(sent)-n2+1)]
+	print result2
+	
+	"""7. Використати оператори нерівності для порівняння стрічок, наприклад. 'Monty' < 'Python'. Що станеться, якщо виконати  'Z' < 'a'? Порівняти стрічки,як мають однаковий префікс, наприклад 'Monty' < 'Montague'. Спробувати порівняти структуровані об’єкти ,наприклад. ('Monty', 1) < ('Monty', 2). Чи отримали очікувані результати?"""
+	print 'Small'>'Big'
+	print 'Z' < 'a'
+	print 'build'>'building'
+	print ('Olko', 'a') > ('Olenka', 2)
+	
+	"""8. Написати програму видалення пробілів на початку і в кінці стрічки та для видалення зайвих пробілів між словами. Використовувати split() та join(). Оформити у вигляді функції. Функція повинна містити повну стрічку документування."""
+	import re
+	def del_function(sent):
+	    """function removes extra spaces using split() and join()"""
+	    ws = ' '
+	    new_sent = (word for word in sent.split() if word !='')
+	    result= ws.join(new_sent)
+	    return result
+	s1 = ' I hate   the bad  weather '
+	result = del_function(s1)
+	print result
+	
+	"""9. Написати програму видалення пробілів на початку і в кінці стрічки та для видалення зайвих пробілів між словами. Використовувати re.sub() . Оформити у вигляді функції. Функція повинна містити повну стрічку документування""	s2 = ' I hate   the bad  weather '
+	def del_function1(sent1):
+	    """function removes extra spaces using regex"""
+	    result = re.sub(r'^\s+|\s+$|','', sent1)
+	    result = re.sub(r'\s{2,}',' ',result)
+	    return result
+	result1 = del_function1(s2)
+	print result1
+	    
+	"""10. Написати програму сортування слів за їх довжиною. Визначити допоміжну функцію cmp_len, яка буде використовувати функцію  cmp для порівняння довжин слів. Функція повинна містити повну стрічку документування."""
+	def cmp_len(x, y):
+	    """function returns compare lengths. If len(x)>len(y) return 1, if len(x)===len(y) return 0, else if return -1"""
+	    return cmp(len(x), len(y))
+	
+	s3 = 'I hate the bad weather'
+	sent = s3.split()
+	sent_len = len(sent)
+	for i in range(sent_len-1):	
+    for j in range(sent_len-1-i):
+        if cmp_len(sent[j], sent[j+1]) == 1:
+           sent[j],sent[j+1] = sent[j+1],sent[j]
+	 print(sent)

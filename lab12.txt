@@ -1,0 +1,47 @@
+"""1. Написати рекурсивну функцію для перегляду дерева, яка визначає його глибину. Дерево з одного вузла має глибину рівну нулю. (глибина піддерева це максимальна глибина його дітей плюс один)"""
+	import nltk
+	from nltk.corpus import treebank
+	from nltk import RecursiveDescentParser
+	from nltk import parse_cfg
+	
+	def depth(node):
+	    left_depth = depth(node[0]) if len(node) > 0 and type(node[0]) == nltk.tree.Tree else 1
+	    right_depth = depth(node[1]) if len(node) > 1 and type(node[1]) == nltk.tree.Tree else 1
+	    return max(left_depth, right_depth) + 1
+	
+	tree = nltk.Tree('(S (NP Alice) (VP chased (NP the rabbit)))')
+	print 'depth=', depth(tree)
+	print tree.height()
+	tree.draw()
+
+"""5. Вибрати декілька (2) загальних дієслова та напишіть програми для вирішення наступних задач:
+	Пошук дієслів в корпусі Prepositional Phrase Attachment Corpus nltk.corpus.ppattach. Пошук всіх випадків вживання дієслова з двома різними РР в яких перший іменник, або другий іменник або прийменник залишаються незмінними"""
+	from nltk.corpus import ppattach
+	print ppattach.fileids()
+	print ppattach.raw('test')[:100]
+	entries = nltk.corpus.ppattach.attachments('test')
+	table = nltk.defaultdict(lambda: nltk.defaultdict(set))
+	for entry in entries:
+	    key = entry.verb + '_' + entry.noun1 + '_' + (entry.noun2 or entry.prep)
+	    table[key][entry.attachment].add(entry.verb)
+	for key in sorted(table):
+	    if len(table[key]) > 1:
+	        print (key, 'V:', sorted(table[key]['V']))[:100]
+			
+	7.	Використовуючи позиції в дереві побудувати список підметів перших
+	100 речень корпусу Penn treebank; для спрощення представлення
+	результатів підмети представляти як піддерева з глибиною не більше 2..
+	"""
+	from nltk.corpus import treebank
+	treebank.train = treebank.parsed_sents()[:100]
+	def filter(tree):
+	    child_nodes = [child.node for child in tree
+	                   if isinstance (child, nltk.Tree) and len(tree) <2]
+	    return tree.node == 'NP-SBJ'
+	[subtree for tree in treebank.train for subtree in tree.subtrees(filter)]
+	
+	"""12.Розробити програму обробки дерев корпуса Treebank  nltk.corpus.treebank , яка вилучить всі правила з кожного з дерев за допомогою  Tree.productions(). Правилами, які зустрічаються тільки один раз можна знехтувати. Правила з однаковими лівими частинами  та подібними правими частинами об’єднати для отримання еквівалентного але більш компактного набору правил."""
+	from nltk.corpus import treebank
+	t = treebank.parsed_sents('wsj_0002.mrg')[0]
+	print t
+	print t.productions()

@@ -1,0 +1,60 @@
+"""3. Опрацювати всі приклади з методичних вказівок по роботі зі словниками. Що станеться, якщо доступитися до неіснуючого запису звичайного словника та словника по замовчуванню?"""
+	import collections
+	d = {}
+	d['house'] = 'big'
+	d['dog'] = 'Dec'
+	print d
+	print d.keys()
+	print list(d)
+	print sorted(d)
+	print 'Mykhailo' in d
+	for key in d:
+	    print key
+	
+	print d.values()
+	d1 = dict([('Olena',21), ('Oleh','old'), ('Mykhailo', -3)])
+	print d1
+	d1.update(d)
+	print d1
+	d2 = collections.defaultdict(int)
+	print d2
+	print d2['test']
+	print d2['test1']
+	
+	"""5. Створити два словники Що станеться зі словниками після виконання команди d1.update(d2)"""
+	d1 = dict([('I','am'), ('They','are')])
+	d2 =dict([('you','are'), ('she','is'),])
+	print d1.update(d2)
+    7. Використовуючи sorted() та set() отримайте відсортований список всіх тегів корпуса Brown без їх дублювання.
+	import nltk, re, pprint
+	from nltk.corpus import brown
+	def tag_list (tagged_words):
+		tags=[]
+		for (w,t) in tagged_words:
+			tags.append(t)
+		tags_list=set(tags)
+		return pprint.pprint (sorted(tags_list))
+	print tag_list(nltk.corpus.brown.tagged_words()) 
+	13. Напишіть програму для збору статистичних даних по розмічених корпусах і відповіді на наступне запитання: скільки слів мають неоднозначності в змісті того, що маркуються двома і більше тегами; 
+	brown_tagged = brown.tagged_words(categories='news', simplify_tags=True)
+	data = nltk.ConditionalFreqDist((word.lower(),tag) for (word,tag) in brown_tagged)
+	polysemy=[]
+	for word in data.conditions():
+		if len(data[word])>1:
+			tags=data[word].keys()
+			polysemy.append(word)
+	print len(polysemy)
+	print len(brown_tagged)
+	
+"""21. Написати програму побудови словника, записами якого будуть набори словників. Використовуючи створений словник, збережіть у ньому набори можливих тегів, які зустрічаються після заданого слова з певним тегом, наприклад wordi > tagi > tagi+1."""
+	#{'word':,{'part1': ['part', 'part'], 'part2': ['part', 'part']}, }
+	import nltk
+	from nltk.corpus import brown
+	position = nltk.defaultdict(dict)
+	tagging = brown.tagged_words(simplify_tags=True)
+	for ((word1, tag1), (word2, tag2)) in nltk.bigrams(tagging):
+	    pos_temp = position[word1].setdefault(tag1, set())
+	    pos_temp.add(tag2)
+	    
+	print position['small'].get('ADJ')
+	print position['spring'].get('V')
